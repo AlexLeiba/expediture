@@ -1,8 +1,13 @@
 import React from "react";
 import { Card } from "../Card/Card";
 import { Container } from "./ExpenseList.style";
+import { useSelector } from "react-redux";
 
 export function ExpenseList() {
+  const expenseData = useSelector((state) => state.expenses);
+
+  console.log(expenseData);
+
   const list = [
     {
       title: "title",
@@ -20,23 +25,24 @@ export function ExpenseList() {
     },
   ];
 
-  const colors = ["red", "yellow", "green", "blue", "purple", "gray"];
+  // const colors = ["red", "yellow", "green", "blue", "purple", "gray"];
 
   return (
     <Container>
-      {list.map((data, index) => {
-        const colorsIndex = colors[index % colors.length];
-        return (
-          <Card
-            color={colorsIndex}
-            key={index}
-            logoUrl={data.logoUrl}
-            title={data.title}
-            createdAt={data.createdAt}
-            amount={data.amount}
-          />
-        );
-      })}
+      {expenseData.expenseList.length > 0 &&
+        expenseData.expenseList.map((data, index) => {
+          // const colorsIndex = colors[index % colors.length];
+          return (
+            <Card
+              color={data.category.color}
+              key={data.category.id}
+              logoUrl={data.category.icon}
+              title={data.title}
+              // createdAt={data.createdAt}
+              amount={data.amount}
+            />
+          );
+        })}
     </Container>
   );
 }

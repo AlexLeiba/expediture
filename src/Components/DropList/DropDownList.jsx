@@ -14,9 +14,9 @@ export function DropDownList({ onCategoryClick }) {
   return (
     <Container>
       <WrapperCard>
-        {CategoriesList.map((data, index) => {
+        {CategoriesList.map((data) => {
           return (
-            <CategoryCard onClick={() => onCategoryClick(data.id)} key={index}>
+            <CategoryCard onClick={() => onCategoryClick(data)} key={data.id}>
               <Text>{data.title}</Text>
               <WrapperIconLine>
                 <CategoryIcon src={data.icon} />

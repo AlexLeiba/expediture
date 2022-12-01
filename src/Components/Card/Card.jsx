@@ -24,13 +24,7 @@ export function Card({
   return (
     <Container>
       <Wrapper>
-        <Logo
-          src={
-            logoUrl
-              ? logoUrl
-              : "https://png.pngtree.com/png-vector/20190215/ourmid/pngtree-vector-cancel-icon-png-image_533028.jpg"
-          }
-        />
+        <Logo src={logoUrl ? logoUrl : ""} />
 
         <div>
           <TextTitle>{title ? title : ""}</TextTitle>

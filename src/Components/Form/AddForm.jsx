@@ -15,13 +15,30 @@ import {
   SubmitButton,
   IconPlane,
 } from "./AddForm.style";
+import { useDispatch } from "react-redux";
+import { AddExpense } from "../../Redux/Actions.jsx/ExpensesActions";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { SuccessModal } from "../SuccessModal/SuccessModal";
+import { useNavigate } from "react-router-dom";
 
 export function AddForm() {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [category, setCategory] = useState({
+    title: "",
+    id: "",
+    icon: "",
+    color: "",
+  });
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [inputValue, setInputValue] = useState({
     title: "",
     amount: 0,
-    categories: "",
   });
 
   function handleInputValues(name, value) {
@@ -31,13 +48,52 @@ export function AddForm() {
     }));
   }
 
-  function handleCategoryClick(id) {
-    console.log(id);
+  function handleCategoryClick(category) {
+    setCategory(category);
+    setIsDropDownVisible(false);
   }
 
-  function handleSubmit() {}
+  function handleSubmit() {
+    if (
+      inputValue.title === "" ||
+      category.title === "" ||
+      inputValue.amount === 0
+    ) {
+      toast("Please enter valid data!");
+    } else {
+      const data = {
+        title: inputValue.title,
+        amount: inputValue.amount,
+        category: category,
+        createdAt: new Date(),
+      };
+      dispatch(AddExpense(data));
+      setIsModalVisible(true);
+    }
+  }
+
+  function handleModalVisible() {
+    navigate("/");
+    setIsModalVisible(false);
+  }
   return (
     <Container>
+      <ToastContainer
+        position="bottom-left"
+        autoClose={1500}
+        hideProgressBar={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+      <SuccessModal
+        isVisible={isModalVisible}
+        handleCloseModal={handleModalVisible}
+      />
+
       <InputWrapper>
         <WrapperText>
           <Text>Title:</Text>

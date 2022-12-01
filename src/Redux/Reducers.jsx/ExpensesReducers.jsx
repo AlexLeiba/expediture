@@ -1,4 +1,3 @@
-import React from "react";
 import { ADD_EXPENSE, DELETE_EXPENSE } from "../ActionTypes/ExpensesTypes";
 
 const initialState = {

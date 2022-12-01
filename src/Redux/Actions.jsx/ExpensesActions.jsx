@@ -1,6 +1,7 @@
 import { ADD_EXPENSE, DELETE_EXPENSE } from "../ActionTypes/ExpensesTypes";
 
 export function AddExpense(payload) {
+  console.log("payload", payload);
   return {
     type: ADD_EXPENSE,
     payload,
