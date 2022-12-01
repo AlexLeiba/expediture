@@ -1,0 +1,92 @@
+import React, { useState } from "react";
+import { DropDownList } from "../DropList/DropDownList";
+import {
+  Container,
+  InputTitle,
+  InputAmount,
+  InputWrapper,
+  Text,
+  WrapperText,
+  IconMoney,
+  DropDown,
+  WrapperDropDown,
+  IconDropDown,
+  WrapperDropDownTitle,
+  SubmitButton,
+  IconPlane,
+} from "./AddForm.style";
+
+export function AddForm() {
+  const [isDropDownVisible, setIsDropDownVisible] = useState(false);
+  const [inputValue, setInputValue] = useState({
+    title: "",
+    amount: 0,
+    categories: "",
+  });
+
+  function handleInputValues(name, value) {
+    setInputValue((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }
+
+  function handleCategoryClick(id) {
+    console.log(id);
+  }
+
+  function handleSubmit() {}
+  return (
+    <Container>
+      <InputWrapper>
+        <WrapperText>
+          <Text>Title:</Text>
+        </WrapperText>
+
+        <InputTitle
+          value={inputValue.title}
+          onChange={(e) => handleInputValues("title", e.target.value)}
+          placeholder="give a name to your expediture"
+        />
+      </InputWrapper>
+      <InputWrapper>
+        <WrapperText>
+          <Text>Amount:</Text>
+          <IconMoney
+            src="https://www.freepnglogos.com/uploads/dollar-sign-png/dollar-sign-dollar-symbol-signs-icons-1.png"
+            alt="dollar"
+          />
+        </WrapperText>
+        <InputAmount
+          type={"number"}
+          value={inputValue.amount}
+          onChange={(e) => handleInputValues("amount", e.target.value)}
+          placeholder="Enter amount"
+        />
+      </InputWrapper>
+
+      <WrapperDropDown>
+        <WrapperDropDownTitle>
+          <Text>Choose type</Text>
+        </WrapperDropDownTitle>
+
+        <IconDropDown
+          onClick={() => setIsDropDownVisible(!isDropDownVisible)}
+          src="https://static.thenounproject.com/png/1123247-200.png"
+          alt="dollar"
+        />
+
+        <DropDown />
+
+        {isDropDownVisible && (
+          <DropDownList onCategoryClick={handleCategoryClick} />
+        )}
+      </WrapperDropDown>
+
+      <SubmitButton onClick={() => handleSubmit()}>
+        <Text>Submit</Text>
+        <IconPlane src="https://cdn-icons-png.flaticon.com/512/3388/3388641.png" />
+      </SubmitButton>
+    </Container>
+  );
+}

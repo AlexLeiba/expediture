@@ -63,7 +63,7 @@ export function TopNavBar({ typePage }) {
               <TextButton>Back</TextButton>
             </WrapperBackButton>
 
-            <WrapperCancelButton onClick={() => {}}>
+            <WrapperCancelButton onClick={() => navigate("/")}>
               <IconDelete
                 src="https://cdn-icons-png.flaticon.com/512/66/66847.png"
                 alt="cancel"
