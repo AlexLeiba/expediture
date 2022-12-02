@@ -50,7 +50,7 @@ export function Card({
         )}
       </WrapperRemoveAndQuantity>
 
-      <VerticalLine backgroundColor={color} />
+      <VerticalLine backgroundColor={color ? color : ""} />
     </Container>
   );
 }

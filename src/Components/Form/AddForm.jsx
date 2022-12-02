@@ -38,7 +38,7 @@ export function AddForm() {
 
   const [inputValue, setInputValue] = useState({
     title: "",
-    amount: 0,
+    amount: "",
   });
 
   function handleInputValues(name, value) {
@@ -76,6 +76,7 @@ export function AddForm() {
     navigate("/");
     setIsModalVisible(false);
   }
+
   return (
     <Container>
       <ToastContainer
@@ -87,7 +88,7 @@ export function AddForm() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
       />
       <SuccessModal
         isVisible={isModalVisible}

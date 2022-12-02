@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Types } from "../../consts/Types";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Input,

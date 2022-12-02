@@ -1,48 +1,53 @@
 import React from "react";
 import { Card } from "../Card/Card";
 import { Container } from "./ExpenseList.style";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import moment from "moment/moment";
+import { DeleteExpense } from "../../Redux/Actions.jsx/ExpensesActions";
+import { ToastContainer, toast } from "react-toastify";
 
 export function ExpenseList() {
   const expenseData = useSelector((state) => state.expenses);
+  const dispatch = useDispatch();
 
-  console.log(expenseData);
-
-  const list = [
-    {
-      title: "title",
-      logoUrl:
-        "https://png.pngtree.com/png-vector/20190215/ourmid/pngtree-vector-cancel-icon-png-image_533028.jpg",
-      createdAt: Date.now(),
-      amount: 121212,
-    },
-    {
-      title: "title",
-      logoUrl:
-        "https://png.pngtree.com/png-vector/20190215/ourmid/pngtree-vector-cancel-icon-png-image_533028.jpg",
-      createdAt: Date.now(),
-      amount: 121212,
-    },
-  ];
-
-  // const colors = ["red", "yellow", "green", "blue", "purple", "gray"];
+  function handleRemove(id) {
+    dispatch(DeleteExpense(id));
+    toast("Expense removed successfully!");
+  }
 
   return (
     <Container>
-      {expenseData.expenseList.length > 0 &&
-        expenseData.expenseList.map((data, index) => {
-          // const colorsIndex = colors[index % colors.length];
+      <ToastContainer
+        position="bottom-left"
+        autoClose={1500}
+        hideProgressBar={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+      {expenseData.expenseList.length > 0 ? (
+        expenseData.expenseList.map((data) => {
+          const timeCreated = moment(data.createdAt).fromNow();
+          console.log(data);
+
           return (
             <Card
+              handleRemove={() => handleRemove(data.category.id)}
               color={data.category.color}
               key={data.category.id}
               logoUrl={data.category.icon}
               title={data.title}
-              // createdAt={data.createdAt}
+              createdAt={timeCreated}
               amount={data.amount}
             />
           );
-        })}
+        })
+      ) : (
+        <h3>You have no expenses!</h3>
+      )}
     </Container>
   );
 }
