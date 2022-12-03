@@ -14,6 +14,7 @@ import {
   WrapperDropDownTitle,
   SubmitButton,
   IconPlane,
+  DropDownExpenseTitle,
 } from "./AddForm.style";
 import { useDispatch } from "react-redux";
 import { AddExpense } from "../../Redux/Actions.jsx/ExpensesActions";
@@ -108,9 +109,9 @@ export function AddForm() {
       </InputWrapper>
       <InputWrapper>
         <WrapperText>
-          <Text>Amount:</Text>
+          <Text>Cost:</Text>
           <IconMoney
-            src="https://www.freepnglogos.com/uploads/dollar-sign-png/dollar-sign-dollar-symbol-signs-icons-1.png"
+            src={require("../../assets/images/dollar.png")}
             alt="dollar"
           />
         </WrapperText>
@@ -118,7 +119,7 @@ export function AddForm() {
           type={"number"}
           value={inputValue.amount}
           onChange={(e) => handleInputValues("amount", e.target.value)}
-          placeholder="Enter amount"
+          placeholder="Enter cost"
         />
       </InputWrapper>
 
@@ -133,7 +134,9 @@ export function AddForm() {
           alt="dollar"
         />
 
-        <DropDown />
+        <DropDown>
+          <DropDownExpenseTitle>{category.title}</DropDownExpenseTitle>
+        </DropDown>
 
         {isDropDownVisible && (
           <DropDownList onCategoryClick={handleCategoryClick} />

@@ -42,7 +42,7 @@ export function Card({
         {amount && (
           <WrapperQuantityAndDollar>
             <IconMoney
-              src="https://www.freepnglogos.com/uploads/dollar-sign-png/dollar-sign-dollar-symbol-signs-icons-1.png"
+              src={require("../../assets/images/dollar.png")}
               alt="dollar"
             />
             <TextQuantity>{amount ? amount : ""}</TextQuantity>
@@ -50,7 +50,7 @@ export function Card({
         )}
       </WrapperRemoveAndQuantity>
 
-      <VerticalLine backgroundColor={color ? color : ""} />
+      <VerticalLine backgroundColor={color ? color : "black"} />
     </Container>
   );
 }

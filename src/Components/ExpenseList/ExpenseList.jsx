@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "../Card/Card";
 import { Container } from "./ExpenseList.style";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,13 +7,31 @@ import { DeleteExpense } from "../../Redux/Actions.jsx/ExpensesActions";
 import { ToastContainer, toast } from "react-toastify";
 
 export function ExpenseList() {
+  const [totalExpense, setTotalExpense] = useState("");
+  const [removed, setRemoved] = useState(false);
   const expenseData = useSelector((state) => state.expenses);
+
   const dispatch = useDispatch();
 
   function handleRemove(id) {
     dispatch(DeleteExpense(id));
     toast("Expense removed successfully!");
+    setRemoved(true);
   }
+
+  function handleTotalCost() {
+    for (let index = 0; index < expenseData.expenseList.length; index++) {
+      let totalCost = 0;
+      expenseData.expenseList.forEach((data) => {
+        totalCost = totalCost + parseInt(data.amount);
+      });
+      setTotalExpense(totalCost);
+    }
+  }
+
+  useEffect(() => {
+    handleTotalCost();
+  }, [removed]);
 
   return (
     <Container>
@@ -31,7 +49,6 @@ export function ExpenseList() {
       {expenseData.expenseList.length > 0 ? (
         expenseData.expenseList.map((data) => {
           const timeCreated = moment(data.createdAt).fromNow();
-          console.log(data);
 
           return (
             <Card
@@ -48,6 +65,8 @@ export function ExpenseList() {
       ) : (
         <h3>You have no expenses!</h3>
       )}
+
+      <h3>Total expense: {totalExpense}</h3>
     </Container>
   );
 }

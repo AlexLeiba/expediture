@@ -14,17 +14,18 @@ export function DropDownList({ onCategoryClick }) {
   return (
     <Container>
       <WrapperCard>
-        {CategoriesList.map((data) => {
-          return (
-            <CategoryCard onClick={() => onCategoryClick(data)} key={data.id}>
-              <Text>{data.title}</Text>
-              <WrapperIconLine>
-                <CategoryIcon src={data.icon} />
-                <ColorLine colorLine={data.color} />
-              </WrapperIconLine>
-            </CategoryCard>
-          );
-        })}
+        {CategoriesList.length > 0 &&
+          CategoriesList.map((data) => {
+            return (
+              <CategoryCard onClick={() => onCategoryClick(data)} key={data.id}>
+                <Text>{data.title}</Text>
+                <WrapperIconLine>
+                  <CategoryIcon src={data.icon} />
+                  <ColorLine colorLine={data.color} />
+                </WrapperIconLine>
+              </CategoryCard>
+            );
+          })}
       </WrapperCard>
     </Container>
   );

@@ -22,7 +22,7 @@ export const InputAmount = styled.input`
   width: 50%;
   border-radius: 4px;
   border: none;
-  padding: 4px 10px 4px 62px;
+  padding: 4px 10px 4px 49px;
   font-size: 12px;
   outline: none;
   margin: 20px 0 0 15px;
@@ -121,4 +121,11 @@ export const SubmitButton = styled.div`
 export const IconPlane = styled.img`
   width: 10px;
   height: 10px;
+`;
+
+export const DropDownExpenseTitle = styled.h1`
+  font-size: 13px;
+  position: absolute;
+  left: 70px;
+  top: -6px;
 `;

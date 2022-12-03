@@ -5,5 +5,5 @@ import { ExpensesReducers } from "../Reducers.jsx/ExpensesReducers";
 const reducer = combineReducers({
   expenses: ExpensesReducers,
 });
-const initialState = { expenseList: [] };
+const initialState = {};
 export const store = createStore(reducer, initialState);
