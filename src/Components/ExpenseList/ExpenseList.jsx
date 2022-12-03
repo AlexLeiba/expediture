@@ -8,7 +8,6 @@ import { ToastContainer, toast } from "react-toastify";
 
 export function ExpenseList() {
   const [totalExpense, setTotalExpense] = useState("");
-  const [removed, setRemoved] = useState(false);
   const expenseData = useSelector((state) => state.expenses);
 
   const dispatch = useDispatch();
@@ -16,7 +15,6 @@ export function ExpenseList() {
   function handleRemove(id) {
     dispatch(DeleteExpense(id));
     toast("Expense removed successfully!");
-    setRemoved(true);
   }
 
   function handleTotalCost() {
@@ -31,7 +29,7 @@ export function ExpenseList() {
 
   useEffect(() => {
     handleTotalCost();
-  }, [removed]);
+  }, [expenseData.expenseList.length]);
 
   return (
     <Container>
@@ -66,7 +64,14 @@ export function ExpenseList() {
         <h3>You have no expenses!</h3>
       )}
 
-      <h3>Total expense: {totalExpense}</h3>
+      <h3>
+        Total expenses: {totalExpense} {""}
+        <img
+          width={"10px"}
+          src={require("../../assets/images/dollar.png")}
+          alt="dollar"
+        />
+      </h3>
     </Container>
   );
 }
