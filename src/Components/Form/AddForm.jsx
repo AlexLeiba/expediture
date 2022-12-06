@@ -130,7 +130,7 @@ export function AddForm() {
 
         <IconDropDown
           onClick={() => setIsDropDownVisible(!isDropDownVisible)}
-          src="https://static.thenounproject.com/png/1123247-200.png"
+          src={require("../../assets/images/arrow-down.png")}
           alt="dollar"
         />
 
@@ -145,7 +145,7 @@ export function AddForm() {
 
       <SubmitButton onClick={() => handleSubmit()}>
         <Text>Submit</Text>
-        <IconPlane src="https://cdn-icons-png.flaticon.com/512/3388/3388641.png" />
+        <IconPlane src={require("../../assets/images/plane.png")} />
       </SubmitButton>
     </Container>
   );

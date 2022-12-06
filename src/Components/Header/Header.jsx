@@ -17,7 +17,7 @@ export function Header() {
           <Text>Expenses</Text>
           <LogoCard>
             <Icon
-              src="https://cdn-icons-png.flaticon.com/512/62/62780.png"
+              src={require("../../assets/images/card.png")}
               alt="credit-card"
             />
           </LogoCard>
@@ -25,7 +25,7 @@ export function Header() {
         <a href="https://github.com/join/get-started">
           <LogoGit>
             <Icon
-              src="https://1000logos.net/wp-content/uploads/2021/05/GitHub-logo.png"
+              src={require("../../assets/images/GitHub.png")}
               alt="credit-card"
             />
           </LogoGit>

@@ -18,7 +18,7 @@ export function ExpenseList() {
   }
 
   function handleTotalCost() {
-    for (let index = 0; index < expenseData.expenseList.length; index++) {
+    for (let index = 0; index <= expenseData.expenseList.length; index++) {
       let totalCost = 0;
       expenseData.expenseList.forEach((data) => {
         totalCost = totalCost + parseInt(data.amount);
@@ -64,8 +64,8 @@ export function ExpenseList() {
         <h3>You have no expenses!</h3>
       )}
 
-      <h3>
-        Total expenses: {totalExpense} {""}
+      <h3 style={{ textAlign: "right" }}>
+        Total expenses: {totalExpense ? totalExpense : 0} {""}
         <img
           width={"10px"}
           src={require("../../assets/images/dollar.png")}

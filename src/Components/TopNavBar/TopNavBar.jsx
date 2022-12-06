@@ -38,14 +38,14 @@ export function TopNavBar({ typePage }) {
                 onChange={(e) => handleValue(e.target.value)}
               />
               <IconSearch
-                src="https://uxwing.com/wp-content/themes/uxwing/download/user-interface/search-icon.png"
+                src={require("../../assets/images/search-icon.webp")}
                 alt="search-icon"
               />
             </InputWrapper>
 
             <WrapperAdd onClick={() => navigate("/add-expense")}>
               <IconAdd
-                src="https://cdn-icons-png.flaticon.com/512/992/992651.png"
+                src={require("../../assets/images/add.png")}
                 alt="icon-Add"
               />
               <Text>Add</Text>
