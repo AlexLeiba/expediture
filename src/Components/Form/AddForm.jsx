@@ -60,7 +60,7 @@ export function AddForm() {
       category.title === "" ||
       inputValue.amount === 0
     ) {
-      toast("Please enter valid data!");
+      toast("Please enter valid data!", { type: "error" });
     } else {
       const data = {
         title: inputValue.title,
@@ -89,7 +89,7 @@ export function AddForm() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
       <SuccessModal
         isVisible={isModalVisible}

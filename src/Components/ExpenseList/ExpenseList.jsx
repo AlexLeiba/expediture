@@ -14,7 +14,9 @@ export function ExpenseList() {
 
   function handleRemove(id) {
     dispatch(DeleteExpense(id));
-    toast("Expense removed successfully!");
+    toast("Expense removed successfully!", {
+      type: "success",
+    });
   }
 
   function handleTotalCost() {
@@ -42,7 +44,7 @@ export function ExpenseList() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
       />
       {expenseData.expenseList.length > 0 ? (
         expenseData.expenseList.map((data) => {

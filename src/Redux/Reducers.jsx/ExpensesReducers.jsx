@@ -4,20 +4,12 @@ import {
   SEARCH_EXPENSE,
 } from "../ActionTypes/ExpensesTypes";
 
-function initialStorageList() {
-  const list = localStorage.getItem("expense-list");
+const list = localStorage.getItem("expense-list");
 
-  let expenseList = [];
-
-  if (list) {
-    expenseList = JSON.parse(list);
-  }
-
-  return expenseList;
-}
+let expenseStoredList = JSON.parse(list);
 
 const initialState = {
-  expenseList: [],
+  expenseList: expenseStoredList !== null ? expenseStoredList : [],
 };
 
 export function ExpensesReducers(state = initialState, action) {
@@ -37,7 +29,7 @@ export function ExpensesReducers(state = initialState, action) {
         return data.category.id !== action.payload;
       });
 
-      localStorage.setItem("expense-list", JSON.stringify([filteredExpenses]));
+      localStorage.setItem("expense-list", JSON.stringify(filteredExpenses));
 
       return {
         ...state,
