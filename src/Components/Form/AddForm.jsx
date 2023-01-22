@@ -49,8 +49,15 @@ export function AddForm() {
     }));
   }
 
-  function handleCategoryClick(category) {
-    setCategory(category);
+  function handleCategoryClick(category, newId) {
+    console.log("id::::", newId);
+    setCategory((prevData) => ({
+      ...prevData,
+      title: category.title,
+      id: newId,
+      icon: category.icon,
+      color: category.color,
+    }));
     setIsDropDownVisible(false);
   }
 

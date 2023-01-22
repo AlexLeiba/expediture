@@ -20,6 +20,7 @@ export function DeleteExpense(payload) {
 }
 
 export function SearchExpense(payload) {
+  console.log(payload);
   return {
     type: SEARCH_EXPENSE,
     payload,

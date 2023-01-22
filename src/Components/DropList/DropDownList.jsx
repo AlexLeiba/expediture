@@ -17,7 +17,15 @@ export function DropDownList({ onCategoryClick }) {
         {CategoriesList.length > 0 &&
           CategoriesList.map((data) => {
             return (
-              <CategoryCard onClick={() => onCategoryClick(data)} key={data.id}>
+              <CategoryCard
+                onClick={() =>
+                  onCategoryClick(
+                    data,
+                    parseInt(Math.random() * (2000 - 1) + 1)
+                  )
+                }
+                key={data.id}
+              >
                 <Text>{data.title}</Text>
                 <WrapperIconLine>
                   <CategoryIcon src={data.icon} />

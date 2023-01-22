@@ -20,9 +20,10 @@ export function Card({
   createdAt,
   amount,
   handleRemove,
+  newExpenses,
 }) {
   return (
-    <Container>
+    <Container newExpenses>
       <Wrapper>
         <Logo src={logoUrl ? logoUrl : ""} />
 

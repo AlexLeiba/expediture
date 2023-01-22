@@ -1,16 +1,30 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Card } from "../Card/Card";
 import { Container } from "./ExpenseList.style";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment/moment";
 import { DeleteExpense } from "../../Redux/Actions.jsx/ExpensesActions";
 import { ToastContainer, toast } from "react-toastify";
+import { InputValueContext } from "../../consts/Contexts";
+import { format } from "date-fns";
+import { Spacer } from "../UI/Spacer";
 
 export function ExpenseList() {
-  const [totalExpense, setTotalExpense] = useState("");
-  const expenseData = useSelector((state) => state.expenses);
-
   const dispatch = useDispatch();
+
+  const { inputSearchValue } = useContext(InputValueContext);
+
+  const { expenseList } = useSelector((state) => state.expenses);
+
+  const [totalExpense, setTotalExpense] = useState(0);
+  const [todaysExpense, setTodaysExpense] = useState(0);
+
+  const [newExpense, setNewExpense] = useState([]);
+  const [oldExpense, setOldExpense] = useState([]);
+
+  const filteredList = expenseList.filter((data) =>
+    data.title.includes(inputSearchValue)
+  );
 
   function handleRemove(id) {
     dispatch(DeleteExpense(id));
@@ -20,18 +34,41 @@ export function ExpenseList() {
   }
 
   function handleTotalCost() {
-    for (let index = 0; index <= expenseData.expenseList.length; index++) {
+    for (let index = 0; index <= filteredList.length; index++) {
       let totalCost = 0;
-      expenseData.expenseList.forEach((data) => {
+      filteredList.forEach((data) => {
         totalCost = totalCost + parseInt(data.amount);
       });
       setTotalExpense(totalCost);
+    }
+    for (let index = 0; index <= newExpense.length; index++) {
+      let totalCost = 0;
+      newExpense.forEach((data) => {
+        totalCost = totalCost + parseInt(data.amount);
+      });
+      setTodaysExpense(totalCost);
     }
   }
 
   useEffect(() => {
     handleTotalCost();
-  }, [expenseData.expenseList.length]);
+
+    let oldExpense = [];
+    let newExpense = [];
+
+    const formatedCurrentDate = format(new Date(), "PP");
+
+    filteredList.forEach((data) => {
+      const formatedOldDate = format(new Date(data.createdAt), "PP");
+      if (formatedCurrentDate === formatedOldDate) {
+        newExpense.push(data);
+      } else {
+        oldExpense.push(data);
+      }
+    });
+    setNewExpense(newExpense);
+    setOldExpense(oldExpense);
+  }, [filteredList.length, newExpense.length]);
 
   return (
     <Container>
@@ -46,8 +83,41 @@ export function ExpenseList() {
         pauseOnHover
         theme="light"
       />
-      {expenseData.expenseList.length > 0 ? (
-        expenseData.expenseList.map((data) => {
+      {newExpense.length > 0 && (
+        <>
+          <div>
+            <h5>Today's expenses:</h5>
+            {newExpense.map((data) => {
+              const timeCreated = moment(data.createdAt).fromNow();
+
+              return (
+                <Card
+                  newExpenses
+                  handleRemove={() => handleRemove(data.category.id)}
+                  color={data.category.color}
+                  key={data.category.id}
+                  logoUrl={data.category.icon}
+                  title={data.title}
+                  createdAt={timeCreated}
+                  amount={data.amount}
+                />
+              );
+            })}
+          </div>
+          <h5>
+            Expenses: {todaysExpense}{" "}
+            <img
+              width={"10px"}
+              src={require("../../assets/images/dollar.png")}
+              alt="dollar"
+            />
+          </h5>
+          <Spacer margin={"10px"} />
+        </>
+      )}
+
+      {oldExpense.length > 0 &&
+        oldExpense.map((data) => {
           const timeCreated = moment(data.createdAt).fromNow();
 
           return (
@@ -61,8 +131,9 @@ export function ExpenseList() {
               amount={data.amount}
             />
           );
-        })
-      ) : (
+        })}
+
+      {newExpense.length < 1 && oldExpense.length < 1 && (
         <h3>You have no expenses!</h3>
       )}
 

@@ -29,7 +29,10 @@ export function ExpensesReducers(state = initialState, action) {
         return data.category.id !== action.payload;
       });
 
-      localStorage.setItem("expense-list", JSON.stringify(filteredExpenses));
+      localStorage.setItem(
+        "expense-list",
+        JSON.stringify(filteredExpenses ? filteredExpenses : "")
+      );
 
       return {
         ...state,
@@ -37,20 +40,9 @@ export function ExpensesReducers(state = initialState, action) {
       };
 
     case SEARCH_EXPENSE:
-      {
-        const filteredExpenses = state.expenseList.filter((data) => {
-          return data.category.id !== action.payload;
-        });
-
-        localStorage.setItem(
-          "expense-list",
-          JSON.stringify([filteredExpenses])
-        );
-      }
-
       return {
         ...state,
-        expenseList: filteredExpenses,
+        inputValue: action.payload,
       };
 
     default:

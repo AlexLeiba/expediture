@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { Types } from "../../consts/Types";
 import { useNavigate } from "react-router-dom";
+
+import { InputValueContext } from "../../consts/Contexts";
 import {
   Container,
   Input,
@@ -18,12 +20,13 @@ import {
 } from "./TopNavBar.style";
 
 export function TopNavBar({ typePage }) {
-  const [inputValue, setInputValue] = useState("");
+  const { inputSearchValue, setInputSearchValue } =
+    useContext(InputValueContext);
 
   const navigate = useNavigate();
 
   function handleValue(value) {
-    setInputValue(value);
+    setInputSearchValue(value);
   }
 
   return (
@@ -34,7 +37,7 @@ export function TopNavBar({ typePage }) {
             <InputWrapper>
               <Input
                 placeholder="Search for expenses"
-                value={inputValue}
+                value={inputSearchValue}
                 onChange={(e) => handleValue(e.target.value)}
               />
               <IconSearch

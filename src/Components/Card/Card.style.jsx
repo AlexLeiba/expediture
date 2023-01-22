@@ -10,6 +10,7 @@ export const Container = styled.div`
   justify-content: space-between;
   position: relative;
   margin-bottom: 10px;
+  border: ${({ newExpenses }) => (newExpenses ? "1px solid green" : "")};
 `;
 
 export const Wrapper = styled.div`
@@ -67,7 +68,7 @@ export const TextQuantity = styled.h1`
 `;
 
 export const VerticalLine = styled.div`
-  height: 70px;
+  height: 74px;
   width: 5px;
   background-color: ${({ backgroundColor }) =>
     backgroundColor ? backgroundColor : "#000000"};
