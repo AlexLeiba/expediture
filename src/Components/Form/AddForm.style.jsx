@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: auto;
   height: 400px;
   box-shadow: 5px 10px 10px #5eb5b3;
-  background-color: #69bfbd; ;
+  background-color: #3e807e; ;
 `;
 
 export const InputTitle = styled.input`
@@ -101,6 +101,10 @@ export const IconDropDown = styled.img`
   top: 0;
   right: 50%;
   cursor: pointer;
+
+  transition: transform 300ms ease;
+  transform: ${({ isDropDown }) =>
+    isDropDown ? "rotate(180deg)" : "rotate(0deg)"};
 `;
 
 export const SubmitButton = styled.div`
@@ -112,7 +116,7 @@ export const SubmitButton = styled.div`
   border: 1px solid #ffffff;
   border-radius: 4px;
   display: flex;
-  justify-context: center;
+  justify-content: center;
   align-items: center;
   cursor: pointer;
   margin: 0 5px 5px 0;

@@ -50,7 +50,6 @@ export function AddForm() {
   }
 
   function handleCategoryClick(category, newId) {
-    console.log("id::::", newId);
     setCategory((prevData) => ({
       ...prevData,
       title: category.title,
@@ -136,9 +135,10 @@ export function AddForm() {
         </WrapperDropDownTitle>
 
         <IconDropDown
+          isDropDown={isDropDownVisible}
           onClick={() => setIsDropDownVisible(!isDropDownVisible)}
           src={require("../../assets/images/arrow-down.png")}
-          alt="dollar"
+          alt="arrow down"
         />
 
         <DropDown>
