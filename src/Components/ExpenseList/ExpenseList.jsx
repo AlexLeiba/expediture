@@ -104,7 +104,7 @@ export function ExpenseList() {
               );
             })}
           </div>
-          <h5>
+          <h5 style={{ textAlign: "right" }}>
             Total of today's Expenses: {todaysExpense}{" "}
             <img
               width={"10px"}
@@ -116,24 +116,28 @@ export function ExpenseList() {
         </>
       )}
 
-      {oldExpense.length > 0 &&
-        oldExpense
-          .sort((a, b) => a.createdAt - b.createdAt)
-          .map((data) => {
-            const timeCreated = moment(data.createdAt).fromNow();
+      {oldExpense.length > 0 && (
+        <>
+          <h5>All expenses:</h5>
+          {oldExpense
+            .sort((a, b) => a.createdAt - b.createdAt)
+            .map((data) => {
+              const timeCreated = moment(data.createdAt).fromNow();
 
-            return (
-              <Card
-                handleRemove={() => handleRemove(data.category.id)}
-                color={data.category.color}
-                key={data.category.id}
-                logoUrl={data.category.icon}
-                title={data.title}
-                createdAt={timeCreated}
-                amount={data.amount}
-              />
-            );
-          })}
+              return (
+                <Card
+                  handleRemove={() => handleRemove(data.category.id)}
+                  color={data.category.color}
+                  key={data.category.id}
+                  logoUrl={data.category.icon}
+                  title={data.title}
+                  createdAt={timeCreated}
+                  amount={data.amount}
+                />
+              );
+            })}
+        </>
+      )}
 
       {newExpense.length < 1 && oldExpense.length < 1 && (
         <h3>You have no expenses!</h3>
