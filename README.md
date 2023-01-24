@@ -1,3 +1,26 @@
+
+ # The project has the following features:
+
+- Adding and Saving different categories of expenses
+- Showing your list of expenses sorted by date
+- Deleting expenses from the list
+- Showing the date in which expense was added
+- Saving your expenses list in localStorage
+- Showing new expenses and old in different categories
+- Showing the total cost of your expenses (new and old)
+
+ ## Concepts
+The project covers the following concepts:
+
+Creating reusable components
+React hooks (useState, useEffect, useReducer, useContext)
+Routing, Redux, Libraries
+
+- State management : Redux
+- Custom hooks
+- styled Components
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
