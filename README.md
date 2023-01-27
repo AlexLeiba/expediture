@@ -7,7 +7,7 @@
 - Showing the date in which expense was added
 - Saving your expenses list in localStorage
 - Showing new expenses and old in different categories
-- Showing the total cost of your expenses (new and old)
+- Showing the total sum of your expenses (new and old)
 
  ## Concepts
 The project covers the following concepts:
