@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import { InputValueContext } from "../../consts/Contexts";
 import { format } from "date-fns";
 import { Spacer } from "../UI/Spacer";
+import { Row, Col } from "../Grid/Grid.style";
 
 export function ExpenseList() {
   const dispatch = useDispatch();
@@ -87,22 +88,26 @@ export function ExpenseList() {
         <>
           <div>
             <h5>Today's expenses:</h5>
-            {newExpense.map((data) => {
-              const timeCreated = moment(data.createdAt).fromNow();
+            <Row>
+              {newExpense.map((data) => {
+                const timeCreated = moment(data.createdAt).fromNow();
 
-              return (
-                <Card
-                  newExpenses
-                  handleRemove={() => handleRemove(data.category.id)}
-                  color={data.category.color}
-                  key={data.category.id}
-                  logoUrl={data.category.icon}
-                  title={data.title}
-                  createdAt={timeCreated}
-                  amount={data.amount}
-                />
-              );
-            })}
+                return (
+                  <Col lg={{ size: 1.5 }} md={{ size: 1.5 }} sm={{ size: 12 }}>
+                    <Card
+                      newExpenses
+                      handleRemove={() => handleRemove(data.category.id)}
+                      color={data.category.color}
+                      key={data.category.id}
+                      logoUrl={data.category.icon}
+                      title={data.title}
+                      createdAt={timeCreated}
+                      amount={data.amount}
+                    />
+                  </Col>
+                );
+              })}
+            </Row>
           </div>
           <h5 style={{ textAlign: "right" }}>
             Total of today's Expenses: {todaysExpense}{" "}
