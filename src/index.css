@@ -11,3 +11,13 @@ body {
 a {
   text-decoration: none;
 }
+
+.Toastify__toast--success {
+  background-color: #00c569 !important;
+  color: #fbf7ef !important;
+}
+
+.Toastify__toast--error {
+  background-color: #de2c2c !important;
+  color: #fbf7ef !important;
+}
