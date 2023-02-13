@@ -74,8 +74,8 @@ export function ExpenseList() {
   return (
     <Container>
       <ToastContainer
-        position="bottom-left"
-        autoClose={1500}
+        position="top-center"
+        autoClose={2000}
         hideProgressBar={false}
         closeOnClick
         rtl={false}
