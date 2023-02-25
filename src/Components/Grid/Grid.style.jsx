@@ -57,7 +57,7 @@ export const Row = styled.div`
   margin-left: -1.2rem;
   margin-right: -1.2rem;
   display: flex;
-  justify-content: flex-start;
+  justify-content: ${({ flexEnd }) => (flexEnd ? "flex-end" : "flex-start")};
   align-content: stretch;
   position: relative;
   flex-wrap: wrap;
@@ -89,8 +89,8 @@ export const Row = styled.div`
 
 export const Col = styled.div`
   width: 100%;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -99,7 +99,7 @@ export const Col = styled.div`
     css`
       position: relative;
       @media (min-width: 1201px) {
-        width: ${lg.size * 10.25}rem;
+        width: ${lg.size * 10}rem;
         ${lg.offset
           ? `margin-left: ${lg.offset * 10.25}rem`
           : "margin-left: 0"};
@@ -110,7 +110,7 @@ export const Col = styled.div`
     css`
       position: relative;
       @media (max-width: 1200px) {
-        width: ${md.size * 10.25}rem;
+        width: ${md.size * 10}rem;
         ${md.offset ? `margin-left: ${md.offset * 10}rem` : "margin-left: 0"};
       }
     `}

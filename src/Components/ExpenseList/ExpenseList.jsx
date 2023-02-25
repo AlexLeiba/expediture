@@ -93,7 +93,7 @@ export function ExpenseList() {
                 const timeCreated = moment(data.createdAt).fromNow();
 
                 return (
-                  <Col lg={{ size: 1.5 }} md={{ size: 1.5 }} sm={{ size: 12 }}>
+                  <Col lg={{ size: 1.7 }} md={{ size: 1.8 }} sm={{ size: 12 }}>
                     <Card
                       newExpenses
                       handleRemove={() => handleRemove(data.category.id)}
@@ -109,14 +109,17 @@ export function ExpenseList() {
               })}
             </Row>
           </div>
-          <h5 style={{ textAlign: "right" }}>
-            Total of today's Expenses: {todaysExpense}{" "}
-            <img
-              width={"10px"}
-              src={require("../../assets/images/dollar.png")}
-              alt="dollar"
-            />
-          </h5>
+          <Row flexEnd>
+            <h5 style={{ textAlign: "right" }}>
+              Total of today's Expenses: {todaysExpense}{" "}
+              <img
+                width={"10px"}
+                src={require("../../assets/images/dollar.png")}
+                alt="dollar"
+              />
+            </h5>
+          </Row>
+
           <Spacer margin={"10px"} />
         </>
       )}
@@ -124,38 +127,43 @@ export function ExpenseList() {
       {oldExpense.length > 0 && (
         <>
           <h5>All expenses:</h5>
-          {oldExpense
-            .sort((a, b) => a.createdAt - b.createdAt)
-            .map((data) => {
-              const timeCreated = moment(data.createdAt).fromNow();
+          <Row>
+            {oldExpense
+              .sort((a, b) => a.createdAt - b.createdAt)
+              .map((data) => {
+                const timeCreated = moment(data.createdAt).fromNow();
 
-              return (
-                <Card
-                  handleRemove={() => handleRemove(data.category.id)}
-                  color={data.category.color}
-                  key={data.category.id}
-                  logoUrl={data.category.icon}
-                  title={data.title}
-                  createdAt={timeCreated}
-                  amount={data.amount}
-                />
-              );
-            })}
+                return (
+                  <Col lg={{ size: 1.7 }} md={{ size: 1.8 }} sm={{ size: 12 }}>
+                    <Card
+                      handleRemove={() => handleRemove(data.category.id)}
+                      color={data.category.color}
+                      key={data.category.id}
+                      logoUrl={data.category.icon}
+                      title={data.title}
+                      createdAt={timeCreated}
+                      amount={data.amount}
+                    />
+                  </Col>
+                );
+              })}
+          </Row>
         </>
       )}
-
-      {newExpense.length < 1 && oldExpense.length < 1 && (
-        <h3>You have no expenses!</h3>
-      )}
-
-      <h3 style={{ textAlign: "right" }}>
-        Total expenses: {totalExpense ? totalExpense : 0} {""}
-        <img
-          width={"10px"}
-          src={require("../../assets/images/dollar.png")}
-          alt="dollar"
-        />
-      </h3>
+      <Row flexEnd>
+        {newExpense.length < 1 && oldExpense.length < 1 ? (
+          <h3>You have no expenses!</h3>
+        ) : (
+          <h3 style={{ textAlign: "right" }}>
+            Total expenses: {totalExpense ? totalExpense : 0} {""}
+            <img
+              width={"10px"}
+              src={require("../../assets/images/dollar.png")}
+              alt="dollar"
+            />
+          </h3>
+        )}
+      </Row>
     </Container>
   );
 }
