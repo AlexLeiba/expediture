@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Types } from "../../consts/Types";
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,15 @@ import {
   TextButton,
   IconBack,
   IconDelete,
+  WrapperDropDown,
+  WrapperDropDownTitle,
+  IconDropDown,
+  DropDown,
+  DropDownExpenseTitle,
+  FlexBetween,
 } from "./TopNavBar.style";
+import { DropDownList } from "../DropList/DropDownList";
+import { DropDownFilter } from "../DropdownFilter/DropDownFilter";
 
 export function TopNavBar({ typePage }) {
   const { inputSearchValue, setInputSearchValue } =
@@ -25,8 +33,21 @@ export function TopNavBar({ typePage }) {
 
   const navigate = useNavigate();
 
+  const [isDropDownVisible, setIsDropDownVisible] = useState(false);
+
   function handleValue(value) {
     setInputSearchValue(value);
+  }
+
+  function handleCategoryClick(category, newId) {
+    // setCategory((prevData) => ({
+    //   ...prevData,
+    //   title: category.title,
+    //   id: newId,
+    //   icon: category.icon,
+    //   color: category.color,
+    // }));
+    setIsDropDownVisible(false);
   }
 
   return (
@@ -34,17 +55,41 @@ export function TopNavBar({ typePage }) {
       <Wrapper>
         {typePage === Types.HOME && (
           <>
-            <InputWrapper>
-              <Input
-                placeholder="Search for expenses"
-                value={inputSearchValue}
-                onChange={(e) => handleValue(e.target.value)}
-              />
-              <IconSearch
-                src={require("../../assets/images/search-icon.webp")}
-                alt="search-icon"
-              />
-            </InputWrapper>
+            <FlexBetween>
+              <InputWrapper>
+                <Input
+                  placeholder="Search for expenses"
+                  value={inputSearchValue}
+                  onChange={(e) => handleValue(e.target.value)}
+                />
+                <IconSearch
+                  src={require("../../assets/images/search-icon.webp")}
+                  alt="search-icon"
+                />
+              </InputWrapper>
+
+              {/* //filter */}
+              <WrapperDropDown>
+                <WrapperDropDownTitle>
+                  <Text>Filter by category</Text>
+                </WrapperDropDownTitle>
+
+                <IconDropDown
+                  isDropDown={isDropDownVisible}
+                  onClick={() => setIsDropDownVisible(!isDropDownVisible)}
+                  src={require("../../assets/images/arrow-down.png")}
+                  alt="arrow down"
+                />
+
+                <DropDown>
+                  {/* <DropDownExpenseTitle>{category.title}</DropDownExpenseTitle> */}
+                </DropDown>
+
+                {isDropDownVisible && (
+                  <DropDownFilter onCategoryClick={handleCategoryClick} />
+                )}
+              </WrapperDropDown>
+            </FlexBetween>
 
             <WrapperAdd onClick={() => navigate("/add-expense")}>
               <IconAdd
