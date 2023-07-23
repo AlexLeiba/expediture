@@ -1,6 +1,8 @@
 
  # The project has the following features:
 
+# site url: https://manager-expenses.netlify.app/
+
 - Adding and Saving different categories of expenses
 - Showing your list of expenses sorted by date
 - Deleting expenses from the list
