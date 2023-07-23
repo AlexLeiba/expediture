@@ -69,6 +69,7 @@ export function ExpenseList() {
     });
     setNewExpense(newExpense);
     setOldExpense(oldExpense);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filteredList.length, newExpense.length]);
 
   return (
