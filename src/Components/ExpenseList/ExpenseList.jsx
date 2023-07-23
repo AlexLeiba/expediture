@@ -89,11 +89,16 @@ export function ExpenseList() {
           <div>
             <h5>Today's expenses:</h5>
             <Row>
-              {newExpense.map((data) => {
+              {newExpense.map((data, index) => {
                 const timeCreated = moment(data.createdAt).fromNow();
 
                 return (
-                  <Col lg={{ size: 1.7 }} md={{ size: 1.8 }} sm={{ size: 12 }}>
+                  <Col
+                    key={index}
+                    lg={{ size: 1.7 }}
+                    md={{ size: 1.8 }}
+                    sm={{ size: 12 }}
+                  >
                     <Card
                       newExpenses
                       handleRemove={() => handleRemove(data.category.id)}
