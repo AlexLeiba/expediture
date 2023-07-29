@@ -24,30 +24,40 @@ import {
   DropDownExpenseTitle,
   FlexBetween,
 } from "./TopNavBar.style";
-import { DropDownList } from "../DropList/DropDownList";
 import { DropDownFilter } from "../DropdownFilter/DropDownFilter";
+import { useDispatch } from "react-redux";
+import {
+  ClearCategory,
+  GetCategory,
+} from "../../Redux/Actions.jsx/ExpensesActions";
+import { Img } from "../Grid/Grid.style";
+import { Icons } from "../../assets/images/index";
 
 export function TopNavBar({ typePage }) {
+  const dispatch = useDispatch();
   const { inputSearchValue, setInputSearchValue } =
     useContext(InputValueContext);
 
   const navigate = useNavigate();
 
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
+  const [filteredCategory, setFilteredCategory] = useState("");
 
   function handleValue(value) {
     setInputSearchValue(value);
   }
 
-  function handleCategoryClick(category, newId) {
-    // setCategory((prevData) => ({
-    //   ...prevData,
-    //   title: category.title,
-    //   id: newId,
-    //   icon: category.icon,
-    //   color: category.color,
-    // }));
+  function handleCategoryClick(category) {
+    setFilteredCategory(category);
+
+    dispatch(GetCategory(category));
+
     setIsDropDownVisible(false);
+  }
+
+  function handleCategoryDelete() {
+    setFilteredCategory("");
+    dispatch(ClearCategory());
   }
 
   return (
@@ -72,6 +82,14 @@ export function TopNavBar({ typePage }) {
               <WrapperDropDown>
                 <WrapperDropDownTitle>
                   <Text>Filter by category</Text>
+                  {filteredCategory.title && (
+                    <img
+                      onClick={handleCategoryDelete}
+                      alt="delete-filter"
+                      src={Icons.deleteFilter}
+                      style={{ width: 18, cursor: "pointer" }}
+                    />
+                  )}
                 </WrapperDropDownTitle>
 
                 <IconDropDown
@@ -82,7 +100,9 @@ export function TopNavBar({ typePage }) {
                 />
 
                 <DropDown>
-                  {/* <DropDownExpenseTitle>{category.title}</DropDownExpenseTitle> */}
+                  <DropDownExpenseTitle>
+                    {filteredCategory.title}
+                  </DropDownExpenseTitle>
                 </DropDown>
 
                 {isDropDownVisible && (

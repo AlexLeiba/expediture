@@ -17,15 +17,26 @@ export function ExpenseList() {
 
   const { expenseList } = useSelector((state) => state.expenses);
 
+  const dataCategory = useSelector((state) => state.expenses.filters.category);
+  console.log({ dataCategory, expenseList });
+
   const [totalExpense, setTotalExpense] = useState(0);
   const [todaysExpense, setTodaysExpense] = useState(0);
 
   const [newExpense, setNewExpense] = useState([]);
   const [oldExpense, setOldExpense] = useState([]);
 
-  const filteredList = expenseList.filter((data) =>
-    data.title.includes(inputSearchValue)
-  );
+  const filteredByCategoryList = expenseList.filter((data) => {
+    if (dataCategory && dataCategory.title !== "") {
+      return data.category.title === dataCategory.title;
+    }
+
+    return data;
+  });
+
+  const filteredSearchList = filteredByCategoryList.filter((data) => {
+    return data.title.includes(inputSearchValue);
+  });
 
   function handleRemove(id) {
     dispatch(DeleteExpense(id));
@@ -35,9 +46,9 @@ export function ExpenseList() {
   }
 
   function handleTotalCost() {
-    for (let index = 0; index <= filteredList.length; index++) {
+    for (let index = 0; index <= filteredSearchList.length; index++) {
       let totalCost = 0;
-      filteredList.forEach((data) => {
+      filteredSearchList.forEach((data) => {
         totalCost = totalCost + parseInt(data.amount);
       });
       setTotalExpense(totalCost);
@@ -59,7 +70,7 @@ export function ExpenseList() {
 
     const formatedCurrentDate = format(new Date(), "PP");
 
-    filteredList.forEach((data) => {
+    filteredSearchList.forEach((data) => {
       const formatedOldDate = format(new Date(data.createdAt), "PP");
       if (formatedCurrentDate === formatedOldDate) {
         newExpense.push(data);
@@ -70,7 +81,7 @@ export function ExpenseList() {
     setNewExpense(newExpense);
     setOldExpense(oldExpense);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filteredList.length, newExpense.length]);
+  }, [filteredSearchList.length, newExpense.length]);
 
   return (
     <Container>
@@ -95,7 +106,7 @@ export function ExpenseList() {
 
                 return (
                   <Col
-                    key={index}
+                    key={data.category.id + index}
                     lg={{ size: 1.7 }}
                     md={{ size: 1.8 }}
                     sm={{ size: 12 }}
@@ -136,11 +147,16 @@ export function ExpenseList() {
           <Row>
             {oldExpense
               .sort((a, b) => a.createdAt - b.createdAt)
-              .map((data) => {
+              .map((data, index) => {
                 const timeCreated = moment(data.createdAt).fromNow();
 
                 return (
-                  <Col lg={{ size: 1.7 }} md={{ size: 1.8 }} sm={{ size: 12 }}>
+                  <Col
+                    lg={{ size: 1.7 }}
+                    md={{ size: 1.8 }}
+                    sm={{ size: 12 }}
+                    key={data.category.id + index}
+                  >
                     <Card
                       handleRemove={() => handleRemove(data.category.id)}
                       color={data.category.color}

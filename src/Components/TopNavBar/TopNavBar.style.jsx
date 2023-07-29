@@ -93,7 +93,7 @@ export const WrapperCancelButton = styled.div`
 `;
 
 export const WrapperDropDown = styled.div`
-  width: 250px;
+  width: 280px;
   position: absolute;
   right: 0;
   z-index: 2;
@@ -153,7 +153,7 @@ export const IconPlane = styled.img`
 export const DropDownExpenseTitle = styled.h1`
   font-size: 13px;
   position: absolute;
-  left: 70px;
+  left: 100px;
   top: -6px;
 `;
 

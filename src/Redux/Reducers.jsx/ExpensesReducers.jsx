@@ -1,6 +1,8 @@
 import {
   ADD_EXPENSE,
+  CLEAR_CATEGORY,
   DELETE_EXPENSE,
+  GET_CATEGORY,
   SEARCH_EXPENSE,
 } from "../ActionTypes/ExpensesTypes";
 
@@ -10,6 +12,11 @@ let expenseStoredList = JSON.parse(list);
 
 const initialState = {
   expenseList: expenseStoredList !== null ? expenseStoredList : [],
+  filters: {
+    category: "",
+    higherThan: 0,
+    lowerThan: 0,
+  },
 };
 
 export function ExpensesReducers(state = initialState, action) {
@@ -43,6 +50,18 @@ export function ExpensesReducers(state = initialState, action) {
       return {
         ...state,
         inputValue: action.payload,
+      };
+
+    case GET_CATEGORY:
+      return {
+        ...state,
+        filters: { ...state.filters, category: action.payload },
+      };
+
+    case CLEAR_CATEGORY:
+      return {
+        ...state,
+        filters: { ...state.filters, category: "" },
       };
 
     default:

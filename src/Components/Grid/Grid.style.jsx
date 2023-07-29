@@ -121,7 +121,7 @@ export const Col = styled.div`
       @media (max-width: 767px) {
         width: 100%;
         margin-left: 0;
-      } ;
+      }
     `}
     ${({ half }) => half && `width: 50%`};
 `;
