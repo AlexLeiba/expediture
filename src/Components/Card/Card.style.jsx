@@ -47,7 +47,7 @@ export const WrapperRemoveAndQuantity = styled.div`
   margin-top: 8px;
 `;
 
-export const WrapperQuantityAndDollar = styled.div`
+export const WrapperQuantity = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;

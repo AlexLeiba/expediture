@@ -30,7 +30,6 @@ import {
   ClearCategory,
   GetCategory,
 } from "../../Redux/Actions.jsx/ExpensesActions";
-import { Img } from "../Grid/Grid.style";
 import { Icons } from "../../assets/images/index";
 
 export function TopNavBar({ typePage }) {

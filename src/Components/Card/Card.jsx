@@ -10,7 +10,7 @@ import {
   WrapperRemoveAndQuantity,
   VerticalLine,
   IconMoney,
-  WrapperQuantityAndDollar,
+  WrapperQuantity,
 } from "./Card.style";
 
 export function Card({
@@ -48,13 +48,13 @@ export function Card({
         />
 
         {amount && (
-          <WrapperQuantityAndDollar>
+          <WrapperQuantity>
             <IconMoney
               src={require("../../assets/images/dollar.png")}
               alt="dollar"
             />
             <TextQuantity>{amount ? amount : ""}</TextQuantity>
-          </WrapperQuantityAndDollar>
+          </WrapperQuantity>
         )}
 
         <TextCreatedAt>{dateCreated ? dateCreated : ""}</TextCreatedAt>
