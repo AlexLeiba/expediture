@@ -42,8 +42,9 @@ export const WrapperRemoveAndQuantity = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  margin-top: 10px;
+  justify-content: center;
   margin-right: 8px;
+  margin-top: 8px;
 `;
 
 export const WrapperQuantityAndDollar = styled.div`
@@ -56,6 +57,7 @@ export const IconRemove = styled.img`
   width: 10px;
   height: 10px;
   cursor: pointer;
+  margin-bottom: 6px;
 `;
 
 export const IconMoney = styled.img`
@@ -66,6 +68,7 @@ export const IconMoney = styled.img`
 
 export const TextQuantity = styled.h1`
   font-size: 10px;
+  margin: 0;
 `;
 
 export const VerticalLine = styled.div`

@@ -21,6 +21,7 @@ export function Card({
   amount,
   handleRemove,
   newExpenses,
+  dateCreated,
 }) {
   return (
     <Container newExpenses>
@@ -29,7 +30,13 @@ export function Card({
 
         <div>
           <TextTitle>{title ? title : ""}</TextTitle>
-          <TextCreatedAt>{createdAt ? createdAt : ""}</TextCreatedAt>
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            <TextCreatedAt>{createdAt ? createdAt : ""}</TextCreatedAt>
+          </div>
         </div>
       </Wrapper>
 
@@ -49,6 +56,8 @@ export function Card({
             <TextQuantity>{amount ? amount : ""}</TextQuantity>
           </WrapperQuantityAndDollar>
         )}
+
+        <TextCreatedAt>{dateCreated ? dateCreated : ""}</TextCreatedAt>
       </WrapperRemoveAndQuantity>
 
       <VerticalLine backgroundColor={color ? color : "black"} />

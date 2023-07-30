@@ -103,6 +103,11 @@ export function ExpenseList() {
             <Row>
               {newExpense.map((data, index) => {
                 const timeCreated = moment(data.createdAt).fromNow();
+                const dateCreated = format(
+                  new Date(data.createdAt),
+                  "dd/MM/yyyy"
+                );
+                console.log({ dateCreated });
 
                 return (
                   <Col
@@ -119,6 +124,7 @@ export function ExpenseList() {
                       logoUrl={data.category.icon}
                       title={data.title}
                       createdAt={timeCreated}
+                      dateCreated={dateCreated}
                       amount={data.amount}
                     />
                   </Col>
