@@ -54,8 +54,8 @@ export const Container = styled.div`
 
 export const Row = styled.div`
   width: 100%;
-  margin-left: -1.2rem;
-  margin-right: -1.2rem;
+  /* margin-left: -1.2rem; */
+  /* margin-right: -1.2rem; */
   display: flex;
   justify-content: ${({ flexEnd }) => (flexEnd ? "flex-end" : "flex-start")};
   align-content: stretch;
@@ -110,6 +110,7 @@ export const Col = styled.div`
     css`
       position: relative;
       @media (max-width: 1200px) {
+        max-width: 100%;
         width: ${md.size * 10}rem;
         ${md.offset ? `margin-left: ${md.offset * 10}rem` : "margin-left: 0"};
       }

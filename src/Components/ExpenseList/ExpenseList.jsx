@@ -112,8 +112,8 @@ export function ExpenseList() {
                 return (
                   <Col
                     key={data.category.id + index}
-                    lg={{ size: 1.7 }}
-                    md={{ size: 1.8 }}
+                    lg={{ size: 2 }}
+                    md={{ size: 2 }}
                     sm={{ size: 12 }}
                   >
                     <Card
@@ -158,8 +158,8 @@ export function ExpenseList() {
 
                 return (
                   <Col
-                    lg={{ size: 1.7 }}
-                    md={{ size: 1.8 }}
+                    lg={{ size: 2 }}
+                    md={{ size: 2 }}
                     sm={{ size: 12 }}
                     key={data.category.id + index}
                   >

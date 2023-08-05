@@ -8,8 +8,9 @@ import {
   LogoGit,
   ContainerLogoCard,
 } from "./Header.style";
+import { TopNavBar } from "../TopNavBar/TopNavBar";
 
-export function Header() {
+export function Header({ typePage }) {
   return (
     <Container>
       <Wrapper>
@@ -31,6 +32,7 @@ export function Header() {
           </LogoGit>
         </a>
       </Wrapper>
+      <TopNavBar typePage={typePage} />
     </Container>
   );
 }

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  position: relative;
+  background-color: #4a7373;
 `;
 
 export const Wrapper = styled.div`
@@ -43,6 +43,7 @@ export const WrapperAdd = styled.div`
   height: 18px;
   cursor: pointer;
   z-index: 3;
+  margin-right: 30px;
 `;
 
 export const Text = styled.h1`
@@ -56,8 +57,9 @@ export const TextButton = styled.h1`
 `;
 
 export const InputWrapper = styled.div`
-  width: 30%;
+  width: 200px;
   position: relative;
+  margin-left: 30px;
 `;
 
 export const Input = styled.input`
@@ -81,6 +83,7 @@ export const WrapperBackButton = styled.div`
   padding: 0 3px 0 0;
   height: 18px;
   cursor: pointer;
+  margin-left: 30px;
 `;
 
 export const WrapperCancelButton = styled.div`
@@ -90,12 +93,12 @@ export const WrapperCancelButton = styled.div`
   padding: 0 3px 0 3px;
   height: 18px;
   cursor: pointer;
+  margin-right: 30px;
 `;
 
 export const WrapperDropDown = styled.div`
   width: 280px;
-  position: absolute;
-  right: 0;
+  position: relative;
   z-index: 2;
 `;
 
@@ -159,6 +162,6 @@ export const DropDownExpenseTitle = styled.h1`
 
 export const FlexBetween = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
 `;

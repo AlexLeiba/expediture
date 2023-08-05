@@ -29,7 +29,13 @@ export function Card({
         <Logo src={logoUrl ? logoUrl : ""} />
 
         <div>
-          <TextTitle>{title ? title : ""}</TextTitle>
+          <TextTitle>
+            {title
+              ? title.length > 25
+                ? title.substring(1, 25) + "..."
+                : title
+              : ""}
+          </TextTitle>
           <div
             style={{
               display: "flex",

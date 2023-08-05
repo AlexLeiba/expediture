@@ -1,15 +1,12 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
-  width: 60%;
+  width: 100%;
   margin: auto;
-
-  @media (max-width: 1024px) {
-    width: 70%;
-  }
-  @media (max-width: 512px) {
-    width: 100%;
-  }
+  background-color: #4a7373;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 `;
 
 export const Wrapper = styled.div`
@@ -28,9 +25,7 @@ export const ContainerLogoCard = styled.div`
   flex-direction: row;
   align-items: center;
 
-  @media (max-width: 512px) {
-    margin-left: 10px;
-  }
+  margin-left: 30px;
 `;
 
 export const LogoCard = styled.div`
@@ -55,9 +50,7 @@ export const LogoGit = styled.div`
     height: 18px;
   }
 
-  @media (max-width: 512px) {
-    margin-right: 10px;
-  }
+  margin-right: 30px;
 `;
 
 export const Icon = styled.img`
