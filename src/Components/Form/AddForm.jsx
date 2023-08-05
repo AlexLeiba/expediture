@@ -75,6 +75,9 @@ export function AddForm() {
         createdAt: new Date(),
       };
       dispatch(AddExpense(data));
+
+      setInputValue({ title: "", amount: "" });
+      setCategory({});
       setIsModalVisible(true);
     }
   }
@@ -84,10 +87,14 @@ export function AddForm() {
     setIsModalVisible(false);
   }
 
+  function handleCloseModal() {
+    setIsModalVisible(false);
+  }
+
   return (
     <Container>
       <ToastContainer
-        position="bottom-left"
+        position="top-center"
         autoClose={1500}
         hideProgressBar={false}
         closeOnClick
@@ -100,6 +107,7 @@ export function AddForm() {
       <SuccessModal
         isVisible={isModalVisible}
         handleCloseModal={handleModalVisible}
+        handleClose={handleCloseModal}
       />
 
       <InputWrapper>

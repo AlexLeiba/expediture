@@ -1,9 +1,11 @@
 import React from "react";
 import Modal from "react-modal";
 
-export function SuccessModal({ isVisible, handleCloseModal }) {
+export function SuccessModal({ isVisible, handleCloseModal, handleClose }) {
   const customStyles = {
     content: {
+      width: "300px",
+      height: "200px",
       top: "50%",
       left: "50%",
       right: "auto",
@@ -14,7 +16,7 @@ export function SuccessModal({ isVisible, handleCloseModal }) {
   };
   return (
     <Modal isOpen={isVisible} style={customStyles}>
-      <h3>Expense added Successfully</h3>
+      <h3 style={{ textAlign: "center" }}>Expense added Successfully</h3>
       <div
         style={{
           display: "flex",
@@ -35,21 +37,42 @@ export function SuccessModal({ isVisible, handleCloseModal }) {
             style={{ width: "60px", height: "60px" }}
             alt="success"
           />
-          <div
-            style={{
-              width: "50px",
-              height: "20px",
-              cursor: "pointer",
-              border: "1px solid green",
-              borderRadius: "4px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: "10px",
-            }}
-            onClick={() => handleCloseModal()}
-          >
-            <h4>Home</h4>
+
+          <div style={{ display: "flex", marginTop: "20px" }}>
+            <div
+              style={{
+                width: "50px",
+                height: "20px",
+                cursor: "pointer",
+                border: "1px solid green",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "10px",
+                marginRight: "10px",
+              }}
+              onClick={() => handleCloseModal()}
+            >
+              <h4>Home</h4>
+            </div>
+
+            <div
+              style={{
+                width: "50px",
+                height: "20px",
+                cursor: "pointer",
+                border: "1px solid green",
+                borderRadius: "4px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                marginTop: "10px",
+              }}
+              onClick={() => handleClose()}
+            >
+              <h4>Close</h4>
+            </div>
           </div>
         </div>
       </div>
