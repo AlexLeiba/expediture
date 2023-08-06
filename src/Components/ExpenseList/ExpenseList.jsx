@@ -9,6 +9,8 @@ import { InputValueContext } from "../../consts/Contexts";
 import { format } from "date-fns";
 import { Spacer } from "../UI/Spacer";
 import { Row, Col } from "../Grid/Grid.style";
+import { SuccessModal } from "../SuccessModal/SuccessModal";
+import { Types } from "../../consts/Types";
 
 export function ExpenseList() {
   const dispatch = useDispatch();
@@ -18,7 +20,6 @@ export function ExpenseList() {
   const { expenseList } = useSelector((state) => state.expenses);
 
   const dataCategory = useSelector((state) => state.expenses.filters.category);
-  console.log({ dataCategory, expenseList });
 
   const [totalExpense, setTotalExpense] = useState(0);
   const [todaysExpense, setTodaysExpense] = useState(0);
@@ -96,6 +97,7 @@ export function ExpenseList() {
         pauseOnHover
         theme="light"
       />
+
       {newExpense.length > 0 && (
         <>
           <div>
@@ -156,6 +158,11 @@ export function ExpenseList() {
               .map((data, index) => {
                 const timeCreated = moment(data.createdAt).fromNow();
 
+                const dateCreated = format(
+                  new Date(data.createdAt),
+                  "dd/MM/yyyy"
+                );
+
                 return (
                   <Col
                     lg={{ size: 2 }}
@@ -170,6 +177,7 @@ export function ExpenseList() {
                       logoUrl={data.category.icon}
                       title={data.title}
                       createdAt={timeCreated}
+                      dateCreated={dateCreated}
                       amount={data.amount}
                     />
                   </Col>
