@@ -57,7 +57,7 @@ export const TextButton = styled.h1`
 `;
 
 export const InputWrapper = styled.div`
-  width: 200px;
+  width: 150px;
   position: relative;
   margin-left: 30px;
 `;
