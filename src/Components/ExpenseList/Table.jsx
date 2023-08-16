@@ -1,34 +1,47 @@
 import React, { useMemo } from "react";
 import { useTable } from "react-table";
-import { Columns } from "./columns";
+import { groupedColumns } from "./columns";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
 
 export function Table() {
   const { expenseList } = useSelector((state) => state.expenses);
 
-  console.log({ expenseList });
-
-  const columnsMemoized = useMemo(() => Columns, []);
+  const columnsMemoized = useMemo(() => groupedColumns, []);
   const dataMemoized = useMemo(() => {
-    const filteredExpenseList = expenseList.map((data) => {
-      return {
-        ...data,
-        category: data.category.title,
-        createdAt: format(new Date(data.createdAt), "dd/MM/yyyy"),
-      };
-    });
+    const filteredExpenseList = expenseList
+      .sort((a, b) => {
+        const c = new Date(a.createdAt);
+        const d = new Date(b.createdAt);
+        return d - c;
+      })
+      .map((data) => {
+        return {
+          ...data,
+          category: data.category.title,
+          createdAt: format(new Date(data.createdAt), "dd/MM/yyyy"),
+          id: data.category.id,
+        };
+      });
 
     return filteredExpenseList;
   }, []);
+
+  console.log({ expenseList });
 
   const tableInstance = useTable({
     columns: columnsMemoized,
     data: dataMemoized,
   });
 
-  const { getTableBodyProps, getTableProps, rows, headerGroups, prepareRow } =
-    tableInstance;
+  const {
+    getTableBodyProps,
+    getTableProps,
+    rows,
+    headerGroups,
+    prepareRow,
+    footerGroups,
+  } = tableInstance;
 
   //getTableProps its a fn that needs to be destructured on table tag
 
@@ -74,7 +87,6 @@ export function Table() {
               {
                 //access to individual row cell
                 row.cells.map((cell) => {
-                  console.log({ cell });
                   return (
                     <td
                       style={{ border: "1px solid gray" }}
@@ -89,6 +101,28 @@ export function Table() {
           );
         })}
       </tbody>
+      <tfoot>
+        {footerGroups.map((footerGroup) => {
+          return (
+            <tr {...footerGroup.getHeaderGroupProps()}>
+              {footerGroup.headers.map((column) => {
+                return (
+                  <td
+                    style={{
+                      border: "1px solid gray",
+                      fontWeight: "bold",
+                      textAlign: "center",
+                    }}
+                    {...column.getFooterProps()}
+                  >
+                    {column.render("Footer")}
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
+      </tfoot>
     </table>
   );
 }

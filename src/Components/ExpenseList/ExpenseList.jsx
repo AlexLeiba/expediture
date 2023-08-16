@@ -9,7 +9,7 @@ import { InputValueContext } from "../../consts/Contexts";
 import { format } from "date-fns";
 import { Spacer } from "../UI/Spacer";
 import { Row, Col } from "../Grid/Grid.style";
-import { Table } from "./Table";
+import { SortingTable } from "./SortingTable";
 
 export function ExpenseList() {
   const dispatch = useDispatch();
@@ -19,16 +19,17 @@ export function ExpenseList() {
   const { expenseList } = useSelector((state) => state.expenses);
 
   const dataCategory = useSelector((state) => state.expenses.filters.category);
+  const listView = useSelector((state) => state.expenses.listView);
 
   const [totalExpense, setTotalExpense] = useState(0);
   const [todaysExpense, setTodaysExpense] = useState(0);
 
   const [newExpense, setNewExpense] = useState([]);
   const [oldExpense, setOldExpense] = useState([]);
-  const [listView, setListView] = useState({
-    gridView: false,
-    tableView: true,
-  });
+  // const [listView, setListView] = useState({
+  //   gridView: false,
+  //   tableView: true,
+  // });
 
   console.log({ expenseList });
 
@@ -208,7 +209,7 @@ export function ExpenseList() {
           </Row>
         </>
       )}
-      {listView.tableView && <Table />}
+      {listView.tableView && <SortingTable />}
     </Container>
   );
 }

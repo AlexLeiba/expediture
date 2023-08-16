@@ -1,5 +1,6 @@
 import {
   ADD_EXPENSE,
+  CHANGE_LIST_VIEW,
   CLEAR_CATEGORY,
   DELETE_EXPENSE,
   GET_CATEGORY,
@@ -16,6 +17,10 @@ const initialState = {
     category: "",
     higherThan: 0,
     lowerThan: 0,
+  },
+  listView: {
+    gridView: true,
+    tableView: false,
   },
 };
 
@@ -62,6 +67,12 @@ export function ExpensesReducers(state = initialState, action) {
       return {
         ...state,
         filters: { ...state.filters, category: "" },
+      };
+
+    case CHANGE_LIST_VIEW:
+      return {
+        ...state,
+        listView: action.payload,
       };
 
     default:

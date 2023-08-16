@@ -1,5 +1,6 @@
 import {
   ADD_EXPENSE,
+  CHANGE_LIST_VIEW,
   CLEAR_CATEGORY,
   DELETE_EXPENSE,
   GET_CATEGORY,
@@ -37,5 +38,12 @@ export function GetCategory(payload) {
 export function ClearCategory() {
   return {
     type: CLEAR_CATEGORY,
+  };
+}
+
+export function ChangeListView(payload) {
+  return {
+    type: CHANGE_LIST_VIEW,
+    payload,
   };
 }

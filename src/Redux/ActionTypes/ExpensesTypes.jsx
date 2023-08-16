@@ -3,3 +3,4 @@ export const DELETE_EXPENSE = "deleteExpense";
 export const SEARCH_EXPENSE = "searchExpense";
 export const GET_CATEGORY = "getCategory";
 export const CLEAR_CATEGORY = "clearCategory";
+export const CHANGE_LIST_VIEW = "changeListView";
