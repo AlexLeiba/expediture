@@ -76,7 +76,7 @@ export function AddForm() {
       };
       dispatch(AddExpense(data));
 
-      setInputValue({ title: "", amount: "" });
+      // setInputValue({ title: "", amount: "" });
       setCategory({});
       setIsModalVisible(true);
     }

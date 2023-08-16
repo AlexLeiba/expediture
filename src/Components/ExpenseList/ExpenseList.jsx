@@ -9,8 +9,7 @@ import { InputValueContext } from "../../consts/Contexts";
 import { format } from "date-fns";
 import { Spacer } from "../UI/Spacer";
 import { Row, Col } from "../Grid/Grid.style";
-import { SuccessModal } from "../SuccessModal/SuccessModal";
-import { Types } from "../../consts/Types";
+import { Table } from "./Table";
 
 export function ExpenseList() {
   const dispatch = useDispatch();
@@ -26,6 +25,12 @@ export function ExpenseList() {
 
   const [newExpense, setNewExpense] = useState([]);
   const [oldExpense, setOldExpense] = useState([]);
+  const [listView, setListView] = useState({
+    gridView: false,
+    tableView: true,
+  });
+
+  console.log({ expenseList });
 
   const filteredByCategoryList = expenseList.filter((data) => {
     if (dataCategory && dataCategory.title !== "") {
@@ -98,108 +103,112 @@ export function ExpenseList() {
         theme="light"
       />
 
-      {newExpense.length > 0 && (
+      {listView.gridView && (
         <>
-          <div>
-            <h5>Today's expenses:</h5>
-            <Row>
-              {newExpense.map((data, index) => {
-                const timeCreated = moment(data.createdAt).fromNow();
-                const dateCreated = format(
-                  new Date(data.createdAt),
-                  "dd/MM/yyyy"
-                );
-                console.log({ dateCreated });
+          {newExpense.length > 0 && (
+            <>
+              <div>
+                <h5>Today's expenses:</h5>
+                <Row>
+                  {newExpense.map((data, index) => {
+                    const timeCreated = moment(data.createdAt).fromNow();
+                    const dateCreated = format(
+                      new Date(data.createdAt),
+                      "dd/MM/yyyy"
+                    );
 
-                return (
-                  <Col
-                    key={data.category.id + index}
-                    lg={{ size: 2 }}
-                    md={{ size: 2 }}
-                    sm={{ size: 12 }}
-                  >
-                    <Card
-                      newExpenses
-                      handleRemove={() => handleRemove(data.category.id)}
-                      color={data.category.color}
-                      key={data.category.id}
-                      logoUrl={data.category.icon}
-                      title={data.title}
-                      createdAt={timeCreated}
-                      dateCreated={dateCreated}
-                      amount={data.amount}
-                    />
-                  </Col>
-                );
-              })}
-            </Row>
-          </div>
+                    return (
+                      <Col
+                        key={data.category.id + index}
+                        lg={{ size: 2 }}
+                        md={{ size: 2 }}
+                        sm={{ size: 12 }}
+                      >
+                        <Card
+                          newExpenses
+                          handleRemove={() => handleRemove(data.category.id)}
+                          color={data.category.color}
+                          key={data.category.id}
+                          logoUrl={data.category.icon}
+                          title={data.title}
+                          createdAt={timeCreated}
+                          dateCreated={dateCreated}
+                          amount={data.amount}
+                        />
+                      </Col>
+                    );
+                  })}
+                </Row>
+              </div>
+              <Row flexEnd>
+                <h5 style={{ textAlign: "right" }}>
+                  Total of today's Expenses: {todaysExpense}{" "}
+                  <img
+                    width={"10px"}
+                    src={require("../../assets/images/dollar.png")}
+                    alt="dollar"
+                  />
+                </h5>
+              </Row>
+
+              <Spacer margin={"10px"} />
+            </>
+          )}
+
+          {oldExpense.length > 0 && (
+            <>
+              <h5>All expenses:</h5>
+              <Row>
+                {oldExpense
+                  .sort((a, b) => a.createdAt - b.createdAt)
+                  .map((data, index) => {
+                    const timeCreated = moment(data.createdAt).fromNow();
+
+                    const dateCreated = format(
+                      new Date(data.createdAt),
+                      "dd/MM/yyyy"
+                    );
+
+                    return (
+                      <Col
+                        lg={{ size: 2 }}
+                        md={{ size: 2 }}
+                        sm={{ size: 12 }}
+                        key={data.category.id + index}
+                      >
+                        <Card
+                          handleRemove={() => handleRemove(data.category.id)}
+                          color={data.category.color}
+                          key={data.category.id}
+                          logoUrl={data.category.icon}
+                          title={data.title}
+                          createdAt={timeCreated}
+                          dateCreated={dateCreated}
+                          amount={data.amount}
+                        />
+                      </Col>
+                    );
+                  })}
+              </Row>
+            </>
+          )}
           <Row flexEnd>
-            <h5 style={{ textAlign: "right" }}>
-              Total of today's Expenses: {todaysExpense}{" "}
-              <img
-                width={"10px"}
-                src={require("../../assets/images/dollar.png")}
-                alt="dollar"
-              />
-            </h5>
-          </Row>
-
-          <Spacer margin={"10px"} />
-        </>
-      )}
-
-      {oldExpense.length > 0 && (
-        <>
-          <h5>All expenses:</h5>
-          <Row>
-            {oldExpense
-              .sort((a, b) => a.createdAt - b.createdAt)
-              .map((data, index) => {
-                const timeCreated = moment(data.createdAt).fromNow();
-
-                const dateCreated = format(
-                  new Date(data.createdAt),
-                  "dd/MM/yyyy"
-                );
-
-                return (
-                  <Col
-                    lg={{ size: 2 }}
-                    md={{ size: 2 }}
-                    sm={{ size: 12 }}
-                    key={data.category.id + index}
-                  >
-                    <Card
-                      handleRemove={() => handleRemove(data.category.id)}
-                      color={data.category.color}
-                      key={data.category.id}
-                      logoUrl={data.category.icon}
-                      title={data.title}
-                      createdAt={timeCreated}
-                      dateCreated={dateCreated}
-                      amount={data.amount}
-                    />
-                  </Col>
-                );
-              })}
+            {newExpense.length < 1 && oldExpense.length < 1 ? (
+              <h3>You have no expenses!</h3>
+            ) : (
+              <h3 style={{ textAlign: "right" }}>
+                Total expenses: {totalExpense ? totalExpense : 0} {""}
+                <img
+                  width={"10px"}
+                  src={require("../../assets/images/dollar.png")}
+                  alt="dollar"
+                />
+              </h3>
+            )}
           </Row>
         </>
       )}
-      <Row flexEnd>
-        {newExpense.length < 1 && oldExpense.length < 1 ? (
-          <h3>You have no expenses!</h3>
-        ) : (
-          <h3 style={{ textAlign: "right" }}>
-            Total expenses: {totalExpense ? totalExpense : 0} {""}
-            <img
-              width={"10px"}
-              src={require("../../assets/images/dollar.png")}
-              alt="dollar"
-            />
-          </h3>
-        )}
-      </Row>
+      {listView.tableView && <Table />}
     </Container>
   );
 }
