@@ -24,13 +24,22 @@ export function GlobalFilter({ filter, setFilter }) {
 
 export function ColumnFilter({ column }) {
   const { filterValue, setFilter } = column;
+
+  const [state, setState] = useState(filterValue);
+
+  const onChange = useAsyncDebounce((value) => {
+    setFilter(value || undefined);
+  }, 500);
   return (
     <span>
       <input
         placeholder="Column search"
         type="text"
-        value={filterValue || ""}
-        onChange={(e) => setFilter(e.target.value)}
+        value={state || ""}
+        onChange={(e) => {
+          setState(e.target.value);
+          onChange(e.target.value);
+        }}
       />{" "}
     </span>
   );

@@ -1,11 +1,25 @@
 import React, { useMemo } from "react";
-import { useTable, useSortBy, useGlobalFilter, useFilters } from "react-table";
+import {
+  useTable,
+  useSortBy,
+  useGlobalFilter,
+  useFilters,
+  usePagination,
+  useRowSelect,
+} from "react-table";
 import { groupedColumns } from "./columns";
 import { useSelector } from "react-redux";
-import { GlobalFilter } from "./Filters";
+import { ColumnFilter, GlobalFilter } from "./Filters";
+import CheckboxRows from "./CheckboxRows";
 
 export function SortingTable() {
   const { expenseList } = useSelector((state) => state.expenses);
+
+  const defaultColumn = useMemo(() => {
+    return {
+      Filter: ColumnFilter,
+    };
+  }, []);
 
   const columnsMemoized = useMemo(() => groupedColumns, []);
   const dataMemoized = useMemo(() => {
@@ -27,30 +41,64 @@ export function SortingTable() {
     return filteredExpenseList;
   }, []);
 
-  console.log({ expenseList });
-
   const tableInstance = useTable(
     {
       columns: columnsMemoized,
       data: dataMemoized,
+      defaultColumn,
+      initialState: {
+        pageIndex: 0,
+      },
     },
+
     useFilters, //for column filterr
     useGlobalFilter, //for global filters
-    useSortBy //for sorting
+    useSortBy, //for sorting
+    usePagination,
+    useRowSelect, //will keep track of the selected rows
+    (hooks) => {
+      //the fn takes all table hooks as argument/
+      //this will add a first column which will reprezent checkbox
+      hooks.visibleColumns.push((columns) => {
+        //this fn return an array of columns
+        return [
+          {
+            id: "selection",
+            Header: ({ getToggleAllRowsSelectedProps }) => {
+              return <CheckboxRows {...getToggleAllRowsSelectedProps()} />;
+            },
+            Cell: ({ row }) => {
+              return <CheckboxRows {...row.getToggleRowSelectedProps()} />;
+            },
+          },
+          ...columns, //here we spread the rest of the columns
+        ];
+      });
+    }
   );
 
   const {
     getTableBodyProps,
     getTableProps,
-    rows,
+    // rows, rows can be used when we do not use pagination
+    page, //using page instead of rows
     headerGroups,
     prepareRow,
     footerGroups,
-    state,
+    state, //returns diferent states of the form filters,pages etc
     setGlobalFilter, //will set the search value of global filter of all cells
+    nextPage, //fn which goes to next page
+    previousPage, //fn which goes to prev page
+    canNextPage,
+    canPreviousPage,
+    pageOptions, //all number of pages
+    gotoPage, //fn which goes to selecte index page
+    // pageCount, //return an index of the current page
+    setPageSize, //will set the number of rows each page has
+    selectedFlatRows, //will return all selected rows an array of rows
   } = tableInstance;
 
-  const { globalFilter } = state; //global filter state
+  const { globalFilter, pageIndex, pageSize } = state; //global filter state,page index(1.2.3)
 
   //getTableProps its a fn that needs to be destructured on table tag
 
@@ -61,6 +109,60 @@ export function SortingTable() {
   return (
     <>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+      <div>
+        <strong>
+          {" "}
+          Page: {pageIndex + 1} of {pageOptions.length} |{" "}
+        </strong>
+        <strong>Go to page:</strong>
+        <input
+          style={{ width: "40px", marginLeft: "5px", marginRight: "10px" }}
+          type="number"
+          placeholder={pageIndex + 1}
+          defaultValue={pageIndex + 1}
+          onChange={(e) => {
+            const pageNumber = e.target.value ? Number(e.target.value) : 0;
+            gotoPage(pageNumber - 1);
+          }}
+        />
+        <select
+          style={{ marginRight: "10px" }}
+          name="pageSize"
+          id="pageSize"
+          value={pageSize}
+          onChange={(e) => setPageSize(e.target.value)}
+        >
+          {[10, 25, 50].map((pageSize) => {
+            return (
+              <option key={pageSize} value={pageSize}>
+                Show rows: {pageSize}
+              </option>
+            );
+          })}
+        </select>
+        <button disabled={!canPreviousPage} onClick={() => gotoPage(0)}>
+          {"<<"}
+        </button>
+        <button
+          disabled={canPreviousPage ? false : true}
+          onClick={() => previousPage()}
+        >
+          Prev page
+        </button>{" "}
+        <button
+          disabled={canNextPage ? false : true}
+          onClick={() => nextPage()}
+        >
+          Next page
+        </button>
+        <button
+          disabled={!canNextPage}
+          onClick={() => gotoPage(pageOptions.length - 1)}
+        >
+          {">>"}
+        </button>
+      </div>
+
       <table
         style={{
           width: "100%",
@@ -71,17 +173,19 @@ export function SortingTable() {
         {...getTableProps()}
       >
         <thead style={{ border: "1px solid gray" }}>
-          {headerGroups.map((headerG) => {
+          {headerGroups.map((headerG, index) => {
             return (
               <tr
+                key={index}
                 style={{
                   border: "1px solid gray",
                 }}
                 {...headerG.getHeaderGroupProps()}
               >
-                {headerG.headers.map((column) => {
+                {headerG.headers.map((column, index) => {
                   return (
                     <th
+                      key={index}
                       style={{
                         border: "1px solid gray",
                       }}
@@ -108,16 +212,21 @@ export function SortingTable() {
         </thead>
 
         <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
+          {page.map((row, index) => {
             prepareRow(row);
 
             return (
-              <tr style={{ border: "1px solid gray" }} {...row.getRowProps()}>
+              <tr
+                key={index}
+                style={{ border: "1px solid gray" }}
+                {...row.getRowProps()}
+              >
                 {
                   //access to individual row cell
-                  row.cells.map((cell) => {
+                  row.cells.map((cell, index) => {
                     return (
                       <td
+                        key={index}
                         style={{ border: "1px solid gray" }}
                         {...cell.getCellProps()}
                       >
@@ -131,12 +240,13 @@ export function SortingTable() {
           })}
         </tbody>
         <tfoot>
-          {footerGroups.map((footerGroup) => {
+          {footerGroups.map((footerGroup, index) => {
             return (
-              <tr {...footerGroup.getHeaderGroupProps()}>
-                {footerGroup.headers.map((column) => {
+              <tr key={index} {...footerGroup.getHeaderGroupProps()}>
+                {footerGroup.headers.map((column, index) => {
                   return (
                     <td
+                      key={index}
                       style={{
                         border: "1px solid gray",
                         fontWeight: "bold",
@@ -153,6 +263,18 @@ export function SortingTable() {
           })}
         </tfoot>
       </table>
+      {
+        <p>
+          flatRows Selected:{" "}
+          {JSON.stringify(
+            {
+              FlatRows: selectedFlatRows.map((row) => row.original),
+            },
+            null,
+            2
+          )}
+        </p>
+      }
     </>
   );
 }

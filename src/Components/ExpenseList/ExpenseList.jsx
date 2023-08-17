@@ -31,8 +31,6 @@ export function ExpenseList() {
   //   tableView: true,
   // });
 
-  console.log({ expenseList });
-
   const filteredByCategoryList = expenseList.filter((data) => {
     if (dataCategory && dataCategory.title !== "") {
       return data.category.title === dataCategory.title;

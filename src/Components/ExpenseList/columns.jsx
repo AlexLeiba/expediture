@@ -39,14 +39,14 @@ export const groupedColumns = [
         Header: "id",
         accessor: "id",
         Footer: "id",
-        Filter: ColumnFilter,
+        // Filter: ColumnFilter,
         disableFilters: true,
       }, //group of headers
       {
         Header: "Category name",
         accessor: "category",
         Footer: "Category",
-        Filter: ColumnFilter,
+        // Filter: ColumnFilter,
       },
     ],
   },
@@ -54,20 +54,20 @@ export const groupedColumns = [
     Header: "Expense Title",
     Footer: "Expense Title",
     accessor: "title",
-    Filter: ColumnFilter,
+    // Filter: ColumnFilter,
   },
 
   {
     Header: "Price",
     Footer: "Price",
     accessor: "amount",
-    Filter: ColumnFilter,
+    // Filter: ColumnFilter,
   },
   {
     Header: "Created date",
     Footer: "Created date",
     accessor: "createdAt",
     Cell: ({ value }) => format(new Date(value), "dd/MM/yyyy"), //the keyword Cell, have access to all Cell values from this particular 'accessor' to format time value only when it is displayed on screen, before that we have to keep it as a ISO string in order to sort corectly
-    Filter: ColumnFilter,
+    // Filter: ColumnFilter,
   },
 ];

@@ -43,7 +43,8 @@ export const WrapperAdd = styled.div`
   height: 18px;
   cursor: pointer;
   z-index: 3;
-  margin-right: 30px;
+  margin: 0 2px 0 2px;
+  /* margin-right: 30px; */
 `;
 
 export const Text = styled.h1`
@@ -57,9 +58,9 @@ export const TextButton = styled.h1`
 `;
 
 export const InputWrapper = styled.div`
-  width: 150px;
+  width: 100px;
   position: relative;
-  margin-left: 30px;
+  /* margin-left: 30px; */
 `;
 
 export const Input = styled.input`
@@ -100,6 +101,7 @@ export const WrapperDropDown = styled.div`
   width: 280px;
   position: relative;
   z-index: 2;
+  margin-left: 50px;
 `;
 
 export const WrapperDropDownTitle = styled.div`
@@ -162,6 +164,6 @@ export const DropDownExpenseTitle = styled.h1`
 
 export const FlexBetween = styled.div`
   display: flex;
-  justify-content: space-around;
-  width: 100%;
+  justify-content: center;
+  width: 500px;
 `;

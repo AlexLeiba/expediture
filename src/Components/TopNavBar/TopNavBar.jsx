@@ -84,113 +84,133 @@ export function TopNavBar({ typePage }) {
 
       <Container>
         <Wrapper>
-          {typePage === Types.HOME && (
-            <>
-              <FlexBetween>
-                <InputWrapper>
-                  <Input
-                    placeholder="Search for expenses"
-                    value={inputSearchValue}
-                    onChange={(e) => handleValue(e.target.value)}
-                  />
-                  <IconSearch
-                    src={require("../../assets/images/search-icon.webp")}
-                    alt="search-icon"
-                  />
-                </InputWrapper>
-
-                {/* //filter */}
-                <WrapperDropDown>
-                  <WrapperDropDownTitle>
-                    <Text>Filter by category</Text>
-                    {filteredCategory.title && (
-                      <img
-                        onClick={handleCategoryDelete}
-                        alt="delete-filter"
-                        src={Icons.deleteFilter}
-                        style={{ width: 18, cursor: "pointer" }}
-                      />
-                    )}
-                  </WrapperDropDownTitle>
-
-                  <IconDropDown
-                    isDropDown={isDropDownVisible}
-                    onClick={() => setIsDropDownVisible(!isDropDownVisible)}
-                    src={require("../../assets/images/arrow-down.png")}
-                    alt="arrow down"
-                  />
-
-                  <DropDown>
-                    <DropDownExpenseTitle>
-                      {filteredCategory.title}
-                    </DropDownExpenseTitle>
-                  </DropDown>
-
-                  {isDropDownVisible && (
-                    <DropDownFilter onCategoryClick={handleCategoryClick} />
-                  )}
-                </WrapperDropDown>
-              </FlexBetween>
-              <WrapperAdd
-                onClick={() => {
-                  const newView = listView.gridView
-                    ? { tableView: true, gridView: false }
-                    : { tableView: false, gridView: true };
-                  dispatch(ChangeListView(newView));
-                }}
-              >
-                <img
-                  title={listView.gridView ? "table view" : "grid view"}
-                  onClick={() => {
-                    const newView = listView.gridView
-                      ? { tableView: true, gridView: false }
-                      : { tableView: false, gridView: true };
-                    dispatch(ChangeListView(newView));
-                  }}
-                  alt="views"
-                  src={listView.gridView ? Icons.tableView : Icons.gridView}
-                  style={{ width: 18 }}
-                />
-              </WrapperAdd>
-              <WrapperAdd onClick={() => handleOpenFilters()}>
-                <img
-                  title="filters"
-                  onClick={() => handleOpenFilters()}
-                  alt="filter"
-                  src={Icons.filter}
-                  style={{ width: 23 }}
-                />
-              </WrapperAdd>
-
-              <WrapperAdd onClick={() => navigate("/add-expense")}>
-                <IconAdd
-                  title="add new expense"
-                  src={require("../../assets/images/add.png")}
-                  alt="icon-Add"
-                />
-                <Text>Add</Text>
-              </WrapperAdd>
-            </>
-          )}
-
           {typePage === Types.ADD_EXPENSES && (
-            <>
-              <WrapperBackButton onClick={() => navigate("/")}>
-                <IconBack
-                  src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-back-512.png"
-                  alt="icon-back"
-                />
-                <TextButton>Back</TextButton>
-              </WrapperBackButton>
+            <WrapperBackButton onClick={() => navigate("/")}>
+              <IconBack
+                src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-back-512.png"
+                alt="icon-back"
+              />
+              <TextButton>Back</TextButton>
+            </WrapperBackButton>
+          )}
+          <div
+            style={{
+              paddingLeft: "30px",
+              paddingRight: "30px",
+              display: "flex",
+              justifyContent: "center",
+              width: "100%",
+            }}
+          >
+            {typePage === Types.HOME && (
+              <>
+                {listView.gridView ? (
+                  <div
+                    style={{
+                      display: "flex",
+                    }}
+                  >
+                    <InputWrapper>
+                      <Input
+                        placeholder="Search for expenses"
+                        value={inputSearchValue}
+                        onChange={(e) => handleValue(e.target.value)}
+                      />
+                      <IconSearch
+                        src={require("../../assets/images/search-icon.webp")}
+                        alt="search-icon"
+                      />
+                    </InputWrapper>
 
-              <WrapperCancelButton onClick={() => navigate("/")}>
-                <IconDelete
-                  src="https://cdn-icons-png.flaticon.com/512/66/66847.png"
-                  alt="cancel"
-                />
-                <TextButton>Cancel</TextButton>
-              </WrapperCancelButton>
-            </>
+                    {/* //filter */}
+                    <WrapperDropDown>
+                      <WrapperDropDownTitle>
+                        <Text>Filter by category</Text>
+                        {filteredCategory.title && (
+                          <img
+                            onClick={handleCategoryDelete}
+                            alt="delete-filter"
+                            src={Icons.deleteFilter}
+                            style={{ width: 18, cursor: "pointer" }}
+                          />
+                        )}
+                      </WrapperDropDownTitle>
+
+                      <IconDropDown
+                        isDropDown={isDropDownVisible}
+                        onClick={() => setIsDropDownVisible(!isDropDownVisible)}
+                        src={require("../../assets/images/arrow-down.png")}
+                        alt="arrow down"
+                      />
+
+                      <DropDown>
+                        <DropDownExpenseTitle>
+                          {filteredCategory.title}
+                        </DropDownExpenseTitle>
+                      </DropDown>
+
+                      {isDropDownVisible && (
+                        <DropDownFilter onCategoryClick={handleCategoryClick} />
+                      )}
+                    </WrapperDropDown>
+                  </div>
+                ) : (
+                  <div style={{ width: "380px" }} />
+                )}
+                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                  <WrapperAdd
+                    onClick={() => {
+                      const newView = listView.gridView
+                        ? { tableView: true, gridView: false }
+                        : { tableView: false, gridView: true };
+                      dispatch(ChangeListView(newView));
+                    }}
+                  >
+                    <img
+                      title={listView.gridView ? "table view" : "grid view"}
+                      onClick={() => {
+                        const newView = listView.gridView
+                          ? { tableView: true, gridView: false }
+                          : { tableView: false, gridView: true };
+                        dispatch(ChangeListView(newView));
+                      }}
+                      alt="views"
+                      src={listView.gridView ? Icons.tableView : Icons.gridView}
+                      style={{ width: 18 }}
+                    />
+                  </WrapperAdd>
+                  {listView.gridView && (
+                    <WrapperAdd onClick={() => handleOpenFilters()}>
+                      <img
+                        title="filters"
+                        onClick={() => handleOpenFilters()}
+                        alt="filter"
+                        src={Icons.filter}
+                        style={{ width: 23 }}
+                      />
+                    </WrapperAdd>
+                  )}
+
+                  <WrapperAdd onClick={() => navigate("/add-expense")}>
+                    <IconAdd
+                      title="add new expense"
+                      src={require("../../assets/images/add.png")}
+                      alt="icon-Add"
+                    />
+                    <Text>Add</Text>
+                  </WrapperAdd>
+                </div>
+              </>
+            )}
+          </div>
+          {typePage === Types.ADD_EXPENSES && (
+            <WrapperCancelButton onClick={() => navigate("/")}>
+              <IconDelete
+                src="https://cdn-icons-png.flaticon.com/512/66/66847.png"
+                alt="cancel"
+              />
+              <TextButton>Cancel</TextButton>
+            </WrapperCancelButton>
           )}
         </Wrapper>
       </Container>
