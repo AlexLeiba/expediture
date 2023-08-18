@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import {
   useTable,
   useSortBy,
@@ -8,11 +8,17 @@ import {
   useRowSelect,
 } from "react-table";
 import { groupedColumns } from "./columns";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ColumnFilter, GlobalFilter } from "./Filters";
 import CheckboxRows from "./CheckboxRows";
+import { IconRemove } from "../Card/Card.style";
+import { DeleteExpense } from "../../Redux/Actions.jsx/ExpensesActions";
 
-export function SortingTable() {
+import { toast } from "react-toastify";
+
+export function ExpensesTable() {
+  const [expensesDeleteRows, setExpensesDeleteRows] = useState([]);
+  const dispatch = useDispatch();
   const { expenseList } = useSelector((state) => state.expenses);
 
   const defaultColumn = useMemo(() => {
@@ -97,7 +103,7 @@ export function SortingTable() {
     setPageSize, //will set the number of rows each page has
     selectedFlatRows, //will return all selected rows an array of rows
   } = tableInstance;
-
+  console.log({ data: selectedFlatRows.map((row) => row.original) });
   const { globalFilter, pageIndex, pageSize } = state; //global filter state,page index(1.2.3)
 
   //getTableProps its a fn that needs to be destructured on table tag
@@ -106,69 +112,99 @@ export function SortingTable() {
 
   //headerGroups its an array which requires to map header for each header group
 
+  const calculatedValue = useMemo(() => {
+    const result = selectedFlatRows.reduce((acc, data, index) => {
+      const total = acc + Number(data.original.amount);
+
+      return total;
+    }, 0);
+
+    return result;
+  }, [selectedFlatRows]);
+
+  function handleRemove() {
+    selectedFlatRows.forEach((data) => {
+      if (data.original.id) {
+        dispatch(DeleteExpense(data.original.id));
+      }
+    });
+
+    toast("Expense removed successfully!", {
+      type: "success",
+    });
+  }
+
   return (
     <>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-      <div>
-        <strong>
-          {" "}
-          Page: {pageIndex + 1} of {pageOptions.length} |{" "}
-        </strong>
-        <strong>Go to page:</strong>
-        <input
-          style={{ width: "40px", marginLeft: "5px", marginRight: "10px" }}
-          type="number"
-          placeholder={pageIndex + 1}
-          defaultValue={pageIndex + 1}
-          onChange={(e) => {
-            const pageNumber = e.target.value ? Number(e.target.value) : 0;
-            gotoPage(pageNumber - 1);
-          }}
-        />
-        <select
-          style={{ marginRight: "10px" }}
-          name="pageSize"
-          id="pageSize"
-          value={pageSize}
-          onChange={(e) => setPageSize(e.target.value)}
-        >
-          {[10, 25, 50].map((pageSize) => {
-            return (
-              <option key={pageSize} value={pageSize}>
-                Show rows: {pageSize}
-              </option>
-            );
-          })}
-        </select>
-        <button disabled={!canPreviousPage} onClick={() => gotoPage(0)}>
-          {"<<"}
-        </button>
-        <button
-          disabled={canPreviousPage ? false : true}
-          onClick={() => previousPage()}
-        >
-          Prev page
-        </button>{" "}
-        <button
-          disabled={canNextPage ? false : true}
-          onClick={() => nextPage()}
-        >
-          Next page
-        </button>
-        <button
-          disabled={!canNextPage}
-          onClick={() => gotoPage(pageOptions.length - 1)}
-        >
-          {">>"}
-        </button>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div>
+          <strong>
+            {" "}
+            Page: {pageIndex + 1} of {pageOptions.length} |{" "}
+          </strong>
+          <strong>Go to page:</strong>
+          <input
+            style={{ width: "40px", marginLeft: "5px", marginRight: "10px" }}
+            type="number"
+            placeholder={pageIndex + 1}
+            defaultValue={pageIndex + 1}
+            onChange={(e) => {
+              const pageNumber = e.target.value ? Number(e.target.value) : 0;
+              gotoPage(pageNumber - 1);
+            }}
+          />
+          <select
+            style={{ marginRight: "10px" }}
+            name="pageSize"
+            id="pageSize"
+            value={pageSize}
+            onChange={(e) => setPageSize(e.target.value)}
+          >
+            {[10, 25, 50].map((pageSize) => {
+              return (
+                <option key={pageSize} value={pageSize}>
+                  Show rows: {pageSize}
+                </option>
+              );
+            })}
+          </select>
+          <button disabled={!canPreviousPage} onClick={() => gotoPage(0)}>
+            {"<<"}
+          </button>
+          <button
+            disabled={canPreviousPage ? false : true}
+            onClick={() => previousPage()}
+          >
+            Prev page
+          </button>{" "}
+          <button
+            disabled={canNextPage ? false : true}
+            onClick={() => nextPage()}
+          >
+            Next page
+          </button>
+          <button
+            disabled={!canNextPage}
+            onClick={() => gotoPage(pageOptions.length - 1)}
+          >
+            {">>"}
+          </button>
+        </div>
+        {selectedFlatRows.length > 0 && (
+          <IconRemove
+            title="Remove multiple rows"
+            onClick={() => handleRemove()}
+            src="https://cdn-icons-png.flaticon.com/512/1345/1345874.png"
+            alt="remove"
+            style={{ height: "18px", width: "auto" }}
+          />
+        )}
       </div>
 
       <table
         style={{
-          width: "100%",
-          height: "100%",
           border: "1px solid gray",
-          borderCollapse: "collapse",
         }}
         {...getTableProps()}
       >
@@ -263,18 +299,10 @@ export function SortingTable() {
           })}
         </tfoot>
       </table>
-      {
-        <p>
-          flatRows Selected:{" "}
-          {JSON.stringify(
-            {
-              FlatRows: selectedFlatRows.map((row) => row.original),
-            },
-            null,
-            2
-          )}
-        </p>
-      }
+
+      <div>
+        <strong>Total checked expenses: ${calculatedValue}</strong>
+      </div>
     </>
   );
 }

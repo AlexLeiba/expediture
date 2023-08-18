@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { Types } from "../../consts/Types";
 import { CategoriesFilter } from "../DropdownFilter/CategoriesFilter";
+import { useSelector } from "react-redux";
 
 export function SuccessModal({
   isVisible,
@@ -10,7 +11,11 @@ export function SuccessModal({
   modalType,
   handleCategoryClick,
 }) {
+  const byCategory = useSelector((state) => state.expenses.filters.category);
+
   const [filtersValue, setFiltersValue] = useState({});
+  const [filtersCheckboxValue, setFiltersCheckboxValue] = useState({});
+
   const customStyles = {
     content: {
       width: "350px",
@@ -28,6 +33,22 @@ export function SuccessModal({
     handleCategoryClick(filtersValue);
     handleClose();
   }
+
+  function isFilterRadioChecked() {
+    // if (filtersCheckboxValue && byCategory.title) {
+    //   return filtersCheckboxValue[byCategory.title];
+    // }
+    if (filtersCheckboxValue) {
+      return true;
+    }
+    if (filtersCheckboxValue[byCategory.title]) {
+      return true;
+    }
+
+    return false;
+  }
+
+  console.log({ da: isFilterRadioChecked() });
   return (
     <Modal isOpen={isVisible} style={customStyles}>
       {modalType !== Types.FILTER && (
@@ -123,7 +144,7 @@ export function SuccessModal({
             </div>
           </div>
 
-          <h3 style={{ textAlign: "center" }}>Filter by category</h3>
+          <h3 style={{ textAlign: "center" }}>Filters by category</h3>
           <div
             style={{ display: "flex", flexDirection: "row", flexWrap: "wrap" }}
           >
@@ -139,9 +160,21 @@ export function SuccessModal({
                 >
                   <label htmlFor="categories">{data.title}</label>{" "}
                   <input
+                    // checked={
+                    //   filtersCheckboxValue[data.title]
+                    //     ? filtersCheckboxValue[data.title]
+                    //     : false
+                    // }
+                    value={filtersCheckboxValue}
                     type="radio"
                     name="categories"
-                    onClick={() => setFiltersValue(data)}
+                    onClick={() => {
+                      setFiltersCheckboxValue({
+                        [data.title]: true,
+                      });
+
+                      setFiltersValue(data);
+                    }}
                   />
                 </div>
               );

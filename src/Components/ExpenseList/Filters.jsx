@@ -9,8 +9,9 @@ export function GlobalFilter({ filter, setFilter }) {
   }, 500); //this will run after a second when i stopped writing
   return (
     <span>
-      Global Search:{" "}
+      <strong>Global Search: </strong>
       <input
+        placeholder="Global search"
         type="text"
         value={state || ""}
         onChange={(e) => {

@@ -9,7 +9,7 @@ import { InputValueContext } from "../../consts/Contexts";
 import { format } from "date-fns";
 import { Spacer } from "../UI/Spacer";
 import { Row, Col } from "../Grid/Grid.style";
-import { SortingTable } from "./SortingTable";
+import { ExpensesTable } from "./ExpensesTable";
 
 export function ExpenseList() {
   const dispatch = useDispatch();
@@ -141,12 +141,7 @@ export function ExpenseList() {
               </div>
               <Row flexEnd>
                 <h5 style={{ textAlign: "right" }}>
-                  Total of today's Expenses: {todaysExpense}{" "}
-                  <img
-                    width={"10px"}
-                    src={require("../../assets/images/dollar.png")}
-                    alt="dollar"
-                  />
+                  Total of today's Expenses: ${todaysExpense}{" "}
                 </h5>
               </Row>
 
@@ -196,18 +191,13 @@ export function ExpenseList() {
               <h3>You have no expenses!</h3>
             ) : (
               <h3 style={{ textAlign: "right" }}>
-                Total expenses: {totalExpense ? totalExpense : 0} {""}
-                <img
-                  width={"10px"}
-                  src={require("../../assets/images/dollar.png")}
-                  alt="dollar"
-                />
+                Total expenses: ${totalExpense ? totalExpense : 0} {""}
               </h3>
             )}
           </Row>
         </>
       )}
-      {listView.tableView && <SortingTable />}
+      {listView.tableView && <ExpensesTable handleRemove={handleRemove} />}
     </Container>
   );
 }
