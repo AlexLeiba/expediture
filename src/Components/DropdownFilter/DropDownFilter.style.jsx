@@ -12,6 +12,7 @@ export const WrapperCard = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
+  box-shadow: 3px 15px 25px 0px gray;
 `;
 
 export const WrapperIconLine = styled.div`

@@ -17,7 +17,6 @@ import { DeleteExpense } from "../../Redux/Actions.jsx/ExpensesActions";
 import { toast } from "react-toastify";
 
 export function ExpensesTable() {
-  const [expensesDeleteRows, setExpensesDeleteRows] = useState([]);
   const dispatch = useDispatch();
   const { expenseList } = useSelector((state) => state.expenses);
 
@@ -103,7 +102,6 @@ export function ExpensesTable() {
     setPageSize, //will set the number of rows each page has
     selectedFlatRows, //will return all selected rows an array of rows
   } = tableInstance;
-  console.log({ data: selectedFlatRows.map((row) => row.original) });
   const { globalFilter, pageIndex, pageSize } = state; //global filter state,page index(1.2.3)
 
   //getTableProps its a fn that needs to be destructured on table tag

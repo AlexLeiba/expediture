@@ -48,7 +48,6 @@ export function SuccessModal({
     return false;
   }
 
-  console.log({ da: isFilterRadioChecked() });
   return (
     <Modal isOpen={isVisible} style={customStyles}>
       {modalType !== Types.FILTER && (

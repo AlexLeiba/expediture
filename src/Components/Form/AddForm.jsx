@@ -15,6 +15,7 @@ import {
   SubmitButton,
   IconPlane,
   DropDownExpenseTitle,
+  InputWrapperCost,
 } from "./AddForm.style";
 import { useDispatch } from "react-redux";
 import { AddExpense } from "../../Redux/Actions.jsx/ExpensesActions";
@@ -63,7 +64,7 @@ export function AddForm() {
   function handleSubmit() {
     if (
       inputValue.title === "" ||
-      category.title === "" ||
+      category.title === undefined ||
       inputValue.amount === 0
     ) {
       toast("Please enter valid data!", { type: "error" });
@@ -76,11 +77,18 @@ export function AddForm() {
       };
       dispatch(AddExpense(data));
 
-      // setInputValue({ title: "", amount: "" });
       setCategory({});
       setIsModalVisible(true);
     }
   }
+
+  // useEffect(() => {
+  //   window.addEventListener("keypress", (e) => {
+  //     if (e.key === "Enter") {
+  //       handleSubmit();
+  //     }
+  //   });
+  // }, []);
 
   function handleModalVisible() {
     navigate("/");
@@ -121,7 +129,7 @@ export function AddForm() {
           placeholder="give a name to your expediture"
         />
       </InputWrapper>
-      <InputWrapper>
+      <InputWrapperCost>
         <WrapperText>
           <Text>Cost:</Text>
           <IconMoney
@@ -135,9 +143,9 @@ export function AddForm() {
           onChange={(e) => handleInputValues("amount", e.target.value)}
           placeholder="Enter cost"
         />
-      </InputWrapper>
+      </InputWrapperCost>
 
-      <WrapperDropDown>
+      <WrapperDropDown onClick={() => setIsDropDownVisible(!isDropDownVisible)}>
         <WrapperDropDownTitle>
           <Text>Choose type</Text>
         </WrapperDropDownTitle>

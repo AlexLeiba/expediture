@@ -26,10 +26,6 @@ export function ExpenseList() {
 
   const [newExpense, setNewExpense] = useState([]);
   const [oldExpense, setOldExpense] = useState([]);
-  // const [listView, setListView] = useState({
-  //   gridView: false,
-  //   tableView: true,
-  // });
 
   const filteredByCategoryList = expenseList.filter((data) => {
     if (dataCategory && dataCategory.title !== "") {

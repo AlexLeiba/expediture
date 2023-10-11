@@ -27,8 +27,6 @@ export function Table() {
     return filteredExpenseList;
   }, []);
 
-  console.log({ expenseList });
-
   const tableInstance = useTable({
     columns: columnsMemoized,
     data: dataMemoized,

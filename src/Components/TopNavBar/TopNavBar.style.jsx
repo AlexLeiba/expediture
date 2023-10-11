@@ -58,14 +58,13 @@ export const TextButton = styled.h1`
 `;
 
 export const InputWrapper = styled.div`
-  width: 100px;
+  width: 110px;
   position: relative;
-  /* margin-left: 30px; */
 `;
 
 export const Input = styled.input`
   width: 100%;
-  border-radius: 8px;
+  border-radius: 4px;
   border: none;
   padding: 4px 20px 4px 20px;
   font-size: 12px;
@@ -98,6 +97,7 @@ export const WrapperCancelButton = styled.div`
 `;
 
 export const WrapperDropDown = styled.div`
+  cursor: pointer;
   width: 280px;
   position: relative;
   z-index: 2;
@@ -119,7 +119,7 @@ export const DropDown = styled.div`
   width: 75%;
   height: 20px;
   background-color: #ffffff;
-  /* margin-top: 25px; */
+  border-radius: 4px;
   z-index: 2;
 `;
 

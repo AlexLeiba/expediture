@@ -22,7 +22,6 @@ import {
   IconDropDown,
   DropDown,
   DropDownExpenseTitle,
-  FlexBetween,
 } from "./TopNavBar.style";
 import { DropDownFilter } from "../DropdownFilter/DropDownFilter";
 import { useDispatch } from "react-redux";
@@ -60,7 +59,6 @@ export function TopNavBar({ typePage }) {
   }
 
   function handleCategoryClick(category) {
-    console.log({ category });
     setFilteredCategory(category);
 
     dispatch(GetCategory(category));
@@ -100,6 +98,7 @@ export function TopNavBar({ typePage }) {
               display: "flex",
               justifyContent: "center",
               width: "100%",
+              flexWrap: "wrap",
             }}
           >
             {typePage === Types.HOME && (
@@ -123,7 +122,9 @@ export function TopNavBar({ typePage }) {
                     </InputWrapper>
 
                     {/* //filter */}
-                    <WrapperDropDown>
+                    <WrapperDropDown
+                      onClick={() => setIsDropDownVisible(!isDropDownVisible)}
+                    >
                       <WrapperDropDownTitle>
                         <Text>Filter by category</Text>
                         {filteredCategory.title && (
@@ -179,7 +180,7 @@ export function TopNavBar({ typePage }) {
                       style={{ width: 18 }}
                     />
                   </WrapperAdd>
-                  {listView.gridView && (
+                  {/* {listView.gridView && (
                     <WrapperAdd onClick={() => handleOpenFilters()}>
                       <img
                         title="filters"
@@ -189,7 +190,7 @@ export function TopNavBar({ typePage }) {
                         style={{ width: 23 }}
                       />
                     </WrapperAdd>
-                  )}
+                  )} */}
 
                   <WrapperAdd onClick={() => navigate("/add-expense")}>
                     <IconAdd

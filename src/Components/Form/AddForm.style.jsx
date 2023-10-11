@@ -6,7 +6,7 @@ export const Container = styled.div`
   margin: auto;
   height: 400px;
   box-shadow: 5px 10px 10px #5eb5b3;
-  background-color: #3e807e; ;
+  background-color: #3e807e;
 `;
 
 export const InputTitle = styled.input`
@@ -29,7 +29,12 @@ export const InputAmount = styled.input`
 `;
 
 export const InputWrapper = styled.div`
-  width: 100%;
+  width: 300px;
+  position: relative;
+`;
+
+export const InputWrapperCost = styled.div`
+  width: 325px;
   position: relative;
 `;
 
@@ -42,7 +47,7 @@ export const Text = styled.h1`
 
 export const WrapperText = styled.div`
   position: absolute;
-  top: 21px;
+  top: 20.5px;
   left: 16px;
   background-color: #9ebaba;
   border-radius: 4px;
@@ -70,7 +75,8 @@ export const IconMoney = styled.img`
 `;
 
 export const WrapperDropDown = styled.div`
-  width: 100%;
+  cursor: pointer;
+  width: 50%;
   margin: 25px 0 0 15px;
   position: relative;
 `;
@@ -92,6 +98,7 @@ export const DropDown = styled.div`
   background-color: #ffffff;
   margin-top: 25px;
   z-index: 2;
+  border-radius: 3px;
 `;
 
 export const IconDropDown = styled.img`
