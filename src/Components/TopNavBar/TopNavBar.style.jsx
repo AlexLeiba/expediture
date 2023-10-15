@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 100%;
   background-color: #4a7373;
+  overflow-x: hidden;
 `;
 
 export const Wrapper = styled.div`
@@ -12,6 +13,7 @@ export const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 export const IconSearch = styled.img`
@@ -34,6 +36,7 @@ export const IconAdd = styled.img`
 `;
 
 export const WrapperAdd = styled.div`
+  width: 30px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -44,7 +47,20 @@ export const WrapperAdd = styled.div`
   cursor: pointer;
   z-index: 3;
   margin: 0 2px 0 2px;
-  /* margin-right: 30px; */
+`;
+
+export const WrapperTableView = styled.div`
+  width: 18px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  padding: 0 3px 0 3px;
+  height: 18px;
+  cursor: pointer;
+  z-index: 3;
+  margin: 0 2px 0 2px;
 `;
 
 export const Text = styled.h1`
@@ -58,7 +74,7 @@ export const TextButton = styled.h1`
 `;
 
 export const InputWrapper = styled.div`
-  width: 110px;
+  width: 150px;
   position: relative;
 `;
 
@@ -98,7 +114,7 @@ export const WrapperCancelButton = styled.div`
 
 export const WrapperDropDown = styled.div`
   cursor: pointer;
-  width: 280px;
+  width: 180px;
   position: relative;
   z-index: 2;
   margin-left: 50px;
@@ -116,7 +132,7 @@ export const WrapperDropDownTitle = styled.div`
 `;
 
 export const DropDown = styled.div`
-  width: 75%;
+  width: 100%;
   height: 20px;
   background-color: #ffffff;
   border-radius: 4px;
@@ -127,7 +143,7 @@ export const IconDropDown = styled.img`
   width: 20px;
   height: 20px;
   position: absolute;
-  right: 25%;
+  right: 5px;
   cursor: pointer;
 
   transition: transform 300ms ease;
@@ -166,4 +182,23 @@ export const FlexBetween = styled.div`
   display: flex;
   justify-content: center;
   width: 500px;
+`;
+
+export const HeaderContainer = styled.div`
+  width: 100%;
+  margin: 0 auto;
+`;
+
+export const HeaderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+`;
+
+export const FlexColumn = styled.div`
+  display: flex;
+  align-items: center;
+
+  flex-direction: column;
 `;

@@ -1,40 +1,48 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   position: relative;
   width: 100%;
   margin: auto;
-  height: 400px;
+  height: 300px;
   box-shadow: 5px 10px 10px #5eb5b3;
   background-color: #3e807e;
 `;
 
-export const InputTitle = styled.input`
+export const Input = styled.input`
   width: 50%;
   border-radius: 4px;
   border: none;
-  padding: 4px 37px 4px 35px;
   font-size: 12px;
   outline: none;
   margin: 20px 0 0 15px;
-`;
-export const InputAmount = styled.input`
-  width: 50%;
-  border-radius: 4px;
-  border: none;
-  padding: 4px 10px 4px 49px;
-  font-size: 12px;
-  outline: none;
-  margin: 20px 0 0 15px;
+  ${({ inputType }) => {
+    switch (inputType) {
+      case "title":
+        return css`
+          padding: 5px 4px 4px 35px;
+        `;
+
+      case "cost":
+        return css`
+          padding: 4px 4px 4px 50px;
+        `;
+
+      default:
+        return css`
+          padding: 2px;
+        `;
+    }
+  }}
 `;
 
 export const InputWrapper = styled.div`
-  width: 300px;
+  width: 350px;
   position: relative;
 `;
 
 export const InputWrapperCost = styled.div`
-  width: 325px;
+  width: 320px;
   position: relative;
 `;
 
@@ -47,7 +55,7 @@ export const Text = styled.h1`
 
 export const WrapperText = styled.div`
   position: absolute;
-  top: 20.5px;
+  top: 20.8px;
   left: 16px;
   background-color: #9ebaba;
   border-radius: 4px;
@@ -77,6 +85,7 @@ export const IconMoney = styled.img`
 export const WrapperDropDown = styled.div`
   cursor: pointer;
   width: 50%;
+  min-width: 350px;
   margin: 25px 0 0 15px;
   position: relative;
 `;

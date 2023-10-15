@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { DropDownList } from "../DropList/DropDownList";
 import {
   Container,
-  InputTitle,
-  InputAmount,
+  Input,
   InputWrapper,
   Text,
   WrapperText,
@@ -123,7 +122,8 @@ export function AddForm() {
           <Text>Title:</Text>
         </WrapperText>
 
-        <InputTitle
+        <Input
+          inputType="title"
           value={inputValue.title}
           onChange={(e) => handleInputValues("title", e.target.value)}
           placeholder="give a name to your expediture"
@@ -137,7 +137,8 @@ export function AddForm() {
             alt="dollar"
           />
         </WrapperText>
-        <InputAmount
+        <Input
+          inputType="cost"
           type={"number"}
           value={inputValue.amount}
           onChange={(e) => handleInputValues("amount", e.target.value)}

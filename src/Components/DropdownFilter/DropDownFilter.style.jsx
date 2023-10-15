@@ -7,7 +7,7 @@ export const Container = styled.div`
 `;
 
 export const WrapperCard = styled.div`
-  width: 75%;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
