@@ -1,20 +1,19 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Card } from "../Card/Card";
-import { Container } from "./ExpenseList.style";
-import { useSelector, useDispatch } from "react-redux";
-import moment from "moment/moment";
-import { DeleteExpense } from "../../Redux/Actions.jsx/ExpensesActions";
-import { ToastContainer, toast } from "react-toastify";
-import { InputValueContext } from "../../consts/Contexts";
-import { format } from "date-fns";
-import { Spacer } from "../UI/Spacer";
-import { Row, Col } from "../Grid/Grid.style";
-import { ExpensesTable } from "./ExpensesTable";
+import React, { useEffect, useState } from 'react';
+import { Card } from '../Card/Card';
+import { Container, FlexStartWrapper } from './ExpenseList.style';
+import { useSelector, useDispatch } from 'react-redux';
+import moment from 'moment/moment';
+import { DeleteExpense } from '../../Redux/Actions.jsx/ExpensesActions';
+import { ToastContainer, toast } from 'react-toastify';
+import { format } from 'date-fns';
+import { Spacer } from '../UI/Spacer';
+import { Row, Col } from '../Grid/Grid.style';
+import { ExpensesTable } from './ExpensesTable';
 
 export function ExpenseList() {
   const dispatch = useDispatch();
 
-  const { inputSearchValue } = useContext(InputValueContext);
+  const searchTerm = useSelector((state) => state.expenses.filters.byName);
 
   const { expenseList } = useSelector((state) => state.expenses);
 
@@ -28,7 +27,7 @@ export function ExpenseList() {
   const [oldExpense, setOldExpense] = useState([]);
 
   const filteredByCategoryList = expenseList.filter((data) => {
-    if (dataCategory && dataCategory.title !== "") {
+    if (dataCategory && dataCategory.title !== '') {
       return data.category.title === dataCategory.title;
     }
 
@@ -36,13 +35,13 @@ export function ExpenseList() {
   });
 
   const filteredSearchList = filteredByCategoryList.filter((data) => {
-    return data.title.includes(inputSearchValue);
+    return data.title.includes(searchTerm);
   });
 
   function handleRemove(id) {
     dispatch(DeleteExpense(id));
-    toast("Expense removed successfully!", {
-      type: "success",
+    toast('Expense removed successfully!', {
+      type: 'success',
     });
   }
 
@@ -69,10 +68,10 @@ export function ExpenseList() {
     let oldExpense = [];
     let newExpense = [];
 
-    const formatedCurrentDate = format(new Date(), "PP");
+    const formatedCurrentDate = format(new Date(), 'PP');
 
     filteredSearchList.forEach((data) => {
-      const formatedOldDate = format(new Date(data.createdAt), "PP");
+      const formatedOldDate = format(new Date(data.createdAt), 'PP');
       if (formatedCurrentDate === formatedOldDate) {
         newExpense.push(data);
       } else {
@@ -87,7 +86,7 @@ export function ExpenseList() {
   return (
     <Container>
       <ToastContainer
-        position="top-center"
+        position='top-center'
         autoClose={2000}
         hideProgressBar={false}
         closeOnClick
@@ -95,7 +94,7 @@ export function ExpenseList() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme='light'
       />
 
       {listView.gridView && (
@@ -103,20 +102,23 @@ export function ExpenseList() {
           {newExpense.length > 0 && (
             <>
               <div>
-                <h5>Today's expenses:</h5>
+                <FlexStartWrapper>
+                  <h5>Today's expenses:</h5>
+                </FlexStartWrapper>
+
                 <Row>
                   {newExpense.map((data, index) => {
                     const timeCreated = moment(data.createdAt).fromNow();
                     const dateCreated = format(
                       new Date(data.createdAt),
-                      "dd/MM/yyyy"
+                      'dd/MM/yyyy'
                     );
 
                     return (
                       <Col
                         key={data.category.id + index}
-                        lg={{ size: 2 }}
-                        md={{ size: 2 }}
+                        lg={{ size: 1.9 }}
+                        md={{ size: 12 }}
                         sm={{ size: 12 }}
                       >
                         <Card
@@ -135,13 +137,11 @@ export function ExpenseList() {
                   })}
                 </Row>
               </div>
-              <Row flexEnd>
-                <h5 style={{ textAlign: "right" }}>
-                  Total of today's Expenses: ${todaysExpense}{" "}
-                </h5>
-              </Row>
+              <FlexStartWrapper>
+                <h5>Total of today's Expenses: ${todaysExpense} </h5>
+              </FlexStartWrapper>
 
-              <Spacer margin={"10px"} />
+              <Spacer margin={'10px'} />
             </>
           )}
 
@@ -156,7 +156,7 @@ export function ExpenseList() {
 
                     const dateCreated = format(
                       new Date(data.createdAt),
-                      "dd/MM/yyyy"
+                      'dd/MM/yyyy'
                     );
 
                     return (
@@ -182,15 +182,31 @@ export function ExpenseList() {
               </Row>
             </>
           )}
-          <Row flexEnd>
-            {newExpense.length < 1 && oldExpense.length < 1 ? (
-              <h3>You have no expenses!</h3>
-            ) : (
-              <h3 style={{ textAlign: "right" }}>
-                Total expenses: ${totalExpense ? totalExpense : 0} {""}
+
+          {newExpense.length < 1 && oldExpense.length < 1 ? (
+            <FlexStartWrapper>
+              {expenseList.length > 0 ? (
+                <h3 textAlign='center'>Nothing was found, try again</h3>
+              ) : (
+                <h3>
+                  You have no expenses yet,
+                  <br /> Please try to add an expense by clicking on +Add button
+                  above then come back to see the results,
+                  <br /> All your expenses will be stored in your browser so you
+                  can use it for years!
+                  <br /> <br /> Don't forget to try Table view as well which
+                  comes with more filter posibilities, by clicking on table icon
+                  above :)
+                </h3>
+              )}
+            </FlexStartWrapper>
+          ) : (
+            <FlexStartWrapper>
+              <h3 style={{ textAlign: 'left' }}>
+                Total expenses: ${totalExpense ? totalExpense : 0} {''}
               </h3>
-            )}
-          </Row>
+            </FlexStartWrapper>
+          )}
         </>
       )}
       {listView.tableView && <ExpensesTable handleRemove={handleRemove} />}

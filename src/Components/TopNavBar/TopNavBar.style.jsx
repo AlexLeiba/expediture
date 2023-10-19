@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -74,7 +74,7 @@ export const TextButton = styled.h1`
 `;
 
 export const InputWrapper = styled.div`
-  width: 150px;
+  width: 220px;
   position: relative;
 `;
 
@@ -114,7 +114,7 @@ export const WrapperCancelButton = styled.div`
 
 export const WrapperDropDown = styled.div`
   cursor: pointer;
-  width: 180px;
+  width: 250px;
   position: relative;
   z-index: 2;
   margin-left: 50px;
@@ -148,7 +148,7 @@ export const IconDropDown = styled.img`
 
   transition: transform 300ms ease;
   transform: ${({ isDropDown }) =>
-    isDropDown ? "rotate(180deg)" : "rotate(0deg)"};
+    isDropDown ? 'rotate(180deg)' : 'rotate(0deg)'};
 `;
 
 export const SubmitButton = styled.div`
@@ -198,7 +198,15 @@ export const HeaderWrapper = styled.div`
 
 export const FlexColumn = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 10px;
+`;
 
-  flex-direction: column;
+export const ButtonsWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  margin-left: 2rem;
+  margin-bottom: 10px;
 `;

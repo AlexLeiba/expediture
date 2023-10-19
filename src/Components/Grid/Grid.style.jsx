@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 /*
 BEAKPOINTS
@@ -21,7 +21,7 @@ export const Container = styled.div`
   flex-direction: row;
   position: relative;
   background-color: ${({ backGroundColor }) =>
-    backGroundColor ? backGroundColor : "transparent"};
+    backGroundColor ? backGroundColor : 'transparent'};
   ${({ fluid }) =>
     `
         ${fluid ? `max-width: 100%` : `max-width: 125rem`};
@@ -35,7 +35,7 @@ export const Container = styled.div`
           max-width: 100%;
         }
     `}
-  background-image: url(${({ img }) => (img ? img : "")});
+  background-image: url(${({ img }) => (img ? img : '')});
   ${({ hasImg }) =>
     hasImg &&
     `
@@ -45,22 +45,23 @@ export const Container = styled.div`
     `}
 
   @media (max-width: 1200px) {
-    background-image: url(${({ taImg }) => (taImg ? taImg : "")});
+    background-image: url(${({ taImg }) => (taImg ? taImg : '')});
   }
   @media (max-width: 767px) {
-    background-image: url(${({ smImg }) => (smImg ? smImg : "")});
+    background-image: url(${({ smImg }) => (smImg ? smImg : '')});
   }
 `;
 
 export const Row = styled.div`
   width: 100%;
-  /* margin-left: -1.2rem; */
-  /* margin-right: -1.2rem; */
+  margin-left: -1.2rem;
+  margin-right: -1.2rem;
   display: flex;
-  justify-content: ${({ flexEnd }) => (flexEnd ? "flex-end" : "flex-start")};
+  justify-content: ${({ flex }) => (flex ? flex : 'flex-start')};
   align-content: stretch;
   position: relative;
   flex-wrap: wrap;
+
   @media (max-width: 1200px) {
     flex-direction: row !important;
     flex-wrap: wrap;
@@ -70,22 +71,6 @@ export const Row = styled.div`
     padding: 0 16px 0 16px;
   }
 `;
-
-// interface ColProps {
-//   lg: {
-//     size: number;
-//     offset?: number;
-//   };
-//   md: {
-//     size: number;
-//     offset?: number;
-//   };
-//   sm: {
-//     size: number;
-//     offset?: number;
-//   };
-//   half?: number;
-// }
 
 export const Col = styled.div`
   width: 100%;
@@ -102,7 +87,7 @@ export const Col = styled.div`
         width: ${lg.size * 10}rem;
         ${lg.offset
           ? `margin-left: ${lg.offset * 10.25}rem`
-          : "margin-left: 0"};
+          : 'margin-left: 0'};
       }
     `}
   ${({ md }) =>
@@ -112,7 +97,7 @@ export const Col = styled.div`
       @media (max-width: 1200px) {
         max-width: 100%;
         width: ${md.size * 10}rem;
-        ${md.offset ? `margin-left: ${md.offset * 10}rem` : "margin-left: 0"};
+        ${md.offset ? `margin-left: ${md.offset * 10}rem` : 'margin-left: 0'};
       }
     `}
   ${({ sm }) =>

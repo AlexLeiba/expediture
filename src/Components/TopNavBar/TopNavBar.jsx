@@ -1,8 +1,7 @@
-import React, { useContext, useState } from "react";
-import { Types } from "../../consts/Types";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Types } from '../../consts/Types';
+import { useNavigate } from 'react-router-dom';
 
-import { InputValueContext } from "../../consts/Contexts";
 import {
   Container,
   Input,
@@ -26,28 +25,30 @@ import {
   HeaderWrapper,
   FlexColumn,
   WrapperTableView,
-} from "./TopNavBar.style";
-import { DropDownFilter } from "../DropdownFilter/DropDownFilter";
-import { useDispatch } from "react-redux";
+  ButtonsWrapper,
+} from './TopNavBar.style';
+import { DropDownFilter } from '../DropdownFilter/DropDownFilter';
+import { useDispatch } from 'react-redux';
 import {
   ChangeListView,
   ClearCategory,
   GetCategory,
-} from "../../Redux/Actions.jsx/ExpensesActions";
-import { Icons } from "../../assets/images/index";
-import { SuccessModal } from "../SuccessModal/SuccessModal";
-import { useSelector } from "react-redux";
+} from '../../Redux/Actions.jsx/ExpensesActions';
+import { Icons } from '../../assets/images/index';
+import { SuccessModal } from '../SuccessModal/SuccessModal';
+import { useSelector } from 'react-redux';
+import { SearchExpense } from '../../Redux/Actions.jsx/ExpensesActions';
 
 export function TopNavBar({ typePage }) {
   const listView = useSelector((state) => state.expenses.listView);
   const dispatch = useDispatch();
-  const { inputSearchValue, setInputSearchValue } =
-    useContext(InputValueContext);
 
   const navigate = useNavigate();
 
+  const searchTerm = useSelector((state) => state.expenses.filters.byName);
+
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
-  const [filteredCategory, setFilteredCategory] = useState("");
+  const [filteredCategory, setFilteredCategory] = useState('');
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -59,7 +60,7 @@ export function TopNavBar({ typePage }) {
   // }
 
   function handleValue(value) {
-    setInputSearchValue(value);
+    dispatch(SearchExpense(value));
   }
 
   function handleCategoryClick(category) {
@@ -71,7 +72,7 @@ export function TopNavBar({ typePage }) {
   }
 
   function handleCategoryDelete() {
-    setFilteredCategory("");
+    setFilteredCategory('');
     dispatch(ClearCategory());
   }
 
@@ -86,20 +87,21 @@ export function TopNavBar({ typePage }) {
 
       {typePage === Types.ADD_EXPENSES && (
         <Container>
+          {/*HEADER BUTTONS /////////////////////// */}
           <Wrapper>
             <>
-              <WrapperBackButton onClick={() => navigate("/")}>
+              <WrapperBackButton onClick={() => navigate('/')}>
                 <IconBack
-                  src="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-back-512.png"
-                  alt="icon-back"
+                  src='https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-back-512.png'
+                  alt='icon-back'
                 />
                 <TextButton>Back</TextButton>
               </WrapperBackButton>
 
-              <WrapperCancelButton onClick={() => navigate("/")}>
+              <WrapperCancelButton onClick={() => navigate('/')}>
                 <IconDelete
-                  src="https://cdn-icons-png.flaticon.com/512/66/66847.png"
-                  alt="cancel"
+                  src='https://cdn-icons-png.flaticon.com/512/66/66847.png'
+                  alt='cancel'
                 />
                 <TextButton>Cancel</TextButton>
               </WrapperCancelButton>
@@ -107,6 +109,7 @@ export function TopNavBar({ typePage }) {
           </Wrapper>
         </Container>
       )}
+      {/* ////////// */}
 
       {typePage === Types.HOME && (
         <HeaderContainer>
@@ -115,18 +118,21 @@ export function TopNavBar({ typePage }) {
               {listView.gridView ? (
                 <div
                   style={{
-                    display: "flex",
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                   }}
                 >
                   <InputWrapper>
                     <Input
-                      placeholder="Search for expenses"
-                      value={inputSearchValue}
+                      placeholder='Search for expenses'
+                      value={searchTerm}
                       onChange={(e) => handleValue(e.target.value)}
                     />
                     <IconSearch
-                      src={require("../../assets/images/search-icon.webp")}
-                      alt="search-icon"
+                      src={require('../../assets/images/search-icon.webp')}
+                      alt='search-icon'
                     />
                   </InputWrapper>
 
@@ -140,9 +146,9 @@ export function TopNavBar({ typePage }) {
                       {filteredCategory.title && (
                         <img
                           onClick={handleCategoryDelete}
-                          alt="delete-filter"
+                          alt='delete-filter'
                           src={Icons.deleteFilter}
-                          style={{ width: 18, cursor: "pointer" }}
+                          style={{ width: 18, cursor: 'pointer' }}
                         />
                       )}
                     </WrapperDropDownTitle>
@@ -150,8 +156,8 @@ export function TopNavBar({ typePage }) {
                     <IconDropDown
                       isDropDown={isDropDownVisible}
                       onClick={() => setIsDropDownVisible(!isDropDownVisible)}
-                      src={require("../../assets/images/arrow-down.png")}
-                      alt="arrow down"
+                      src={require('../../assets/images/arrow-down.png')}
+                      alt='arrow down'
                     />
 
                     <DropDown>
@@ -166,11 +172,12 @@ export function TopNavBar({ typePage }) {
                   </WrapperDropDown>
                 </div>
               ) : (
-                <div style={{ width: "380px" }} />
+                <div style={{ width: '380px' }} />
               )}
             </FlexColumn>
 
-            <div>
+            {/* ////ICONS */}
+            <ButtonsWrapper>
               <WrapperTableView
                 onClick={() => {
                   const newView = listView.gridView
@@ -180,14 +187,14 @@ export function TopNavBar({ typePage }) {
                 }}
               >
                 <img
-                  title={listView.gridView ? "table view" : "grid view"}
+                  title={listView.gridView ? 'table view' : 'grid view'}
                   onClick={() => {
                     const newView = listView.gridView
                       ? { tableView: true, gridView: false }
                       : { tableView: false, gridView: true };
                     dispatch(ChangeListView(newView));
                   }}
-                  alt="views"
+                  alt='views'
                   src={listView.gridView ? Icons.tableView : Icons.gridView}
                   style={{ width: 18 }}
                 />
@@ -204,15 +211,15 @@ export function TopNavBar({ typePage }) {
                     </WrapperAdd>
                   )} */}
 
-              <WrapperAdd onClick={() => navigate("/add-expense")}>
+              <WrapperAdd onClick={() => navigate('/add-expense')}>
                 <IconAdd
-                  title="add new expense"
-                  src={require("../../assets/images/add.png")}
-                  alt="icon-Add"
+                  title='add new expense'
+                  src={require('../../assets/images/add.png')}
+                  alt='icon-Add'
                 />
                 <Text>Add</Text>
               </WrapperAdd>
-            </div>
+            </ButtonsWrapper>
           </HeaderWrapper>
         </HeaderContainer>
       )}

@@ -5,18 +5,19 @@ import {
   DELETE_EXPENSE,
   GET_CATEGORY,
   SEARCH_EXPENSE,
-} from "../ActionTypes/ExpensesTypes";
+} from '../ActionTypes/ExpensesTypes';
 
-const list = localStorage.getItem("expense-list");
+const list = localStorage.getItem('expense-list');
 
 let expenseStoredList = JSON.parse(list);
 
 const initialState = {
   expenseList: expenseStoredList !== null ? expenseStoredList : [],
   filters: {
-    category: "",
+    category: '',
     higherThan: 0,
     lowerThan: 0,
+    byName: '',
   },
   listView: {
     gridView: true,
@@ -25,10 +26,11 @@ const initialState = {
 };
 
 export function ExpensesReducers(state = initialState, action) {
+  console.log({ state });
   switch (action.type) {
     case ADD_EXPENSE:
       localStorage.setItem(
-        "expense-list",
+        'expense-list',
         JSON.stringify([...state.expenseList, action.payload])
       );
       return {
@@ -42,8 +44,8 @@ export function ExpensesReducers(state = initialState, action) {
       });
 
       localStorage.setItem(
-        "expense-list",
-        JSON.stringify(filteredExpenses ? filteredExpenses : "")
+        'expense-list',
+        JSON.stringify(filteredExpenses ? filteredExpenses : '')
       );
 
       return {
@@ -54,7 +56,7 @@ export function ExpensesReducers(state = initialState, action) {
     case SEARCH_EXPENSE:
       return {
         ...state,
-        inputValue: action.payload,
+        filters: { ...state.filters, byName: action.payload },
       };
 
     case GET_CATEGORY:
@@ -66,7 +68,7 @@ export function ExpensesReducers(state = initialState, action) {
     case CLEAR_CATEGORY:
       return {
         ...state,
-        filters: { ...state.filters, category: "" },
+        filters: { ...state.filters, category: '' },
       };
 
     case CHANGE_LIST_VIEW:
