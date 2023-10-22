@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   height: 200px;
@@ -13,6 +13,7 @@ export const WrapperCard = styled.div`
   flex-direction: column;
   background-color: #ffffff;
   box-shadow: 3px 15px 25px 0px gray;
+  z-index: 2;
 `;
 
 export const WrapperIconLine = styled.div`
@@ -29,6 +30,7 @@ export const CategoryCard = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: #ffffff;
+  z-index: 2;
   cursor: pointer;
   &:hover {
     background-color: #509190;
@@ -53,5 +55,5 @@ export const CategoryIcon = styled.img`
 export const ColorLine = styled.div`
   height: 30px;
   width: 3px;
-  background-color: ${({ colorLine }) => (colorLine ? colorLine : "")};
+  background-color: ${({ colorLine }) => (colorLine ? colorLine : '')};
 `;

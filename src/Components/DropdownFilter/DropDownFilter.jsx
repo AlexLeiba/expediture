@@ -1,5 +1,5 @@
-import React from "react";
-import { CategoriesFilter } from "./CategoriesFilter";
+import React from 'react';
+import { CategoriesFilter } from './CategoriesFilter';
 import {
   CategoryCard,
   Container,
@@ -8,7 +8,7 @@ import {
   ColorLine,
   WrapperCard,
   WrapperIconLine,
-} from "./DropDownFilter.style";
+} from './DropDownFilter.style';
 
 export function DropDownFilter({ onCategoryClick }) {
   return (

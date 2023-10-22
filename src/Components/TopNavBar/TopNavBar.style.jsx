@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -35,7 +35,7 @@ export const IconAdd = styled.img`
   height: 10px;
 `;
 
-export const WrapperAdd = styled.div`
+export const WrapperAddButton = styled.div`
   width: 30px;
   display: flex;
   flex-direction: row;
@@ -46,21 +46,16 @@ export const WrapperAdd = styled.div`
   height: 18px;
   cursor: pointer;
   z-index: 3;
-  margin: 0 2px 0 2px;
 `;
 
 export const WrapperTableView = styled.div`
   width: 18px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   border: 1px solid #ffffff;
   border-radius: 4px;
   padding: 0 3px 0 3px;
   height: 18px;
-  cursor: pointer;
   z-index: 3;
-  margin: 0 2px 0 2px;
+  cursor: pointer;
 `;
 
 export const Text = styled.h1`
@@ -74,8 +69,11 @@ export const TextButton = styled.h1`
 `;
 
 export const InputWrapper = styled.div`
-  width: 220px;
+  width: 100%;
   position: relative;
+  min-width: 200px;
+  display: flex;
+  justify-content: center;
 `;
 
 export const Input = styled.input`
@@ -112,14 +110,6 @@ export const WrapperCancelButton = styled.div`
   margin-right: 30px;
 `;
 
-export const WrapperDropDown = styled.div`
-  cursor: pointer;
-  width: 250px;
-  position: relative;
-  z-index: 2;
-  margin-left: 50px;
-`;
-
 export const WrapperDropDownTitle = styled.div`
   position: absolute;
   background-color: #9ebaba;
@@ -129,26 +119,6 @@ export const WrapperDropDownTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-export const DropDown = styled.div`
-  width: 100%;
-  height: 20px;
-  background-color: #ffffff;
-  border-radius: 4px;
-  z-index: 2;
-`;
-
-export const IconDropDown = styled.img`
-  width: 20px;
-  height: 20px;
-  position: absolute;
-  right: 5px;
-  cursor: pointer;
-
-  transition: transform 300ms ease;
-  transform: ${({ isDropDown }) =>
-    isDropDown ? 'rotate(180deg)' : 'rotate(0deg)'};
 `;
 
 export const SubmitButton = styled.div`
@@ -196,17 +166,22 @@ export const HeaderWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-export const FlexColumn = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: row;
-  margin-bottom: 10px;
-`;
-
 export const ButtonsWrapper = styled.div`
   display: flex;
   gap: 0.5rem;
-  margin-left: 2rem;
   margin-bottom: 10px;
+
+  ${({ tableType }) =>
+    tableType &&
+    css`
+      margin-top: 29px;
+    `}
+`;
+
+export const SearchWrapper = styled.div`
+  width: 260px;
+`;
+
+export const DropdownWrapper = styled.div`
+  width: 260px;
 `;

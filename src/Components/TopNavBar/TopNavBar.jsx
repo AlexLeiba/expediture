@@ -10,24 +10,20 @@ import {
   IconSearch,
   Text,
   IconAdd,
-  WrapperAdd,
   WrapperBackButton,
   WrapperCancelButton,
   TextButton,
   IconBack,
   IconDelete,
-  WrapperDropDown,
-  WrapperDropDownTitle,
-  IconDropDown,
-  DropDown,
-  DropDownExpenseTitle,
   HeaderContainer,
   HeaderWrapper,
-  FlexColumn,
   WrapperTableView,
   ButtonsWrapper,
+  WrapperAddButton,
+  SearchWrapper,
+  DropdownWrapper,
 } from './TopNavBar.style';
-import { DropDownFilter } from '../DropdownFilter/DropDownFilter';
+
 import { useDispatch } from 'react-redux';
 import {
   ChangeListView,
@@ -38,16 +34,17 @@ import { Icons } from '../../assets/images/index';
 import { SuccessModal } from '../SuccessModal/SuccessModal';
 import { useSelector } from 'react-redux';
 import { SearchExpense } from '../../Redux/Actions.jsx/ExpensesActions';
+import { FilterByCategoryDropdown } from '../FilterByCategoryDropdown/FilterByCategoryDropdown';
 
 export function TopNavBar({ typePage }) {
   const listView = useSelector((state) => state.expenses.listView);
+  console.log('🚀 ~ file: TopNavBar.jsx:41 ~ TopNavBar ~ listView:', listView);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const searchTerm = useSelector((state) => state.expenses.filters.byName);
 
-  const [isDropDownVisible, setIsDropDownVisible] = useState(false);
   const [filteredCategory, setFilteredCategory] = useState('');
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -67,8 +64,6 @@ export function TopNavBar({ typePage }) {
     setFilteredCategory(category);
 
     dispatch(GetCategory(category));
-
-    setIsDropDownVisible(false);
   }
 
   function handleCategoryDelete() {
@@ -114,16 +109,20 @@ export function TopNavBar({ typePage }) {
       {typePage === Types.HOME && (
         <HeaderContainer>
           <HeaderWrapper>
-            <FlexColumn>
-              {listView.gridView ? (
-                <div
-                  style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
+            {listView.gridView ? (
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '100%',
+                  flexWrap: 'wrap',
+                  columnGap: '10px',
+                  rowGap: '10px',
+                  marginBottom: '10px',
+                }}
+              >
+                <SearchWrapper>
                   <InputWrapper>
                     <Input
                       placeholder='Search for expenses'
@@ -135,49 +134,21 @@ export function TopNavBar({ typePage }) {
                       alt='search-icon'
                     />
                   </InputWrapper>
-
-                  {/* //filter */}
-
-                  <WrapperDropDown
-                    onClick={() => setIsDropDownVisible(!isDropDownVisible)}
-                  >
-                    <WrapperDropDownTitle>
-                      <Text>Filter by category</Text>
-                      {filteredCategory.title && (
-                        <img
-                          onClick={handleCategoryDelete}
-                          alt='delete-filter'
-                          src={Icons.deleteFilter}
-                          style={{ width: 18, cursor: 'pointer' }}
-                        />
-                      )}
-                    </WrapperDropDownTitle>
-
-                    <IconDropDown
-                      isDropDown={isDropDownVisible}
-                      onClick={() => setIsDropDownVisible(!isDropDownVisible)}
-                      src={require('../../assets/images/arrow-down.png')}
-                      alt='arrow down'
-                    />
-
-                    <DropDown>
-                      <DropDownExpenseTitle>
-                        {filteredCategory.title}
-                      </DropDownExpenseTitle>
-                    </DropDown>
-
-                    {isDropDownVisible && (
-                      <DropDownFilter onCategoryClick={handleCategoryClick} />
-                    )}
-                  </WrapperDropDown>
-                </div>
-              ) : (
-                <div style={{ width: '380px' }} />
-              )}
-            </FlexColumn>
+                </SearchWrapper>
+                <DropdownWrapper>
+                  <FilterByCategoryDropdown
+                    filteredCategory={filteredCategory}
+                    handleCategoryDelete={handleCategoryDelete}
+                    handleCategoryClick={handleCategoryClick}
+                  />
+                </DropdownWrapper>
+              </div>
+            ) : (
+              <div style={{ height: '62px' }} />
+            )}
 
             {/* ////ICONS */}
-            <ButtonsWrapper>
+            <ButtonsWrapper tableType={listView.tableView}>
               <WrapperTableView
                 onClick={() => {
                   const newView = listView.gridView
@@ -211,14 +182,14 @@ export function TopNavBar({ typePage }) {
                     </WrapperAdd>
                   )} */}
 
-              <WrapperAdd onClick={() => navigate('/add-expense')}>
+              <WrapperAddButton onClick={() => navigate('/add-expense')}>
                 <IconAdd
                   title='add new expense'
                   src={require('../../assets/images/add.png')}
                   alt='icon-Add'
                 />
                 <Text>Add</Text>
-              </WrapperAdd>
+              </WrapperAddButton>
             </ButtonsWrapper>
           </HeaderWrapper>
         </HeaderContainer>
