@@ -16,14 +16,6 @@ export const Wrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-export const IconSearch = styled.img`
-  width: 10px;
-  height: 10px;
-  position: absolute;
-  top: 6px;
-  left: 5px;
-`;
-
 export const IconDelete = styled.img`
   width: auto;
   height: 12px;
