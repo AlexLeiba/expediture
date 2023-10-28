@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  height: ${({ margin }) => (margin ? margin : "")};
+  height: ${({ margin }) => (margin ? `${margin}px` : '')};
 `;

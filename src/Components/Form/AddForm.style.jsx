@@ -1,49 +1,15 @@
-import styled, { css } from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
   width: 100%;
-  margin: auto;
   height: 300px;
   box-shadow: 5px 10px 10px #5eb5b3;
   background-color: #3e807e;
-`;
-
-export const Input = styled.input`
-  width: 50%;
-  border-radius: 4px;
-  border: none;
-  font-size: 12px;
-  outline: none;
-  margin: 20px 0 0 15px;
-  ${({ inputType }) => {
-    switch (inputType) {
-      case "title":
-        return css`
-          padding: 5px 4px 4px 35px;
-        `;
-
-      case "cost":
-        return css`
-          padding: 4px 4px 4px 50px;
-        `;
-
-      default:
-        return css`
-          padding: 2px;
-        `;
-    }
-  }}
-`;
-
-export const InputWrapper = styled.div`
-  width: 350px;
-  position: relative;
-`;
-
-export const InputWrapperCost = styled.div`
-  width: 320px;
-  position: relative;
+  border-radius: 5px;
+  padding: 20px;
+  overflow: hidden;
+  margin: 0 5px;
 `;
 
 export const Text = styled.h1`
@@ -55,7 +21,7 @@ export const Text = styled.h1`
 
 export const WrapperText = styled.div`
   position: absolute;
-  top: 20.8px;
+  top: 0;
   left: 16px;
   background-color: #9ebaba;
   border-radius: 4px;
@@ -75,13 +41,7 @@ export const WrapperAdd = styled.div`
   height: 18px;
   cursor: pointer;
 `;
-
-export const IconMoney = styled.img`
-  width: 7px;
-  height: 7px;
-  margin-right: 5px;
-`;
-
+/////
 export const WrapperDropDown = styled.div`
   cursor: pointer;
   width: 50%;
@@ -120,15 +80,15 @@ export const IconDropDown = styled.img`
 
   transition: transform 300ms ease;
   transform: ${({ isDropDown }) =>
-    isDropDown ? "rotate(180deg)" : "rotate(0deg)"};
+    isDropDown ? 'rotate(180deg)' : 'rotate(0deg)'};
 `;
 
 export const SubmitButton = styled.div`
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 60px;
-  height: 20px;
+  bottom: 20px;
+  right: 20px;
+  width: 100px;
+  height: 30px;
   border: 1px solid #ffffff;
   border-radius: 4px;
   display: flex;
@@ -136,11 +96,14 @@ export const SubmitButton = styled.div`
   align-items: center;
   cursor: pointer;
   margin: 0 5px 5px 0;
+  &:hover {
+    opacity: 0.5;
+  }
 `;
 
 export const IconPlane = styled.img`
-  width: 10px;
-  height: 10px;
+  width: 15px;
+  height: 15px;
 `;
 
 export const DropDownExpenseTitle = styled.h1`
@@ -148,4 +111,8 @@ export const DropDownExpenseTitle = styled.h1`
   position: absolute;
   left: 70px;
   top: -6px;
+`;
+
+export const InputWrapper = styled.div`
+  width: 200px;
 `;

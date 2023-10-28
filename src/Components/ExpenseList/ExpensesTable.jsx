@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo } from 'react';
 import {
   useTable,
   useSortBy,
@@ -6,15 +6,15 @@ import {
   useFilters,
   usePagination,
   useRowSelect,
-} from "react-table";
-import { groupedColumns } from "./columns";
-import { useDispatch, useSelector } from "react-redux";
-import { ColumnFilter, GlobalFilter } from "./Filters";
-import CheckboxRows from "./CheckboxRows";
-import { IconRemove } from "../Card/Card.style";
-import { DeleteExpense } from "../../Redux/Actions.jsx/ExpensesActions";
+} from 'react-table';
+import { groupedColumns } from './columns';
+import { useDispatch, useSelector } from 'react-redux';
+import { ColumnFilter, GlobalFilter } from './Filters';
+import CheckboxRows from './CheckboxRows';
+import { IconRemove } from '../Card/Card.style';
+import { DeleteExpense } from '../../Redux/Actions.jsx/ExpensesActions';
 
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
 export function ExpensesTable() {
   const dispatch = useDispatch();
@@ -68,7 +68,7 @@ export function ExpensesTable() {
         //this fn return an array of columns
         return [
           {
-            id: "selection",
+            id: 'selection',
             Header: ({ getToggleAllRowsSelectedProps }) => {
               return <CheckboxRows {...getToggleAllRowsSelectedProps()} />;
             },
@@ -127,24 +127,28 @@ export function ExpensesTable() {
       }
     });
 
-    toast("Expense removed successfully!", {
-      type: "success",
+    toast('Expense removed successfully!', {
+      type: 'success',
     });
   }
 
   return (
     <>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
         <div>
           <strong>
-            {" "}
-            Page: {pageIndex + 1} of {pageOptions.length} |{" "}
+            Page: {pageIndex + 1} of {pageOptions.length} |{' '}
           </strong>
           <strong>Go to page:</strong>
           <input
-            style={{ width: "40px", marginLeft: "5px", marginRight: "10px" }}
-            type="number"
+            style={{ width: '40px', marginLeft: '5px', marginRight: '10px' }}
+            type='number'
             placeholder={pageIndex + 1}
             defaultValue={pageIndex + 1}
             onChange={(e) => {
@@ -153,9 +157,9 @@ export function ExpensesTable() {
             }}
           />
           <select
-            style={{ marginRight: "10px" }}
-            name="pageSize"
-            id="pageSize"
+            style={{ marginRight: '10px' }}
+            name='pageSize'
+            id='pageSize'
             value={pageSize}
             onChange={(e) => setPageSize(e.target.value)}
           >
@@ -168,14 +172,14 @@ export function ExpensesTable() {
             })}
           </select>
           <button disabled={!canPreviousPage} onClick={() => gotoPage(0)}>
-            {"<<"}
+            {'<<'}
           </button>
           <button
             disabled={canPreviousPage ? false : true}
             onClick={() => previousPage()}
           >
             Prev page
-          </button>{" "}
+          </button>{' '}
           <button
             disabled={canNextPage ? false : true}
             onClick={() => nextPage()}
@@ -186,33 +190,37 @@ export function ExpensesTable() {
             disabled={!canNextPage}
             onClick={() => gotoPage(pageOptions.length - 1)}
           >
-            {">>"}
+            {'>>'}
           </button>
         </div>
         {selectedFlatRows.length > 0 && (
-          <IconRemove
-            title="Remove multiple rows"
-            onClick={() => handleRemove()}
-            src="https://cdn-icons-png.flaticon.com/512/1345/1345874.png"
-            alt="remove"
-            style={{ height: "18px", width: "auto" }}
-          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <span>Remove</span>
+            <IconRemove
+              title='Remove'
+              onClick={() => handleRemove()}
+              src='https://cdn-icons-png.flaticon.com/512/1345/1345874.png'
+              alt='remove'
+              style={{ height: '18px', width: 'auto' }}
+            />
+          </div>
         )}
       </div>
 
       <table
         style={{
-          border: "1px solid gray",
+          overflow: 'auto',
+          border: '1px solid gray',
         }}
         {...getTableProps()}
       >
-        <thead style={{ border: "1px solid gray" }}>
+        <thead style={{ border: '1px solid gray' }}>
           {headerGroups.map((headerG, index) => {
             return (
               <tr
                 key={index}
                 style={{
-                  border: "1px solid gray",
+                  border: '1px solid gray',
                 }}
                 {...headerG.getHeaderGroupProps()}
               >
@@ -221,21 +229,21 @@ export function ExpensesTable() {
                     <th
                       key={index}
                       style={{
-                        border: "1px solid gray",
+                        border: '1px solid gray',
                       }}
                       {...column.getHeaderProps(column.getSortByToggleProps())} //here we have to add some arguments for sorting
                     >
                       <div>
-                        {column.canFilter ? column.render("Filter") : null}
+                        {column.canFilter ? column.render('Filter') : null}
                       </div>
-                      {column.render("Header")}
+                      {column.render('Header')}
 
                       <span>
                         {column.isSorted
                           ? column.isSortedDesc
-                            ? " ↑ "
-                            : " ↓ "
-                          : ""}
+                            ? ' ↑ '
+                            : ' ↓ '
+                          : ''}
                       </span>
                     </th>
                   );
@@ -252,7 +260,7 @@ export function ExpensesTable() {
             return (
               <tr
                 key={index}
-                style={{ border: "1px solid gray" }}
+                style={{ border: '1px solid gray' }}
                 {...row.getRowProps()}
               >
                 {
@@ -261,10 +269,10 @@ export function ExpensesTable() {
                     return (
                       <td
                         key={index}
-                        style={{ border: "1px solid gray" }}
+                        style={{ border: '1px solid gray' }}
                         {...cell.getCellProps()}
                       >
-                        {cell.render("Cell")}
+                        {cell.render('Cell')}
                       </td>
                     );
                   })
@@ -282,13 +290,13 @@ export function ExpensesTable() {
                     <td
                       key={index}
                       style={{
-                        border: "1px solid gray",
-                        fontWeight: "bold",
-                        textAlign: "center",
+                        border: '1px solid gray',
+                        fontWeight: 'bold',
+                        textAlign: 'center',
                       }}
                       {...column.getFooterProps()}
                     >
-                      {column.render("Footer")}
+                      {column.render('Footer')}
                     </td>
                   );
                 })}

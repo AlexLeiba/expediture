@@ -1,45 +1,38 @@
-import React, { useState } from "react";
-import { DropDownList } from "../DropList/DropDownList";
+import React, { useState } from 'react';
+
 import {
   Container,
-  Input,
-  InputWrapper,
-  Text,
-  WrapperText,
-  IconMoney,
-  DropDown,
-  WrapperDropDown,
-  IconDropDown,
-  WrapperDropDownTitle,
   SubmitButton,
   IconPlane,
-  DropDownExpenseTitle,
-  InputWrapperCost,
-} from "./AddForm.style";
-import { useDispatch } from "react-redux";
-import { AddExpense } from "../../Redux/Actions.jsx/ExpensesActions";
+  InputWrapper,
+} from './AddForm.style';
+import { useDispatch } from 'react-redux';
+import { AddExpense } from '../../Redux/Actions.jsx/ExpensesActions';
 
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { SuccessModal } from "../SuccessModal/SuccessModal";
-import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { SuccessModal } from '../SuccessModal/SuccessModal';
+import { useNavigate } from 'react-router-dom';
+import { Input } from '../UI/Input/Input';
+import { Spacer } from '../UI/Spacer';
+import { Dropdown } from '../UI/Dropdown/Dropdown';
 
 export function AddForm() {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [category, setCategory] = useState({
-    title: "",
-    id: "",
-    icon: "",
-    color: "",
+    title: '',
+    id: '',
+    icon: '',
+    color: '',
   });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [inputValue, setInputValue] = useState({
-    title: "",
-    amount: "",
+    title: '',
+    cost: '',
   });
 
   function handleInputValues(name, value) {
@@ -62,15 +55,15 @@ export function AddForm() {
 
   function handleSubmit() {
     if (
-      inputValue.title === "" ||
+      inputValue.title === '' ||
       category.title === undefined ||
-      inputValue.amount === 0
+      inputValue.cost === 0
     ) {
-      toast("Please enter valid data!", { type: "error" });
+      toast('Please enter valid data!', { type: 'error' });
     } else {
       const data = {
         title: inputValue.title,
-        amount: inputValue.amount,
+        cost: inputValue.cost,
         category: category,
         createdAt: new Date(),
       };
@@ -90,7 +83,7 @@ export function AddForm() {
   // }, []);
 
   function handleModalVisible() {
-    navigate("/");
+    navigate('/');
     setIsModalVisible(false);
   }
 
@@ -101,7 +94,7 @@ export function AddForm() {
   return (
     <Container>
       <ToastContainer
-        position="top-center"
+        position='top-center'
         autoClose={1500}
         hideProgressBar={false}
         closeOnClick
@@ -109,67 +102,48 @@ export function AddForm() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme='light'
       />
       <SuccessModal
         isVisible={isModalVisible}
         handleCloseModal={handleModalVisible}
         handleClose={handleCloseModal}
       />
-
       <InputWrapper>
-        <WrapperText>
-          <Text>Title:</Text>
-        </WrapperText>
-
         <Input
-          inputType="title"
+          label='Title'
+          inputType='title'
           value={inputValue.title}
-          onChange={(e) => handleInputValues("title", e.target.value)}
-          placeholder="give a name to your expediture"
+          handleInputValues={handleInputValues}
+          placeholder='give a name to your expediture'
         />
       </InputWrapper>
-      <InputWrapperCost>
-        <WrapperText>
-          <Text>Cost:</Text>
-          <IconMoney
-            src={require("../../assets/images/dollar.png")}
-            alt="dollar"
-          />
-        </WrapperText>
+
+      <Spacer margin={20} />
+
+      <InputWrapper>
         <Input
-          inputType="cost"
-          type={"number"}
-          value={inputValue.amount}
-          onChange={(e) => handleInputValues("amount", e.target.value)}
-          placeholder="Enter cost"
+          label='Cost'
+          inputType='cost'
+          type={'number'}
+          value={inputValue.cost}
+          handleInputValues={handleInputValues}
+          placeholder='Enter cost'
         />
-      </InputWrapperCost>
+      </InputWrapper>
 
-      <WrapperDropDown onClick={() => setIsDropDownVisible(!isDropDownVisible)}>
-        <WrapperDropDownTitle>
-          <Text>Choose type</Text>
-        </WrapperDropDownTitle>
+      <Spacer margin={20} />
 
-        <IconDropDown
-          isDropDown={isDropDownVisible}
-          onClick={() => setIsDropDownVisible(!isDropDownVisible)}
-          src={require("../../assets/images/arrow-down.png")}
-          alt="arrow down"
-        />
-
-        <DropDown>
-          <DropDownExpenseTitle>{category.title}</DropDownExpenseTitle>
-        </DropDown>
-
-        {isDropDownVisible && (
-          <DropDownList onCategoryClick={handleCategoryClick} />
-        )}
-      </WrapperDropDown>
+      <Dropdown
+        setIsDropDownVisible={setIsDropDownVisible}
+        onCategoryClick={handleCategoryClick}
+        isDropDownVisible={isDropDownVisible}
+        categoryTitle={category.title}
+      />
 
       <SubmitButton onClick={() => handleSubmit()}>
-        <Text>Submit</Text>
-        <IconPlane src={require("../../assets/images/plane.png")} />
+        <h4>Submit</h4>
+        <IconPlane src={require('../../assets/images/plane.png')} />
       </SubmitButton>
     </Container>
   );

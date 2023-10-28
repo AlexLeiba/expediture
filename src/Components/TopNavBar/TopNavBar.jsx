@@ -4,10 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import {
   Container,
-  Input,
   Wrapper,
-  InputWrapper,
-  IconSearch,
   Text,
   IconAdd,
   WrapperBackButton,
@@ -35,10 +32,11 @@ import { SuccessModal } from '../SuccessModal/SuccessModal';
 import { useSelector } from 'react-redux';
 import { SearchExpense } from '../../Redux/Actions.jsx/ExpensesActions';
 import { FilterByCategoryDropdown } from '../FilterByCategoryDropdown/FilterByCategoryDropdown';
+import { Input } from '../UI/Input/Input';
 
 export function TopNavBar({ typePage }) {
   const listView = useSelector((state) => state.expenses.listView);
-  console.log('🚀 ~ file: TopNavBar.jsx:41 ~ TopNavBar ~ listView:', listView);
+
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -82,7 +80,7 @@ export function TopNavBar({ typePage }) {
 
       {typePage === Types.ADD_EXPENSES && (
         <Container>
-          {/*HEADER BUTTONS /////////////////////// */}
+          {/*HEADER BUTTONS  */}
           <Wrapper>
             <>
               <WrapperBackButton onClick={() => navigate('/')}>
@@ -104,7 +102,6 @@ export function TopNavBar({ typePage }) {
           </Wrapper>
         </Container>
       )}
-      {/* ////////// */}
 
       {typePage === Types.HOME && (
         <HeaderContainer>
@@ -123,17 +120,12 @@ export function TopNavBar({ typePage }) {
                 }}
               >
                 <SearchWrapper>
-                  <InputWrapper>
-                    <Input
-                      placeholder='Search for expenses'
-                      value={searchTerm}
-                      onChange={(e) => handleValue(e.target.value)}
-                    />
-                    <IconSearch
-                      src={require('../../assets/images/search-icon.webp')}
-                      alt='search-icon'
-                    />
-                  </InputWrapper>
+                  <Input
+                    placeholder='Search for expenses'
+                    value={searchTerm}
+                    handleInputValues={handleValue}
+                    inputType='search'
+                  />
                 </SearchWrapper>
                 <DropdownWrapper>
                   <FilterByCategoryDropdown

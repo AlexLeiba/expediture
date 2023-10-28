@@ -179,7 +179,8 @@ export const ButtonsWrapper = styled.div`
 `;
 
 export const SearchWrapper = styled.div`
-  width: 260px;
+  width: 235px;
+  margin-right: 25px;
 `;
 
 export const DropdownWrapper = styled.div`
