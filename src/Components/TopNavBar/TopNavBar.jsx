@@ -19,6 +19,7 @@ import {
   WrapperAddButton,
   SearchWrapper,
   DropdownWrapper,
+  FiltersWrapper,
 } from './TopNavBar.style';
 
 import { useDispatch } from 'react-redux';
@@ -107,18 +108,7 @@ export function TopNavBar({ typePage }) {
         <HeaderContainer>
           <HeaderWrapper>
             {listView.gridView ? (
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  width: '100%',
-                  flexWrap: 'wrap',
-                  columnGap: '10px',
-                  rowGap: '10px',
-                  marginBottom: '10px',
-                }}
-              >
+              <FiltersWrapper>
                 <SearchWrapper>
                   <Input
                     placeholder='Search for expenses'
@@ -134,12 +124,12 @@ export function TopNavBar({ typePage }) {
                     handleCategoryClick={handleCategoryClick}
                   />
                 </DropdownWrapper>
-              </div>
+              </FiltersWrapper>
             ) : (
               <div style={{ height: '62px' }} />
             )}
 
-            {/* ////ICONS */}
+            {/* ICONS */}
             <ButtonsWrapper tableType={listView.tableView}>
               <WrapperTableView
                 onClick={() => {

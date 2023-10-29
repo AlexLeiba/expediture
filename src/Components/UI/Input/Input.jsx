@@ -14,10 +14,12 @@ export function Input({
   handleInputValues,
   placeholder,
   label,
+  type,
 }) {
   return (
     <Container>
       <InputComponent
+        type={type}
         inputType={inputType}
         value={value}
         onChange={(e) =>

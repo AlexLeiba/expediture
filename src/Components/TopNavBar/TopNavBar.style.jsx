@@ -25,6 +25,7 @@ export const IconDelete = styled.img`
 export const IconAdd = styled.img`
   width: 10px;
   height: 10px;
+  z-index: 1;
 `;
 
 export const WrapperAddButton = styled.div`
@@ -37,7 +38,7 @@ export const WrapperAddButton = styled.div`
   padding: 0 3px 0 3px;
   height: 18px;
   cursor: pointer;
-  z-index: 3;
+  z-index: 1;
 `;
 
 export const WrapperTableView = styled.div`
@@ -46,7 +47,7 @@ export const WrapperTableView = styled.div`
   border-radius: 4px;
   padding: 0 3px 0 3px;
   height: 18px;
-  z-index: 3;
+  z-index: 1;
   cursor: pointer;
 `;
 
@@ -177,4 +178,15 @@ export const SearchWrapper = styled.div`
 
 export const DropdownWrapper = styled.div`
   width: 260px;
+`;
+
+export const FiltersWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  row-gap: 10px;
+  margin-bottom: 10px;
 `;

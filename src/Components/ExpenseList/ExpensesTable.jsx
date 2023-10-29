@@ -44,7 +44,7 @@ export function ExpensesTable() {
       });
 
     return filteredExpenseList;
-  }, []);
+  }, [expenseList]);
 
   const tableInstance = useTable(
     {
@@ -112,7 +112,7 @@ export function ExpensesTable() {
 
   const calculatedValue = useMemo(() => {
     const result = selectedFlatRows.reduce((acc, data, index) => {
-      const total = acc + Number(data.original.amount);
+      const total = acc + Number(data.original.cost);
 
       return total;
     }, 0);
@@ -209,7 +209,6 @@ export function ExpensesTable() {
 
       <table
         style={{
-          overflow: 'auto',
           border: '1px solid gray',
         }}
         {...getTableProps()}

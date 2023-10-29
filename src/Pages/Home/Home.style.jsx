@@ -1,7 +1,8 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  height: calc(100vh - 100px);
+  height: calc(100vh - 105px);
+
   width: 100%;
 
   ${({ tableView }) => {

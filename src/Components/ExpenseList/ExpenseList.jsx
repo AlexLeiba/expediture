@@ -6,7 +6,7 @@ import moment from 'moment/moment';
 import { DeleteExpense } from '../../Redux/Actions.jsx/ExpensesActions';
 import { ToastContainer, toast } from 'react-toastify';
 import { format } from 'date-fns';
-import { Spacer } from '../UI/Spacer';
+import { Spacer } from '../UI/Spacer/Spacer';
 import { Row, Col } from '../Grid/Grid.style';
 import { ExpensesTable } from './ExpensesTable';
 
@@ -49,14 +49,14 @@ export function ExpenseList() {
     for (let index = 0; index <= filteredSearchList.length; index++) {
       let totalCost = 0;
       filteredSearchList.forEach((data) => {
-        totalCost = totalCost + parseInt(data.amount);
+        totalCost = totalCost + parseInt(data.cost);
       });
       setTotalExpense(totalCost);
     }
     for (let index = 0; index <= newExpense.length; index++) {
       let totalCost = 0;
       newExpense.forEach((data) => {
-        totalCost = totalCost + parseInt(data.amount);
+        totalCost = totalCost + parseInt(data.cost);
       });
       setTodaysExpense(totalCost);
     }
@@ -85,6 +85,7 @@ export function ExpenseList() {
 
   return (
     <Container>
+      <Spacer margin={20} />
       <ToastContainer
         position='top-center'
         autoClose={2000}
@@ -130,7 +131,7 @@ export function ExpenseList() {
                           title={data.title}
                           createdAt={timeCreated}
                           dateCreated={dateCreated}
-                          amount={data.amount}
+                          amount={data.cost}
                         />
                       </Col>
                     );
@@ -174,7 +175,7 @@ export function ExpenseList() {
                           title={data.title}
                           createdAt={timeCreated}
                           dateCreated={dateCreated}
-                          amount={data.amount}
+                          amount={data.cost}
                         />
                       </Col>
                     );

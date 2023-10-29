@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { SuccessModal } from '../SuccessModal/SuccessModal';
 import { useNavigate } from 'react-router-dom';
 import { Input } from '../UI/Input/Input';
-import { Spacer } from '../UI/Spacer';
+import { Spacer } from '../UI/Spacer/Spacer';
 import { Dropdown } from '../UI/Dropdown/Dropdown';
 
 export function AddForm() {
@@ -63,10 +63,11 @@ export function AddForm() {
     } else {
       const data = {
         title: inputValue.title,
-        cost: inputValue.cost,
+        cost: Number(inputValue.cost),
         category: category,
         createdAt: new Date(),
       };
+      console.log('🚀 ~ file: AddForm.jsx:71 ~ handleSubmit ~ data:', data);
       dispatch(AddExpense(data));
 
       setCategory({});
