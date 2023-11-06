@@ -10,6 +10,7 @@ export const WrapperCard = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
+  z-index: 100;
 `;
 
 export const WrapperIconLine = styled.div`
@@ -27,6 +28,7 @@ export const CategoryCard = styled.div`
   align-items: center;
   background-color: #ffffff;
   cursor: pointer;
+  z-index: 100;
   &:hover {
     background-color: #509190;
     color: #ffffff;

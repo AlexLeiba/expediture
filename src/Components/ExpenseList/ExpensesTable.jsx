@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo } from "react";
 import {
   useTable,
   useSortBy,
@@ -6,15 +6,16 @@ import {
   useFilters,
   usePagination,
   useRowSelect,
-} from 'react-table';
-import { groupedColumns } from './columns';
-import { useDispatch, useSelector } from 'react-redux';
-import { ColumnFilter, GlobalFilter } from './Filters';
-import CheckboxRows from './CheckboxRows';
-import { IconRemove } from '../Card/Card.style';
-import { DeleteExpense } from '../../Redux/Actions.jsx/ExpensesActions';
+} from "react-table";
+import { groupedColumns } from "./columns";
+import { useDispatch, useSelector } from "react-redux";
+import { ColumnFilter, GlobalFilter } from "./Filters";
+import CheckboxRows from "./CheckboxRows";
+import { IconRemove } from "../Card/Card.style";
+import { DeleteExpense } from "../../Redux/Actions.jsx/ExpensesActions";
 
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
+import { ExpenseTableContainer } from "./ExpenseList.style";
 
 export function ExpensesTable() {
   const dispatch = useDispatch();
@@ -38,7 +39,6 @@ export function ExpensesTable() {
         return {
           ...data,
           category: data.category.title,
-          //   createdAt: format(new Date(data.createdAt), "dd/MM/yyyy"),
           id: data.category.id,
         };
       });
@@ -56,19 +56,16 @@ export function ExpensesTable() {
       },
     },
 
-    useFilters, //for column filterr
-    useGlobalFilter, //for global filters
-    useSortBy, //for sorting
+    useFilters,
+    useGlobalFilter,
+    useSortBy,
     usePagination,
-    useRowSelect, //will keep track of the selected rows
+    useRowSelect,
     (hooks) => {
-      //the fn takes all table hooks as argument/
-      //this will add a first column which will reprezent checkbox
       hooks.visibleColumns.push((columns) => {
-        //this fn return an array of columns
         return [
           {
-            id: 'selection',
+            id: "selection",
             Header: ({ getToggleAllRowsSelectedProps }) => {
               return <CheckboxRows {...getToggleAllRowsSelectedProps()} />;
             },
@@ -76,7 +73,7 @@ export function ExpensesTable() {
               return <CheckboxRows {...row.getToggleRowSelectedProps()} />;
             },
           },
-          ...columns, //here we spread the rest of the columns
+          ...columns,
         ];
       });
     }
@@ -85,30 +82,24 @@ export function ExpensesTable() {
   const {
     getTableBodyProps,
     getTableProps,
-    // rows, rows can be used when we do not use pagination
-    page, //using page instead of rows
+
+    page,
     headerGroups,
     prepareRow,
     footerGroups,
-    state, //returns diferent states of the form filters,pages etc
-    setGlobalFilter, //will set the search value of global filter of all cells
-    nextPage, //fn which goes to next page
-    previousPage, //fn which goes to prev page
+    state,
+    setGlobalFilter,
+    nextPage,
+    previousPage,
     canNextPage,
     canPreviousPage,
-    pageOptions, //all number of pages
-    gotoPage, //fn which goes to selecte index page
+    pageOptions,
+    gotoPage,
     // pageCount, //return an index of the current page
-    setPageSize, //will set the number of rows each page has
-    selectedFlatRows, //will return all selected rows an array of rows
+    setPageSize,
+    selectedFlatRows,
   } = tableInstance;
-  const { globalFilter, pageIndex, pageSize } = state; //global filter state,page index(1.2.3)
-
-  //getTableProps its a fn that needs to be destructured on table tag
-
-  //getTableBodyProps its a fn that needs to be destructured on table body
-
-  //headerGroups its an array which requires to map header for each header group
+  const { globalFilter, pageIndex, pageSize } = state;
 
   const calculatedValue = useMemo(() => {
     const result = selectedFlatRows.reduce((acc, data, index) => {
@@ -127,28 +118,28 @@ export function ExpensesTable() {
       }
     });
 
-    toast('Expense removed successfully!', {
-      type: 'success',
+    toast("Expense removed successfully!", {
+      type: "success",
     });
   }
 
   return (
-    <>
+    <ExpenseTableContainer>
       <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
         <div>
           <strong>
-            Page: {pageIndex + 1} of {pageOptions.length} |{' '}
+            Page: {pageIndex + 1} of {pageOptions.length} |{" "}
           </strong>
           <strong>Go to page:</strong>
           <input
-            style={{ width: '40px', marginLeft: '5px', marginRight: '10px' }}
-            type='number'
+            style={{ width: "40px", marginLeft: "5px", marginRight: "10px" }}
+            type="number"
             placeholder={pageIndex + 1}
             defaultValue={pageIndex + 1}
             onChange={(e) => {
@@ -157,9 +148,9 @@ export function ExpensesTable() {
             }}
           />
           <select
-            style={{ marginRight: '10px' }}
-            name='pageSize'
-            id='pageSize'
+            style={{ marginRight: "10px" }}
+            name="pageSize"
+            id="pageSize"
             value={pageSize}
             onChange={(e) => setPageSize(e.target.value)}
           >
@@ -172,14 +163,14 @@ export function ExpensesTable() {
             })}
           </select>
           <button disabled={!canPreviousPage} onClick={() => gotoPage(0)}>
-            {'<<'}
+            {"<<"}
           </button>
           <button
             disabled={canPreviousPage ? false : true}
             onClick={() => previousPage()}
           >
             Prev page
-          </button>{' '}
+          </button>{" "}
           <button
             disabled={canNextPage ? false : true}
             onClick={() => nextPage()}
@@ -190,18 +181,18 @@ export function ExpensesTable() {
             disabled={!canNextPage}
             onClick={() => gotoPage(pageOptions.length - 1)}
           >
-            {'>>'}
+            {">>"}
           </button>
         </div>
         {selectedFlatRows.length > 0 && (
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
             <span>Remove</span>
             <IconRemove
-              title='Remove'
+              title="Remove"
               onClick={() => handleRemove()}
-              src='https://cdn-icons-png.flaticon.com/512/1345/1345874.png'
-              alt='remove'
-              style={{ height: '18px', width: 'auto' }}
+              src="https://cdn-icons-png.flaticon.com/512/1345/1345874.png"
+              alt="remove"
+              style={{ height: "18px", width: "auto" }}
             />
           </div>
         )}
@@ -209,17 +200,17 @@ export function ExpensesTable() {
 
       <table
         style={{
-          border: '1px solid gray',
+          border: "1px solid gray",
         }}
         {...getTableProps()}
       >
-        <thead style={{ border: '1px solid gray' }}>
+        <thead style={{ border: "1px solid gray" }}>
           {headerGroups.map((headerG, index) => {
             return (
               <tr
                 key={index}
                 style={{
-                  border: '1px solid gray',
+                  border: "1px solid gray",
                 }}
                 {...headerG.getHeaderGroupProps()}
               >
@@ -228,21 +219,21 @@ export function ExpensesTable() {
                     <th
                       key={index}
                       style={{
-                        border: '1px solid gray',
+                        border: "1px solid gray",
                       }}
                       {...column.getHeaderProps(column.getSortByToggleProps())} //here we have to add some arguments for sorting
                     >
                       <div>
-                        {column.canFilter ? column.render('Filter') : null}
+                        {column.canFilter ? column.render("Filter") : null}
                       </div>
-                      {column.render('Header')}
+                      {column.render("Header")}
 
                       <span>
                         {column.isSorted
                           ? column.isSortedDesc
-                            ? ' ↑ '
-                            : ' ↓ '
-                          : ''}
+                            ? " ↑ "
+                            : " ↓ "
+                          : ""}
                       </span>
                     </th>
                   );
@@ -259,7 +250,7 @@ export function ExpensesTable() {
             return (
               <tr
                 key={index}
-                style={{ border: '1px solid gray' }}
+                style={{ border: "1px solid gray" }}
                 {...row.getRowProps()}
               >
                 {
@@ -268,10 +259,10 @@ export function ExpensesTable() {
                     return (
                       <td
                         key={index}
-                        style={{ border: '1px solid gray' }}
+                        style={{ border: "1px solid gray" }}
                         {...cell.getCellProps()}
                       >
-                        {cell.render('Cell')}
+                        {cell.render("Cell")}
                       </td>
                     );
                   })
@@ -289,13 +280,13 @@ export function ExpensesTable() {
                     <td
                       key={index}
                       style={{
-                        border: '1px solid gray',
-                        fontWeight: 'bold',
-                        textAlign: 'center',
+                        border: "1px solid gray",
+                        fontWeight: "bold",
+                        textAlign: "center",
                       }}
                       {...column.getFooterProps()}
                     >
-                      {column.render('Footer')}
+                      {column.render("Footer")}
                     </td>
                   );
                 })}
@@ -308,6 +299,6 @@ export function ExpensesTable() {
       <div>
         <strong>Total checked expenses: ${calculatedValue}</strong>
       </div>
-    </>
+    </ExpenseTableContainer>
   );
 }

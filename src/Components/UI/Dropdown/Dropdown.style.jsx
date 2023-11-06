@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 export const WrapperDropDown = styled.div`
   cursor: pointer;
   width: 100%;
@@ -25,6 +25,7 @@ export const DropDown = styled.div`
   background-color: #ffffff;
   z-index: 2;
   border-radius: 5px;
+  z-index: 100;
 `;
 
 export const IconDropDown = styled.img`
@@ -37,7 +38,7 @@ export const IconDropDown = styled.img`
 
   transition: transform 300ms ease;
   transform: ${({ isDropDown }) =>
-    isDropDown ? 'rotate(180deg)' : 'rotate(0deg)'};
+    isDropDown ? "rotate(180deg)" : "rotate(0deg)"};
 `;
 
 export const DropDownExpenseTitle = styled.h1`

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   DropDown,
   DropDownExpenseTitle,
@@ -6,8 +6,8 @@ import {
   IconDropDown,
   WrapperDropDownTitle,
   Text,
-} from './Dropdown.style';
-import { DropDownList } from '../../DropList/DropDownList';
+} from "./Dropdown.style";
+import { DropDownList } from "../../DropList/DropDownList";
 
 export function Dropdown({
   setIsDropDownVisible,
@@ -25,8 +25,8 @@ export function Dropdown({
         <IconDropDown
           isDropDown={isDropDownVisible}
           onClick={() => setIsDropDownVisible(!isDropDownVisible)}
-          src={require('../../../assets/images/arrow-down.png')}
-          alt='arrow down'
+          src={require("../../../assets/images/arrow-down.png")}
+          alt="arrow down"
         />
 
         <DropDown>

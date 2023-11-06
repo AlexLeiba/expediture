@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.header`
   width: 100%;
@@ -40,13 +40,13 @@ export const LogoCard = styled.div`
   }
 `;
 export const LogoGit = styled.div`
-  width: auto;
+  width: 20px;
   height: 20px;
   border: 1px solid #000000;
   border-radius: 4px;
 
   @media (max-width: 1024px) {
-    width: auto;
+    width: 20px;
     height: 18px;
   }
 

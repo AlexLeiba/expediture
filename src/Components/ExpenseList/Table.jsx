@@ -41,12 +41,6 @@ export function Table() {
     footerGroups,
   } = tableInstance;
 
-  //getTableProps its a fn that needs to be destructured on table tag
-
-  //getTableBodyProps its a fn that needs to be destructured on table body
-
-  //headerGroups its an array which requires to map header for each header group
-
   return (
     <table
       style={{
