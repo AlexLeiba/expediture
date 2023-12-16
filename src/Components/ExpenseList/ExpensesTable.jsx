@@ -115,11 +115,10 @@ export function ExpensesTable() {
     selectedFlatRows.forEach((data) => {
       if (data.original.id) {
         dispatch(DeleteExpense(data.original.id));
+        toast("Expense removed successfully!", {
+          type: "success",
+        });
       }
-    });
-
-    toast("Expense removed successfully!", {
-      type: "success",
     });
   }
 
@@ -185,11 +184,18 @@ export function ExpensesTable() {
           </button>
         </div>
         {selectedFlatRows.length > 0 && (
-          <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+          <div
+            onClick={() => handleRemove()}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+              cursor: "pointer",
+            }}
+          >
             <span>Remove</span>
             <IconRemove
               title="Remove"
-              onClick={() => handleRemove()}
               src="https://cdn-icons-png.flaticon.com/512/1345/1345874.png"
               alt="remove"
               style={{ height: "18px", width: "auto" }}

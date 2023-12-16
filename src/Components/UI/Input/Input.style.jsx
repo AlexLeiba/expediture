@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
@@ -14,14 +14,14 @@ export const Input = styled.input`
 
   ${({ inputType }) => {
     switch (inputType) {
-      case 'search':
+      case "search":
         return css`
           padding: 4px 5px 4px 20px;
         `;
 
       default:
         return css`
-          padding: 4px 5px 4px 50px;
+          padding: 6px 5px 5px 50px;
         `;
     }
   }}
@@ -47,7 +47,7 @@ export const WrapperLabel = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: ${({ inputType }) => (inputType === 'title' ? '0 6px' : 0)};
+  padding: ${({ inputType }) => (inputType === "title" ? "0 6px" : 0)};
 `;
 
 export const Text = styled.h1`

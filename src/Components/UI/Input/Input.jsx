@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Input as InputComponent,
   WrapperLabel,
@@ -6,7 +6,7 @@ import {
   IconMoney,
   Container,
   IconSearch,
-} from './Input.style';
+} from "./Input.style";
 
 export function Input({
   inputType,
@@ -23,25 +23,25 @@ export function Input({
         inputType={inputType}
         value={value}
         onChange={(e) =>
-          inputType === 'search'
+          inputType === "search"
             ? handleInputValues(e.target.value)
             : handleInputValues(inputType, e.target.value)
         }
         placeholder={placeholder}
       />
 
-      {inputType === 'search' ? (
+      {inputType === "search" ? (
         <IconSearch
-          src={require('../../../assets/images/search-icon.webp')}
-          alt='search-icon'
+          src={require("../../../assets/images/search-icon.webp")}
+          alt="search-icon"
         />
       ) : (
         <WrapperLabel inputType={inputType}>
           <Text>{label}</Text>
-          {inputType === 'cost' && (
+          {inputType === "cost" && (
             <IconMoney
-              src={require('../../../assets/images/dollar.png')}
-              alt='dollar'
+              src={require("../../../assets/images/dollar.png")}
+              alt="dollar"
             />
           )}
         </WrapperLabel>

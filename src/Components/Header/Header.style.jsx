@@ -26,6 +26,7 @@ export const ContainerLogoCard = styled.div`
   align-items: center;
 
   margin-left: 30px;
+  cursor: pointer;
 `;
 
 export const LogoCard = styled.div`

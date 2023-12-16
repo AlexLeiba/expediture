@@ -1,38 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 import {
   Container,
   SubmitButton,
   IconPlane,
   InputWrapper,
-} from './AddForm.style';
-import { useDispatch } from 'react-redux';
-import { AddExpense } from '../../Redux/Actions.jsx/ExpensesActions';
+} from "./AddForm.style";
+import { useDispatch } from "react-redux";
+import { AddExpense } from "../../Redux/Actions.jsx/ExpensesActions";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { SuccessModal } from '../SuccessModal/SuccessModal';
-import { useNavigate } from 'react-router-dom';
-import { Input } from '../UI/Input/Input';
-import { Spacer } from '../UI/Spacer/Spacer';
-import { Dropdown } from '../UI/Dropdown/Dropdown';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { SuccessModal } from "../SuccessModal/SuccessModal";
+import { useNavigate } from "react-router-dom";
+import { Input } from "../UI/Input/Input";
+import { Spacer } from "../UI/Spacer/Spacer";
+import { Dropdown } from "../UI/Dropdown/Dropdown";
+import useKeypress from "react-use-keypress";
 
 export function AddForm() {
   const [isDropDownVisible, setIsDropDownVisible] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [category, setCategory] = useState({
-    title: '',
-    id: '',
-    icon: '',
-    color: '',
+    title: "",
+    id: "",
+    icon: "",
+    color: "",
   });
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [inputValue, setInputValue] = useState({
-    title: '',
-    cost: '',
+    title: "",
+    cost: "",
+  });
+
+  useKeypress("Enter", () => {
+    handleSubmit();
   });
 
   function handleInputValues(name, value) {
@@ -54,12 +59,8 @@ export function AddForm() {
   }
 
   function handleSubmit() {
-    if (
-      inputValue.title === '' ||
-      category.title === undefined ||
-      inputValue.cost === 0
-    ) {
-      toast('Please enter valid data!', { type: 'error' });
+    if (inputValue.title === "" || !category.title || inputValue.cost === 0) {
+      toast("Please enter valid data!", { type: "error" });
     } else {
       const data = {
         title: inputValue.title,
@@ -67,7 +68,9 @@ export function AddForm() {
         category: category,
         createdAt: new Date(),
       };
-      console.log('🚀 ~ file: AddForm.jsx:71 ~ handleSubmit ~ data:', data);
+
+      toast("New expense was added successfully!", { type: "success" });
+
       dispatch(AddExpense(data));
 
       setCategory({});
@@ -75,16 +78,8 @@ export function AddForm() {
     }
   }
 
-  // useEffect(() => {
-  //   window.addEventListener("keypress", (e) => {
-  //     if (e.key === "Enter") {
-  //       handleSubmit();
-  //     }
-  //   });
-  // }, []);
-
   function handleModalVisible() {
-    navigate('/');
+    navigate("/");
     setIsModalVisible(false);
   }
 
@@ -95,7 +90,7 @@ export function AddForm() {
   return (
     <Container>
       <ToastContainer
-        position='top-center'
+        position="top-center"
         autoClose={1500}
         hideProgressBar={false}
         closeOnClick
@@ -103,7 +98,7 @@ export function AddForm() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme='light'
+        theme="light"
       />
       <SuccessModal
         isVisible={isModalVisible}
@@ -112,11 +107,11 @@ export function AddForm() {
       />
       <InputWrapper>
         <Input
-          label='Title'
-          inputType='title'
+          label="Title"
+          inputType="title"
           value={inputValue.title}
           handleInputValues={handleInputValues}
-          placeholder='give a name to your expediture'
+          placeholder="give a name to your expediture"
         />
       </InputWrapper>
 
@@ -124,12 +119,12 @@ export function AddForm() {
 
       <InputWrapper>
         <Input
-          label='Cost'
-          inputType='cost'
-          type={'number'}
+          label="Cost"
+          inputType="cost"
+          type={"number"}
           value={inputValue.cost}
           handleInputValues={handleInputValues}
-          placeholder='Enter cost'
+          placeholder="Enter cost"
         />
       </InputWrapper>
 
@@ -144,7 +139,7 @@ export function AddForm() {
 
       <SubmitButton onClick={() => handleSubmit()}>
         <h4>Submit</h4>
-        <IconPlane src={require('../../assets/images/plane.png')} />
+        <IconPlane src={require("../../assets/images/plane.png")} />
       </SubmitButton>
     </Container>
   );

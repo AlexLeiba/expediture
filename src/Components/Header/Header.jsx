@@ -16,7 +16,7 @@ export function Header({ typePage }) {
   return (
     <Container>
       <Wrapper>
-        <ContainerLogoCard onClick={() => navigate("/")}>
+        <ContainerLogoCard title="home" onClick={() => navigate("/")}>
           <Text>ExpenseManager</Text>
           <LogoCard>
             <Icon
@@ -25,7 +25,7 @@ export function Header({ typePage }) {
             />
           </LogoCard>
         </ContainerLogoCard>
-        <a href="https://github.com/join/get-started">
+        <a href="https://github.com/join/get-started" title="my github">
           <LogoGit>
             <Icon
               src={require("../../assets/images/GitHub.png")}

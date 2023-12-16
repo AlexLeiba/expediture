@@ -15,7 +15,7 @@ export const FlexStartWrapper = styled.div`
 `;
 
 export const ExpenseTableContainer = styled.div`
-  height: 100vh;
+  height: (100vh - 20px);
   overflow-x: auto;
   overflow-y: auto;
 `;
