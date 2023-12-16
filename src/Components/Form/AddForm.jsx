@@ -107,6 +107,7 @@ export function AddForm() {
       />
       <InputWrapper>
         <Input
+          focused={true}
           label="Title"
           inputType="title"
           value={inputValue.title}

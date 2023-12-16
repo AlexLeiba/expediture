@@ -15,10 +15,12 @@ export function Input({
   placeholder,
   label,
   type,
+  focused,
 }) {
   return (
     <Container>
       <InputComponent
+        autoFocus={focused}
         type={type}
         inputType={inputType}
         value={value}
