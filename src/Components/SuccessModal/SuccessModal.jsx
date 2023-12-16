@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { Types } from "../../consts/Types";
 import { CategoriesFilter } from "../DropdownFilter/CategoriesFilter";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 export function SuccessModal({
   isVisible,
@@ -11,7 +11,7 @@ export function SuccessModal({
   modalType,
   handleCategoryClick,
 }) {
-  const byCategory = useSelector((state) => state.expenses.filters.category);
+  // const byCategory = useSelector((state) => state.expenses.filters.category);
 
   const [filtersValue, setFiltersValue] = useState({});
   const [filtersCheckboxValue, setFiltersCheckboxValue] = useState({});
@@ -34,19 +34,19 @@ export function SuccessModal({
     handleClose();
   }
 
-  function isFilterRadioChecked() {
-    // if (filtersCheckboxValue && byCategory.title) {
-    //   return filtersCheckboxValue[byCategory.title];
-    // }
-    if (filtersCheckboxValue) {
-      return true;
-    }
-    if (filtersCheckboxValue[byCategory.title]) {
-      return true;
-    }
-
-    return false;
-  }
+  //   function isFilterRadioChecked() {
+  //     // if (filtersCheckboxValue && byCategory.title) {
+  //     //   return filtersCheckboxValue[byCategory.title];
+  //     // }
+  //     if (filtersCheckboxValue) {
+  //       return true;
+  //     }
+  //     if (filtersCheckboxValue[byCategory.title]) {
+  //       return true;
+  //     }
+  //
+  //     return false;
+  //   }
 
   return (
     <Modal isOpen={isVisible} style={customStyles}>
