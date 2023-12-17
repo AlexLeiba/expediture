@@ -115,10 +115,10 @@ export function ExpensesTable() {
     selectedFlatRows.forEach((data) => {
       if (data.original.id) {
         dispatch(DeleteExpense(data.original.id));
-        toast("Expense removed successfully!", {
-          type: "success",
-        });
       }
+    });
+    toast("Expense removed successfully!", {
+      type: "success",
     });
   }
 
