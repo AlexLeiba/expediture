@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -14,9 +14,9 @@ export const Input = styled.input`
 
   ${({ inputType }) => {
     switch (inputType) {
-      case "search":
+      case 'search':
         return css`
-          padding: 4px 5px 4px 20px;
+          padding: 5.5px 5px 5.5px 20px;
         `;
 
       default:
@@ -39,15 +39,15 @@ export const InputWrapperCost = styled.div`
 
 export const WrapperLabel = styled.div`
   position: absolute;
-  top: 2px;
-  left: 2px;
+  top: 2.5px;
+  left: 2.5px;
   background-color: #9ebaba;
   border-radius: 4px;
   height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: ${({ inputType }) => (inputType === "title" ? "0 6px" : 0)};
+  padding: ${({ inputType }) => (inputType === 'title' ? '0 6px' : 0)};
 `;
 
 export const Text = styled.h1`
@@ -69,4 +69,16 @@ export const IconSearch = styled.img`
   position: absolute;
   top: 6px;
   left: 5px;
+`;
+
+export const WrapperClearButton = styled.div`
+  position: absolute;
+  top: 2.5px;
+  right: -10px;
+  border-radius: 4px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 6px;
 `;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -11,7 +11,7 @@ export const Container = styled.div`
   justify-content: space-between;
   position: relative;
   margin-bottom: 10px;
-  border: ${({ newExpenses }) => (newExpenses ? "1px solid green" : "")};
+  border: ${({ newExpenses }) => (newExpenses ? '1px solid green' : '')};
 `;
 
 export const Wrapper = styled.div`
@@ -75,7 +75,7 @@ export const VerticalLine = styled.div`
   height: 74px;
   width: 5px;
   background-color: ${({ backgroundColor }) =>
-    backgroundColor ? backgroundColor : "#000000"};
+    backgroundColor ? backgroundColor : '#000000'};
   position: absolute;
   right: 0;
   top: 0;

@@ -1,6 +1,13 @@
+html {
+  font-size: 62.5%; /* Sets 1rem = 10px */
+}
 body {
+  font-size: 1.6rem; /* Example: 1.6rem = 16px */
   margin: 0;
-  font-family: "Roboto", sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 

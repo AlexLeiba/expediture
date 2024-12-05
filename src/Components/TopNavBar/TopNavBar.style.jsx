@@ -1,8 +1,7 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  background-color: #4a7373;
   overflow-x: hidden;
 `;
 
@@ -148,15 +147,16 @@ export const FlexBetween = styled.div`
 `;
 
 export const HeaderContainer = styled.div`
-  width: 100%;
-  margin: 0 auto;
+  /* width: 100%; */
+  /* margin: 0 auto; */
 `;
 
 export const HeaderWrapper = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-end;
   flex-wrap: wrap;
+  column-gap: 10px;
 `;
 
 export const ButtonsWrapper = styled.div`
@@ -184,9 +184,14 @@ export const FiltersWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  /* flex-direction: column; */
+  /* width: 100%; */
   flex-wrap: wrap;
   column-gap: 10px;
   row-gap: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0 10px 0;
+
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
 `;

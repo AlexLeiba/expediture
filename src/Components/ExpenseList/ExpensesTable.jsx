@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo } from 'react';
 import {
   useTable,
   useSortBy,
@@ -6,16 +6,17 @@ import {
   useFilters,
   usePagination,
   useRowSelect,
-} from "react-table";
-import { groupedColumns } from "./columns";
-import { useDispatch, useSelector } from "react-redux";
-import { ColumnFilter, GlobalFilter } from "./Filters";
-import CheckboxRows from "./CheckboxRows";
-import { IconRemove } from "../Card/Card.style";
-import { DeleteExpense } from "../../Redux/Actions.jsx/ExpensesActions";
+} from 'react-table';
+import { groupedColumns } from './columns';
+import { useDispatch, useSelector } from 'react-redux';
+import { ColumnFilter, GlobalFilter } from './Filters';
+import CheckboxRows from './CheckboxRows';
+import { IconRemove } from '../Card/Card.style';
+import { DeleteExpense } from '../../Redux/Actions.jsx/ExpensesActions';
 
-import { toast } from "react-toastify";
-import { ExpenseTableContainer } from "./ExpenseList.style";
+import { toast } from 'react-toastify';
+import { ExpenseTableContainer } from './ExpenseList.style';
+import { Row } from '../Grid/Grid.style';
 
 export function ExpensesTable() {
   const dispatch = useDispatch();
@@ -65,7 +66,7 @@ export function ExpensesTable() {
       hooks.visibleColumns.push((columns) => {
         return [
           {
-            id: "selection",
+            id: 'selection',
             Header: ({ getToggleAllRowsSelectedProps }) => {
               return <CheckboxRows {...getToggleAllRowsSelectedProps()} />;
             },
@@ -117,194 +118,198 @@ export function ExpensesTable() {
         dispatch(DeleteExpense(data.original.id));
       }
     });
-    toast("Expense removed successfully!", {
-      type: "success",
+    toast('Expense removed successfully!', {
+      type: 'success',
     });
   }
 
   return (
-    <ExpenseTableContainer>
-      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <div>
-          <strong>
-            Page: {pageIndex + 1} of {pageOptions.length} |{" "}
-          </strong>
-          <strong>Go to page:</strong>
-          <input
-            style={{ width: "40px", marginLeft: "5px", marginRight: "10px" }}
-            type="number"
-            placeholder={pageIndex + 1}
-            defaultValue={pageIndex + 1}
-            onChange={(e) => {
-              const pageNumber = e.target.value ? Number(e.target.value) : 0;
-              gotoPage(pageNumber - 1);
-            }}
-          />
-          <select
-            style={{ marginRight: "10px" }}
-            name="pageSize"
-            id="pageSize"
-            value={pageSize}
-            onChange={(e) => setPageSize(e.target.value)}
-          >
-            {[10, 25, 50].map((pageSize) => {
+    <Row flex='center'>
+      <ExpenseTableContainer>
+        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+          }}
+        >
+          <div>
+            <strong>
+              Page: {pageIndex + 1} of {pageOptions.length} |{' '}
+            </strong>
+            <strong>Go to page:</strong>
+            <input
+              style={{ width: '40px', marginLeft: '5px', marginRight: '10px' }}
+              type='number'
+              placeholder={pageIndex + 1}
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const pageNumber = e.target.value ? Number(e.target.value) : 0;
+                gotoPage(pageNumber - 1);
+              }}
+            />
+            <select
+              style={{ marginRight: '10px' }}
+              name='pageSize'
+              id='pageSize'
+              value={pageSize}
+              onChange={(e) => setPageSize(e.target.value)}
+            >
+              {[10, 25, 50].map((pageSize) => {
+                return (
+                  <option key={pageSize} value={pageSize}>
+                    Show rows: {pageSize}
+                  </option>
+                );
+              })}
+            </select>
+            <button disabled={!canPreviousPage} onClick={() => gotoPage(0)}>
+              {'<<'}
+            </button>
+            <button
+              disabled={canPreviousPage ? false : true}
+              onClick={() => previousPage()}
+            >
+              Prev page
+            </button>{' '}
+            <button
+              disabled={canNextPage ? false : true}
+              onClick={() => nextPage()}
+            >
+              Next page
+            </button>
+            <button
+              disabled={!canNextPage}
+              onClick={() => gotoPage(pageOptions.length - 1)}
+            >
+              {'>>'}
+            </button>
+          </div>
+          {selectedFlatRows.length > 0 && (
+            <div
+              onClick={() => handleRemove()}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 4,
+                cursor: 'pointer',
+              }}
+            >
+              <span>Remove</span>
+              <IconRemove
+                title='Remove'
+                src='https://cdn-icons-png.flaticon.com/512/1345/1345874.png'
+                alt='remove'
+                style={{ height: '18px', width: 'auto' }}
+              />
+            </div>
+          )}
+        </div>
+
+        <table
+          style={{
+            border: '1px solid gray',
+          }}
+          {...getTableProps()}
+        >
+          <thead style={{ border: '1px solid gray' }}>
+            {headerGroups.map((headerG, index) => {
               return (
-                <option key={pageSize} value={pageSize}>
-                  Show rows: {pageSize}
-                </option>
+                <tr
+                  key={index}
+                  style={{
+                    border: '1px solid gray',
+                  }}
+                  {...headerG.getHeaderGroupProps()}
+                >
+                  {headerG.headers.map((column, index) => {
+                    return (
+                      <th
+                        key={index}
+                        style={{
+                          border: '1px solid gray',
+                        }}
+                        {...column.getHeaderProps(
+                          column.getSortByToggleProps()
+                        )} //here we have to add some arguments for sorting
+                      >
+                        <div>
+                          {column.canFilter ? column.render('Filter') : null}
+                        </div>
+                        {column.render('Header')}
+
+                        <span>
+                          {column.isSorted
+                            ? column.isSortedDesc
+                              ? ' ↑ '
+                              : ' ↓ '
+                            : ''}
+                        </span>
+                      </th>
+                    );
+                  })}
+                </tr>
               );
             })}
-          </select>
-          <button disabled={!canPreviousPage} onClick={() => gotoPage(0)}>
-            {"<<"}
-          </button>
-          <button
-            disabled={canPreviousPage ? false : true}
-            onClick={() => previousPage()}
-          >
-            Prev page
-          </button>{" "}
-          <button
-            disabled={canNextPage ? false : true}
-            onClick={() => nextPage()}
-          >
-            Next page
-          </button>
-          <button
-            disabled={!canNextPage}
-            onClick={() => gotoPage(pageOptions.length - 1)}
-          >
-            {">>"}
-          </button>
-        </div>
-        {selectedFlatRows.length > 0 && (
-          <div
-            onClick={() => handleRemove()}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
-              cursor: "pointer",
-            }}
-          >
-            <span>Remove</span>
-            <IconRemove
-              title="Remove"
-              src="https://cdn-icons-png.flaticon.com/512/1345/1345874.png"
-              alt="remove"
-              style={{ height: "18px", width: "auto" }}
-            />
-          </div>
-        )}
-      </div>
+          </thead>
 
-      <table
-        style={{
-          border: "1px solid gray",
-        }}
-        {...getTableProps()}
-      >
-        <thead style={{ border: "1px solid gray" }}>
-          {headerGroups.map((headerG, index) => {
-            return (
-              <tr
-                key={index}
-                style={{
-                  border: "1px solid gray",
-                }}
-                {...headerG.getHeaderGroupProps()}
-              >
-                {headerG.headers.map((column, index) => {
-                  return (
-                    <th
-                      key={index}
-                      style={{
-                        border: "1px solid gray",
-                      }}
-                      {...column.getHeaderProps(column.getSortByToggleProps())} //here we have to add some arguments for sorting
-                    >
-                      <div>
-                        {column.canFilter ? column.render("Filter") : null}
-                      </div>
-                      {column.render("Header")}
+          <tbody {...getTableBodyProps()}>
+            {page.map((row, index) => {
+              prepareRow(row);
 
-                      <span>
-                        {column.isSorted
-                          ? column.isSortedDesc
-                            ? " ↑ "
-                            : " ↓ "
-                          : ""}
-                      </span>
-                    </th>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </thead>
-
-        <tbody {...getTableBodyProps()}>
-          {page.map((row, index) => {
-            prepareRow(row);
-
-            return (
-              <tr
-                key={index}
-                style={{ border: "1px solid gray" }}
-                {...row.getRowProps()}
-              >
-                {
-                  //access to individual row cell
-                  row.cells.map((cell, index) => {
+              return (
+                <tr
+                  key={index}
+                  style={{ border: '1px solid gray' }}
+                  {...row.getRowProps()}
+                >
+                  {
+                    //access to individual row cell
+                    row.cells.map((cell, index) => {
+                      return (
+                        <td
+                          key={index}
+                          style={{ border: '1px solid gray' }}
+                          {...cell.getCellProps()}
+                        >
+                          {cell.render('Cell')}
+                        </td>
+                      );
+                    })
+                  }
+                </tr>
+              );
+            })}
+          </tbody>
+          <tfoot>
+            {footerGroups.map((footerGroup, index) => {
+              return (
+                <tr key={index} {...footerGroup.getHeaderGroupProps()}>
+                  {footerGroup.headers.map((column, index) => {
                     return (
                       <td
                         key={index}
-                        style={{ border: "1px solid gray" }}
-                        {...cell.getCellProps()}
+                        style={{
+                          border: '1px solid gray',
+                          fontWeight: 'bold',
+                          textAlign: 'center',
+                        }}
+                        {...column.getFooterProps()}
                       >
-                        {cell.render("Cell")}
+                        {column.render('Footer')}
                       </td>
                     );
-                  })
-                }
-              </tr>
-            );
-          })}
-        </tbody>
-        <tfoot>
-          {footerGroups.map((footerGroup, index) => {
-            return (
-              <tr key={index} {...footerGroup.getHeaderGroupProps()}>
-                {footerGroup.headers.map((column, index) => {
-                  return (
-                    <td
-                      key={index}
-                      style={{
-                        border: "1px solid gray",
-                        fontWeight: "bold",
-                        textAlign: "center",
-                      }}
-                      {...column.getFooterProps()}
-                    >
-                      {column.render("Footer")}
-                    </td>
-                  );
-                })}
-              </tr>
-            );
-          })}
-        </tfoot>
-      </table>
+                  })}
+                </tr>
+              );
+            })}
+          </tfoot>
+        </table>
 
-      <div>
-        <strong>Total checked expenses: ${calculatedValue}</strong>
-      </div>
-    </ExpenseTableContainer>
+        <div>
+          <strong>Total checked expenses: ${calculatedValue}</strong>
+        </div>
+      </ExpenseTableContainer>
+    </Row>
   );
 }

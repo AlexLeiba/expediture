@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Card } from '../Card/Card';
-import { Container, FlexStartWrapper } from './ExpenseList.style';
+import { FlexStartWrapper } from './ExpenseList.style';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment/moment';
 import { DeleteExpense } from '../../Redux/Actions.jsx/ExpensesActions';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { format } from 'date-fns';
 import { Spacer } from '../UI/Spacer/Spacer';
-import { Row, Col } from '../Grid/Grid.style';
+import { Row, Col, Container } from '../Grid/Grid.style';
 import { ExpensesTable } from './ExpensesTable';
 
 export function ExpenseList() {
@@ -86,28 +86,17 @@ export function ExpenseList() {
   return (
     <Container>
       <Spacer margin={20} />
-      <ToastContainer
-        position='top-center'
-        autoClose={2000}
-        hideProgressBar={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme='light'
-      />
 
       {listView.gridView && (
         <>
           {newExpense.length > 0 && (
             <>
-              <div>
+              <>
                 <FlexStartWrapper>
                   <h5>Today's expenses:</h5>
                 </FlexStartWrapper>
 
-                <Row>
+                <Row flex='center'>
                   {newExpense.map((data, index) => {
                     const timeCreated = moment(data.createdAt).fromNow();
                     const dateCreated = format(
@@ -118,9 +107,9 @@ export function ExpenseList() {
                     return (
                       <Col
                         key={data.category.id + index}
-                        lg={{ size: 1.9 }}
-                        md={{ size: 12 }}
-                        sm={{ size: 12 }}
+                        lg={{ size: 3.5 }}
+                        md={{ size: 9 }}
+                        sm={{ size: 3 }}
                       >
                         <Card
                           newExpenses
@@ -137,7 +126,7 @@ export function ExpenseList() {
                     );
                   })}
                 </Row>
-              </div>
+              </>
               <FlexStartWrapper>
                 <h5>Total of today's Expenses: ${todaysExpense} </h5>
               </FlexStartWrapper>
@@ -193,8 +182,8 @@ export function ExpenseList() {
                   You have no expenses yet,
                   <br /> Please try to add an expense by clicking on +Add button
                   above then come back to see the results,
-                  <br /> All your expenses will be stored in your browser so you
-                  can use it for years!
+                  <br /> All your expenses will be stored in your browser local
+                  storage!
                   <br /> <br /> Don't forget to try Table view as well which
                   comes with more filter posibilities, by clicking on table icon
                   above :)

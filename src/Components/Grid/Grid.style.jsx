@@ -74,8 +74,8 @@ export const Row = styled.div`
 
 export const Col = styled.div`
   width: 100%;
-  padding-left: 0.4rem;
-  padding-right: 0.4rem;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

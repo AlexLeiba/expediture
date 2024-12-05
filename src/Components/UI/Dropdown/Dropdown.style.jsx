@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 export const WrapperDropDown = styled.div`
   cursor: pointer;
   width: 100%;
@@ -9,7 +9,7 @@ export const WrapperDropDown = styled.div`
 
 export const WrapperDropDownTitle = styled.div`
   position: absolute;
-  top: 2px;
+  top: 2.5px;
   left: 2px;
   background-color: #9ebaba;
   height: 20px;
@@ -21,7 +21,7 @@ export const WrapperDropDownTitle = styled.div`
 
 export const DropDown = styled.div`
   width: 50%;
-  height: 23px;
+  height: 25px;
   background-color: #ffffff;
   z-index: 2;
   border-radius: 5px;
@@ -38,7 +38,7 @@ export const IconDropDown = styled.img`
 
   transition: transform 300ms ease;
   transform: ${({ isDropDown }) =>
-    isDropDown ? "rotate(180deg)" : "rotate(0deg)"};
+    isDropDown ? 'rotate(180deg)' : 'rotate(0deg)'};
 `;
 
 export const DropDownExpenseTitle = styled.h1`

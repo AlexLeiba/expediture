@@ -17,8 +17,8 @@ export const WrapperDropDownTitle = styled.div`
   position: absolute;
   background-color: #9ebaba;
   height: 20px;
-  top: 1px;
-  left: 1px;
+  top: 2.5px;
+  left: 2.5px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,7 +28,7 @@ export const WrapperDropDownTitle = styled.div`
 
 export const DropDown = styled.div`
   width: 100%;
-  height: 22px;
+  height: 25px;
   background-color: #ffffff;
   border-radius: 5px;
   z-index: 2;
@@ -38,6 +38,7 @@ export const IconDropDown = styled.img`
   width: 20px;
   height: 20px;
   position: absolute;
+  top: 2.5px;
   right: 5px;
   cursor: pointer;
 
@@ -50,5 +51,5 @@ export const DropDownExpenseTitle = styled.h1`
   font-size: 13px;
   position: absolute;
   left: 120px;
-  top: -6px;
+  top: -4px;
 `;

@@ -44,7 +44,10 @@ export function FilterByCategoryDropdown({
       </DropDown>
 
       {isDropDownVisible && (
-        <DropDownFilter onCategoryClick={handleCategoryClick} />
+        <DropDownFilter
+          setIsDropDownVisible={setIsDropDownVisible}
+          onCategoryClick={handleCategoryClick}
+        />
       )}
     </WrapperDropDown>
   );

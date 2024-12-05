@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.header`
   width: 100%;
@@ -11,21 +11,21 @@ export const Container = styled.header`
 
 export const Wrapper = styled.div`
   width: 100%;
-  height: 40px;
+  min-height: 74px;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 `;
 
 export const ContainerLogoCard = styled.div`
-  width: 100%;
+  /* width: 100%; */
   height: 40px;
   display: flex;
   flex-direction: row;
   align-items: center;
 
-  margin-left: 30px;
   cursor: pointer;
 `;
 
@@ -41,13 +41,11 @@ export const LogoCard = styled.div`
   }
 `;
 export const LogoGit = styled.div`
-  width: 20px;
   height: 20px;
   border: 1px solid #000000;
   border-radius: 4px;
 
   @media (max-width: 1024px) {
-    width: 20px;
     height: 18px;
   }
 
