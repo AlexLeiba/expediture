@@ -3,10 +3,9 @@ import { Types } from '../../consts/Types';
 import { useNavigate } from 'react-router-dom';
 
 import {
-  Container,
+  // Container,
   Wrapper,
-  Text,
-  IconAdd,
+  IconsHeader,
   WrapperBackButton,
   WrapperCancelButton,
   TextButton,
@@ -14,9 +13,8 @@ import {
   IconDelete,
   HeaderContainer,
   HeaderWrapper,
-  WrapperTableView,
   ButtonsWrapper,
-  WrapperAddButton,
+  WrapperIconsHeader,
   SearchWrapper,
   DropdownWrapper,
   FiltersWrapper,
@@ -34,6 +32,7 @@ import { useSelector } from 'react-redux';
 import { SearchExpense } from '../../Redux/Actions.jsx/ExpensesActions';
 import { FilterByCategoryDropdown } from '../FilterByCategoryDropdown/FilterByCategoryDropdown';
 import { Input } from '../UI/Input/Input';
+import { Container } from '../Grid/Grid.style';
 
 export function TopNavBar({ typePage }) {
   const listView = useSelector((state) => state.expenses.listView);
@@ -51,9 +50,6 @@ export function TopNavBar({ typePage }) {
   function handleCloseFilters() {
     setIsModalVisible(false);
   }
-  // function handleOpenFilters() {
-  //   setIsModalVisible(!isModalVisible);
-  // }
 
   function handleValue(value) {
     dispatch(SearchExpense(value));
@@ -80,8 +76,8 @@ export function TopNavBar({ typePage }) {
       />
 
       {typePage === Types.ADD_EXPENSES && (
+        // <Container>
         <Container>
-          {/*HEADER BUTTONS  */}
           <Wrapper>
             <>
               <WrapperBackButton onClick={() => navigate('/')}>
@@ -107,31 +103,29 @@ export function TopNavBar({ typePage }) {
       {typePage === Types.HOME && (
         <HeaderContainer>
           <HeaderWrapper>
-            {listView.gridView ? (
-              <FiltersWrapper>
-                <SearchWrapper>
-                  <Input
-                    placeholder='Search for expenses'
-                    value={searchTerm}
-                    handleInputValues={handleValue}
-                    inputType='search'
-                  />
-                </SearchWrapper>
-                <DropdownWrapper>
-                  <FilterByCategoryDropdown
-                    filteredCategory={filteredCategory}
-                    handleCategoryDelete={handleCategoryDelete}
-                    handleCategoryClick={handleCategoryClick}
-                  />
-                </DropdownWrapper>
-              </FiltersWrapper>
-            ) : (
-              <div style={{ height: '62px' }} />
-            )}
+            <FiltersWrapper
+              style={{ visibility: listView.gridView ? 'visible' : 'hidden' }}
+            >
+              <SearchWrapper>
+                <Input
+                  placeholder='Search for expenses'
+                  value={searchTerm}
+                  handleInputValues={handleValue}
+                  inputType='search'
+                />
+              </SearchWrapper>
+              <DropdownWrapper>
+                <FilterByCategoryDropdown
+                  filteredCategory={filteredCategory}
+                  handleCategoryDelete={handleCategoryDelete}
+                  handleCategoryClick={handleCategoryClick}
+                />
+              </DropdownWrapper>
+            </FiltersWrapper>
 
             {/* ICONS */}
             <ButtonsWrapper tableType={listView.tableView}>
-              <WrapperTableView
+              <WrapperIconsHeader
                 onClick={() => {
                   const newView = listView.gridView
                     ? { tableView: true, gridView: false }
@@ -139,7 +133,7 @@ export function TopNavBar({ typePage }) {
                   dispatch(ChangeListView(newView));
                 }}
               >
-                <img
+                <IconsHeader
                   title={listView.gridView ? 'table view' : 'grid view'}
                   onClick={() => {
                     const newView = listView.gridView
@@ -149,29 +143,16 @@ export function TopNavBar({ typePage }) {
                   }}
                   alt='views'
                   src={listView.gridView ? Icons.tableView : Icons.gridView}
-                  style={{ width: 18 }}
                 />
-              </WrapperTableView>
-              {/* {listView.gridView && (
-                    <WrapperAdd onClick={() => handleOpenFilters()}>
-                      <img
-                        title="filters"
-                        onClick={() => handleOpenFilters()}
-                        alt="filter"
-                        src={Icons.filter}
-                        style={{ width: 23 }}
-                      />
-                    </WrapperAdd>
-                  )} */}
+              </WrapperIconsHeader>
 
-              <WrapperAddButton onClick={() => navigate('/add-expense')}>
-                <IconAdd
+              <WrapperIconsHeader onClick={() => navigate('/add-expense')}>
+                <IconsHeader
                   title='add new expense'
                   src={require('../../assets/images/add.png')}
                   alt='icon-Add'
                 />
-                <Text>Add</Text>
-              </WrapperAddButton>
+              </WrapperIconsHeader>
             </ButtonsWrapper>
           </HeaderWrapper>
         </HeaderContainer>

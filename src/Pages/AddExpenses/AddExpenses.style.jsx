@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 60%;
@@ -6,7 +6,7 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  height: 70vh;
+  /* height: 70vh; */
   width: 100%;
   display: flex;
   justify-content: center;

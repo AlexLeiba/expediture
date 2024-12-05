@@ -15,41 +15,6 @@ export const Wrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-export const IconDelete = styled.img`
-  width: auto;
-  height: 12px;
-  margin-right: 3px;
-`;
-
-export const IconAdd = styled.img`
-  width: 10px;
-  height: 10px;
-  z-index: 1;
-`;
-
-export const WrapperAddButton = styled.div`
-  width: 30px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border: 1px solid #ffffff;
-  border-radius: 4px;
-  padding: 0 3px 0 3px;
-  height: 18px;
-  cursor: pointer;
-  z-index: 1;
-`;
-
-export const WrapperTableView = styled.div`
-  width: 18px;
-  border: 1px solid #ffffff;
-  border-radius: 4px;
-  padding: 0 3px 0 3px;
-  height: 18px;
-  z-index: 1;
-  cursor: pointer;
-`;
-
 export const Text = styled.h1`
   font-size: 10px;
   margin-right: 2px;
@@ -147,8 +112,8 @@ export const FlexBetween = styled.div`
 `;
 
 export const HeaderContainer = styled.div`
-  /* width: 100%; */
-  /* margin: 0 auto; */
+  width: 100%;
+  margin: 0 auto;
 `;
 
 export const HeaderWrapper = styled.div`
@@ -161,14 +126,12 @@ export const HeaderWrapper = styled.div`
 
 export const ButtonsWrapper = styled.div`
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
   margin-bottom: 10px;
 
-  ${({ tableType }) =>
-    tableType &&
-    css`
-      margin-top: 29px;
-    `}
+  @media (max-width: 1200px) {
+    flex-direction: column;
+  }
 `;
 
 export const SearchWrapper = styled.div`
@@ -184,8 +147,6 @@ export const FiltersWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  /* flex-direction: column; */
-  /* width: 100%; */
   flex-wrap: wrap;
   column-gap: 10px;
   row-gap: 10px;
@@ -194,4 +155,31 @@ export const FiltersWrapper = styled.div`
   @media (max-width: 1200px) {
     flex-direction: column;
   }
+`;
+
+// Icons
+export const IconDelete = styled.img`
+  width: auto;
+  height: 12px;
+  margin-right: 3px;
+`;
+
+export const IconsHeader = styled.img`
+  width: 17px;
+  z-index: 1;
+`;
+
+export const WrapperIconsHeader = styled.div`
+  width: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  padding: 3px 5px 3px 5px;
+  height: 17px;
+  cursor: pointer;
+  z-index: 1;
+  overflow: hidden;
 `;
